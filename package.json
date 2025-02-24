@@ -1,0 +1,35 @@
+{
+  "name": "mi-proyecto-web",
+  "version": "1.0.0",
+  "description": "Proyecto web con HTML, JS y CSS",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server",
+    "build:css": "sass src/styles/main.scss dist/styles.css",
+    "minify:css": "cleancss -o dist/styles.min.css dist/styles.css",
+    "minify:js": "uglifyjs src/js/main.js -o dist/js/main.min.js",
+    "build": "npm run build:css && npm run minify:css && npm run minify:js",
+    "watch": "sass --watch src/styles/main.scss:dist/styles.css"
+  },
+  "keywords": [
+    "html",
+    "js",
+    "css",
+    "sass",
+    "node",
+    "web",
+    "development"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "sass": "^1.32.0",
+    "cleancss": "^5.1.0",
+    "uglify-js": "^3.14.5"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "bootstrap": "^5.1.0"
+  }
+}
