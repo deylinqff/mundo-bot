@@ -1,10 +1,7 @@
 // main.js
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Inicializar EmailJS con tu User ID
-    emailjs.init("vVyLi_kGrNcGJq1KO4b51");
-
-    // Si hay un usuario registrado, mostrar el perfil; de lo contrario, mostrar el formulario de registro
+    // Verificar si ya hay un usuario registrado
     if (localStorage.getItem('user')) {
         mostrarPerfil();
     } else {
@@ -18,21 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const nombre = document.getElementById('nombre').value;
         const email = document.getElementById('email').value;
 
-        // Enviar correo de verificación con EmailJS
-        emailjs.send("service_opn3fe5", "template_k7go9rc", {
-            to_email: email,
-            user_name: nombre
-        }).then(function(response) {
-            console.log("Correo enviado con éxito:", response);
-            alert("Registro exitoso. Revisa tu correo electrónico.");
-
-            // Guardar usuario en localStorage solo si el correo se envía correctamente
-            localStorage.setItem('user', JSON.stringify({ nombre, email }));
-            mostrarPerfil();
-        }).catch(function(error) {
-            console.error("Error al enviar el correo:", error);
-            alert("Hubo un problema al enviar el correo. Revisa la consola.");
-        });
+        // Guardar usuario en localStorage
+        localStorage.setItem('user', JSON.stringify({ nombre, email }));
+        mostrarPerfil();
     });
 
     // Función para mostrar el perfil del usuario
