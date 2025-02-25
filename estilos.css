@@ -1,67 +1,66 @@
+/* Estilos Generales */
 body {
-    font-family: 'Arial', sans-serif;
-    background-image: url('../images/fondo.jpg');
+    font-family: Arial, sans-serif;
+    background: url('../images/fondo.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #fff;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
-header, footer {
+/* Contenedor Central */
+.container {
+    width: 90%;
+    max-width: 400px;
+    margin: 50px auto;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
-    padding: 1em;
-    background-color: rgba(0, 0, 0, 0.7);
 }
 
-main {
-    padding: 2em;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-h1, h2 {
-    color: #00f;
-}
-
+/* Formularios */
 form {
     display: flex;
     flex-direction: column;
 }
 
-label, input, button {
-    margin-bottom: 1em;
-}
-
-.bot {
-    display: inline-block;
-    margin: 1em;
-    text-align: center;
-}
-
-.bot img {
+input, button {
     width: 100%;
-    max-width: 200px;
-    height: auto;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
 }
 
 button {
-    background-color: #00f;
-    color: #fff;
-    border: none;
-    padding: 0.5em;
+    background: #007BFF;
+    color: white;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #005;
+    background: #0056b3;
 }
 
-/* Estilos Responsivos */
-@media (max-width: 600px) {
-    main {
-        padding: 1em;
-    }
+/* Diseño de Bots */
+.bot {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
 
-    .bot {
-        width: 100%;
-    }
+.bot img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.bot h2 {
+    margin: 10px 0;
 }
