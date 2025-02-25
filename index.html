@@ -18,9 +18,6 @@
   <meta name="twitter:title" content="Kirito Bot Web">
   <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">
   <meta name="twitter:image" content="https://qu.ax/ktODx.jpg">
-
-  <!-- Script de EmailJS -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -77,9 +74,6 @@
 
   <script src="main.js"></script>
   <script>
-    // Inicializar EmailJS con tu User ID
-    emailjs.init("vVyLi_kGrNcGJq1KO4b51");
-
     // Verificar si el usuario ya está registrado
     window.onload = function() {
       if (localStorage.getItem('user')) {
@@ -89,28 +83,16 @@
       }
     };
 
-    // Registro de usuario con envío de correo de verificación
+    // Registro de usuario
     document.getElementById("form-registro").addEventListener("submit", function(event) {
       event.preventDefault();
 
       const nombre = document.getElementById('nombre').value;
       const email = document.getElementById('email').value;
 
-      // Enviar correo con EmailJS
-      emailjs.send("service_opn3fe5", "template_k7go9rc", {
-        to_email: email,
-        user_name: nombre
-      }).then(function(response) {
-        console.log("Correo enviado con éxito:", response);
-        alert("Registro exitoso. Revisa tu correo electrónico.");
-
-        // Guardar usuario en localStorage solo si el correo se envía correctamente
-        localStorage.setItem('user', JSON.stringify({ nombre, email }));
-        mostrarPerfil();
-      }).catch(function(error) {
-        console.error("Error al enviar el correo:", error);
-        alert("Hubo un problema al enviar el correo. Revisa la consola.");
-      });
+      // Guardar usuario en localStorage
+      localStorage.setItem('user', JSON.stringify({ nombre, email }));
+      mostrarPerfil();
     });
 
     // Mostrar perfil del usuario
