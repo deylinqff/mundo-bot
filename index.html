@@ -18,6 +18,9 @@
     <meta name="twitter:title" content="Kirito Bot Web">
     <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">
     <meta name="twitter:image" content="https://qu.ax/ktODx.jpg">
+
+    <!-- Script de EmailJS -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -42,7 +45,7 @@
         <button onclick="cerrarSesion()">Cerrar sesión</button>
     </div>
 
-    <!-- Selección de Bots (Oculto hasta registro) -->
+    <!-- Selección de Bots -->
     <div id="seleccion-bots" class="container" style="display: none;">
         <h1>Elige tu Bot</h1>
         <div class="bot">
@@ -59,7 +62,7 @@
         </div>
     </div>
 
-    <!-- Método de Pago (Oculto al inicio) -->
+    <!-- Método de Pago -->
     <div id="pago" class="container" style="display: none;">
         <h1>Método de Pago</h1>
         <form id="form-pago">
@@ -71,57 +74,63 @@
         </form>
     </div>
 
-    <script src="main.js"></script>
     <script>
+        // Inicializar EmailJS
+        emailjs.init("vVyLi_kGrNcGJq1KO4b51
+
+");  // Reemplaza con tu User ID
+
         // Verificar si ya está registrado al cargar la página
         window.onload = function() {
             if(localStorage.getItem('user')) {
-                // Si el usuario ya está registrado, mostrar su perfil y la selección de bots
                 mostrarPerfil();
             } else {
-                // Si no está registrado, mostrar el formulario de registro
                 document.getElementById('registro').style.display = 'block';
             }
         };
 
-        // Función para guardar el registro en localStorage
+        // Registro con envío de correo de verificación
         document.getElementById("form-registro").addEventListener("submit", function(event) {
-            event.preventDefault();  // Evitar que la página se recargue
+            event.preventDefault();
 
             const nombre = document.getElementById('nombre').value;
             const email = document.getElementById('email').value;
 
-            // Guardar datos del usuario en localStorage
+            // Guardar usuario en localStorage
             localStorage.setItem('user', JSON.stringify({ nombre, email }));
 
-            // Mostrar el perfil del usuario
-            mostrarPerfil();
+            // Enviar correo de verificación con EmailJS
+            emailjs.send("service_ID", "template_k7go9rc", {
+                to_email: email,
+                user_name: nombre
+            }).then(function(response) {
+                alert("Correo de verificación enviado. Revisa tu bandeja de entrada.");
+                mostrarPerfil();
+            }, function(error) {
+                console.error("Error al enviar el correo:", error);
+            });
         });
 
-        // Función para mostrar el perfil del usuario
+        // Mostrar el perfil del usuario
         function mostrarPerfil() {
             const usuario = JSON.parse(localStorage.getItem('user'));
             document.getElementById('user-name').innerText = usuario.nombre;
             document.getElementById('user-email').innerText = usuario.email;
 
-            // Ocultar el formulario de registro, mostrar el perfil y los bots
             document.getElementById('registro').style.display = 'none';
             document.getElementById('perfil').style.display = 'block';
             document.getElementById('seleccion-bots').style.display = 'block';
         }
 
-        // Función para cerrar sesión
+        // Cerrar sesión
         function cerrarSesion() {
-            // Eliminar los datos del usuario del localStorage
             localStorage.removeItem('user');
-
-            // Volver a mostrar el formulario de registro
             document.getElementById('perfil').style.display = 'none';
             document.getElementById('registro').style.display = 'block';
             document.getElementById('seleccion-bots').style.display = 'none';
         }
 
-        // Función para mostrar el formulario de pago
+        // Mostrar método de pago
         function mostrarPago() {
             document.getElementById('seleccion-bots').style.display = 'none';
             document.getElementById('pago').style.display = 'block';
