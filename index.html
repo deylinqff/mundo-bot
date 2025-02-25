@@ -4,46 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kirito-Bot Web</title>
-    <link rel="stylesheet" href="assets/estilos.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+    <!-- Fondo -->
+    <div id="fondo">
+        <div class="overlay"></div>
 
-    <!-- Página de Registro -->
-    <div id="registro" class="container">
-        <h2>Regístrate en Kirito-Bot</h2>
-        <form id="formRegistro">
-            <input type="text" id="usuario" placeholder="Usuario" required>
-            <input type="email" id="email" placeholder="Correo Electrónico" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit">Registrarse</button>
-        </form>
-    </div>
-
-    <!-- Página de Selección de Bots (Oculta al inicio) -->
-    <div id="seleccionBots" class="container" style="display: none;">
-        <h2>Selecciona un Bot</h2>
-        <div class="bot">
-            <img src="assets/images/bot1.jpg" alt="Bot de Grupos">
-            <span>Bot de Grupos</span>
-            <button onclick="redirigirPago()">Comprar 🛒</button>
+        <!-- Página de Registro -->
+        <div id="registro" class="container">
+            <h2>¡Bienvenido a Kirito-Bot!</h2>
+            <p>Registrate para acceder a los mejores bots para grupos y más.</p>
+            <form id="formRegistro">
+                <input type="text" id="usuario" placeholder="Nombre de Usuario" required>
+                <input type="email" id="email" placeholder="Correo Electrónico" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Registrarse</button>
+            </form>
         </div>
-        <div class="bot">
-            <img src="assets/images/bot2.jpg" alt="Bot Personal">
-            <span>Bot Personal</span>
-            <button onclick="redirigirPago()">Comprar 🛒</button>
+
+        <!-- Página de Selección de Bots -->
+        <div id="seleccionBots" class="container" style="display: none;">
+            <h2>¡Elige tu Bot favorito!</h2>
+            <div class="bot">
+                <img src="assets/images/bot1.jpg" alt="Bot de Grupos">
+                <span>Bot para Grupos</span>
+                <button onclick="redirigirPago('Grupos')">Comprar 🛒</button>
+            </div>
+            <div class="bot">
+                <img src="assets/images/bot2.jpg" alt="Bot Personal">
+                <span>Bot Personalizado</span>
+                <button onclick="redirigirPago('Personalizado')">Comprar 🛒</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Página de Pago (Oculta al inicio) -->
-    <div id="pago" class="container" style="display: none;">
-        <h2>Pago</h2>
-        <form id="formPago">
-            <input type="text" id="tarjeta" placeholder="Número de Tarjeta" required>
-            <input type="text" id="cvv" placeholder="CVV" required>
-            <button type="submit">Pagar</button>
-        </form>
-    </div>
+        <!-- Página de Pago -->
+        <div id="pago" class="container" style="display: none;">
+            <h2>Procesa tu Pago</h2>
+            <p>Elige tu forma de pago</p>
+            <form id="formPago">
+                <input type="text" id="tarjeta" placeholder="Número de Tarjeta" required>
+                <input type="text" id="cvv" placeholder="CVV" required>
+                <button type="submit">Pagar</button>
+            </form>
+        </div>
 
-    <script src="assets/js/main.js"></script>
+        <script src="assets/js/main.js"></script>
+    </div>
 </body>
 </html>
