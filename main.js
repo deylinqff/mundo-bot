@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         emailjs.init("vVyLi_kGrNcGJq1KO4b51");  // Reemplaza con tu User ID
 
         // Enviar correo de verificación con EmailJS
-        emailjs.send("service_xxxxx", "template_k7go9rc", {
+        emailjs.send("service_opn3fe5", "template_k7go9rc", {
             to_email: email,
             user_name: nombre
         }).then(function(response) {
