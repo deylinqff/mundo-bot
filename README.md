@@ -27,12 +27,44 @@ Kirito-Bot Web es una plataforma que permite a los usuarios registrarse, selecci
 
 ## 📂 Mapa del Repositorio
 
-/kirito-bot-web 
-│── 📄 index.html       # Página principal │── 🎨 style.css        # Estilos de la web │── ⚡ script.js        # Lógica y eventos de la web 
-│── 📜 README.md        # Documentación del proyecto 
-│── 📁 /assets 
-│   ├── 📷 images       # Imágenes y logos │   ├── 🔊 sounds       # Sonidos o notificaciones │   ├── 📄 fonts        # Fuentes personalizadas
-
+/my-web-app
+│
+├── /public
+│   ├── /css
+│   │   └── style.css
+│   ├── /js
+│   │   ├── app.js
+│   │   └── payment.js
+│   └── /images
+│       └── logo.png
+│
+├── /src
+│   ├── /controllers
+│   │   ├── authController.js
+│   │   ├── botController.js
+│   │   └── paymentController.js
+│   ├── /models
+│   │   └── userModel.js
+│   ├── /routes
+│   │   ├── authRoutes.js
+│   │   ├── botRoutes.js
+│   │   └── paymentRoutes.js
+│   ├── /services
+│   │   └── paymentService.js
+│   ├── /views
+│   │   ├── index.ejs
+│   │   ├── login.ejs
+│   │   ├── register.ejs
+│   │   ├── dashboard.ejs
+│   │   ├── selectBot.ejs
+│   │   └── payment.ejs
+│   ├── server.js
+│   ├── config.js
+│   └── database.js
+│
+├── .env
+├── package.json
+└── README.md
 ---
 
 ## 🛠️ Tecnologías usadas
