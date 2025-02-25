@@ -1,18 +1,19 @@
-// Capturar el formulario de registro
+// Función de Registro
 document.getElementById("formRegistro").addEventListener("submit", function(event) {
-    event.preventDefault(); 
-    document.getElementById("registro").style.display = "none"; 
-    document.getElementById("seleccionBots").style.display = "block"; 
+    event.preventDefault(); // Evitar envío por defecto
+    document.getElementById("registro").style.display = "none";
+    document.getElementById("seleccionBots").style.display = "block";
 });
 
-// Función para redirigir a la página de pago
-function redirigirPago() {
+// Redirigir a la página de pago al elegir un bot
+function redirigirPago(botType) {
     document.getElementById("seleccionBots").style.display = "none";
     document.getElementById("pago").style.display = "block";
+    alert("Seleccionaste el Bot: " + botType + ". ¡Procede al pago!");
 }
 
-// Capturar el formulario de pago
+// Función de Pago
 document.getElementById("formPago").addEventListener("submit", function(event) {
     event.preventDefault();
-    alert("Pago realizado con éxito. ¡Gracias por tu compra!");
+    alert("Pago procesado con éxito. ¡Gracias por tu compra!");
 });
