@@ -63,7 +63,7 @@
         // Verificar si ya está registrado al cargar la página
         window.onload = function() {
             if(localStorage.getItem('user')) {
-                // Si el usuario ya está registrado, mostrar su perfil
+                // Si el usuario ya está registrado, mostrar su perfil y la selección de bots
                 mostrarPerfil();
             } else {
                 // Si no está registrado, mostrar el formulario de registro
@@ -91,7 +91,7 @@
             document.getElementById('user-name').innerText = usuario.nombre;
             document.getElementById('user-email').innerText = usuario.email;
 
-            // Ocultar el formulario de registro y mostrar el perfil
+            // Ocultar el formulario de registro, mostrar el perfil y los bots
             document.getElementById('registro').style.display = 'none';
             document.getElementById('perfil').style.display = 'block';
             document.getElementById('seleccion-bots').style.display = 'block';
@@ -106,6 +106,12 @@
             document.getElementById('perfil').style.display = 'none';
             document.getElementById('registro').style.display = 'block';
             document.getElementById('seleccion-bots').style.display = 'none';
+        }
+
+        // Función para mostrar el formulario de pago
+        function mostrarPago() {
+            document.getElementById('seleccion-bots').style.display = 'none';
+            document.getElementById('pago').style.display = 'block';
         }
     </script>
 
