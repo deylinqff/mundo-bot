@@ -27,7 +27,11 @@ Kirito-Bot Web es una plataforma que permite a los usuarios registrarse, selecci
 
 ## 📂 Mapa del Repositorio
 
-/kirito-bot-web │── 📄 index.html       # Página principal │── 🎨 style.css        # Estilos de la web │── ⚡ script.js        # Lógica y eventos de la web │── 📜 README.md        # Documentación del proyecto │── 📁 /assets │   ├── 📷 images       # Imágenes y logos │   ├── 🔊 sounds       # Sonidos o notificaciones │   ├── 📄 fonts        # Fuentes personalizadas
+/kirito-bot-web 
+│── 📄 index.html       # Página principal │── 🎨 style.css        # Estilos de la web │── ⚡ script.js        # Lógica y eventos de la web 
+│── 📜 README.md        # Documentación del proyecto 
+│── 📁 /assets 
+│   ├── 📷 images       # Imágenes y logos │   ├── 🔊 sounds       # Sonidos o notificaciones │   ├── 📄 fonts        # Fuentes personalizadas
 
 ---
 
