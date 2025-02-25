@@ -29,15 +29,25 @@ Kirito-Bot Web es una plataforma que permite a los usuarios registrarse, selecci
 
 /mi-app-web
 ├── index.html
+
 ├── /assets
+
     ├── /css
+
         └── estilos.css
+
     ├── /js
+
         └── main.js
+
     └── /images
+
         ├── fondo.jpg
+
         ├── imagen1.jpg
+
         └── imagen2.jpg
+
 ---
 
 ## 🛠️ Tecnologías usadas
