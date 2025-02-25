@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Inicializar EmailJS con tu User ID
-    emailjs.init("vVyLi_kGrNcGJq1KO4b51");
+    emailjs.init("LWsrciZNxdDO5OhL1_8mA");
 
     // Registro de usuario con envío de correo de verificación
     document.getElementById("form-registro").addEventListener("submit", function(event) {
