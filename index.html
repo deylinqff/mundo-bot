@@ -105,7 +105,10 @@
 
                 // Guardar usuario en localStorage solo si el correo se envía correctamente
                 localStorage.setItem('user', JSON.stringify({ nombre, email }));
-                mostrarPerfil();
+
+                // Ocultar el registro y mostrar la selección de bots
+                document.getElementById('registro').style.display = 'none';
+                document.getElementById('seleccion-bots').style.display = 'block';
             }).catch(function(error) {
                 console.error("Error al enviar el correo:", error);
                 alert("Hubo un problema al enviar el correo. Revisa la consola.");
