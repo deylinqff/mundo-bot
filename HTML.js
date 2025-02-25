@@ -3,41 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro y Alquiler de Bot</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>Kirito-Bot Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .bot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .bot button {
+            width: 80px;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Formulario de registro -->
+    <!-- Página de Registro -->
     <div id="registro" class="container">
-        <h2>Registro para Alquilar o Comprar el Bot</h2>
-        <input type="email" id="email" placeholder="Correo electrónico">
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="registrar()">Continuar</button>
-        <p id="mensaje"></p>
+        <h2>Registro</h2>
+        <form id="formRegistro">
+            <input type="text" id="usuario" placeholder="Usuario" required>
+            <input type="email" id="email" placeholder="Correo Electrónico" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Registrarse</button>
+        </form>
     </div>
 
-    <!-- Panel de selección de bot después de registrarse -->
-    <div id="panel" class="container" style="display: none;">
-        <h2>Selecciona el Bot que deseas</h2>
-        <select id="categoria">
-            <option value="soporte">Bot de Soporte</option>
-            <option value="ventas">Bot de Ventas</option>
-            <option value="musica">Bot de Música</option>
-        </select>
-        <button onclick="mostrarOpciones()">Seleccionar</button>
+    <!-- Página de Selección de Bots (Oculta al inicio) -->
+    <div id="seleccionBots" class="container" style="display: none;">
+        <h2>Selecciona un Bot</h2>
+        <div class="bot">
+            <span>Bot de Grupos</span>
+            <button onclick="redirigirPago()">Comprar 🛒</button>
+        </div>
+        <div class="bot">
+            <span>Bot Personal</span>
+            <button onclick="redirigirPago()">Comprar 🛒</button>
+        </div>
     </div>
 
-    <!-- Opciones de compra o alquiler del bot -->
-    <div id="opciones" class="container" style="display: none;">
-        <h2>Elige cómo deseas usar el Bot</h2>
-        <button onclick="irAlPago('alquilar')">Alquilar</button>
-        <button onclick="irAlPago('comprar')">Comprar</button>
+    <!-- Página de Pago (Oculta al inicio) -->
+    <div id="pago" class="container" style="display: none;">
+        <h2>Pago</h2>
+        <form id="formPago">
+            <input type="text" id="tarjeta" placeholder="Número de Tarjeta" required>
+            <input type="text" id="cvv" placeholder="CVV" required>
+            <button type="submit">Pagar</button>
+        </form>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        // Capturar el formulario de registro
+        document.getElementById("formRegistro").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+            document.getElementById("registro").style.display = "none"; 
+            document.getElementById("seleccionBots").style.display = "block"; 
+        });
+
+        // Función para redirigir a la página de pago
+        function redirigirPago() {
+            document.getElementById("seleccionBots").style.display = "none";
+            document.getElementById("pago").style.display = "block";
+        }
+
+        // Capturar el formulario de pago
+        document.getElementById("formPago").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Pago realizado con éxito. ¡Gracias por tu compra!");
+        });
+    </script>
+
 </body>
 </html>
