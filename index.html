@@ -24,7 +24,7 @@
 </head>
 <body>
 
-    <!-- Registro (solo se mostrará si no está registrado) -->
+    <!-- Registro -->
     <div id="registro" class="container" style="display: none;">
         <h1>Registro de Usuario</h1>
         <form id="form-registro">
@@ -38,7 +38,7 @@
         </form>
     </div>
 
-    <!-- Perfil del Usuario (mostrado si ya está registrado) -->
+    <!-- Perfil del Usuario -->
     <div id="perfil" class="container" style="display: none;">
         <h1>Bienvenido, <span id="user-name"></span>!</h1>
         <p>Correo: <span id="user-email"></span></p>
@@ -74,44 +74,47 @@
         </form>
     </div>
 
+    <script src="main.js"></script>
     <script>
-        // Inicializar EmailJS
+        // Inicializar EmailJS con tu User ID
         emailjs.init("vVyLi_kGrNcGJq1KO4b51
 
-");  // Reemplaza con tu User ID
+");
 
-        // Verificar si ya está registrado al cargar la página
+        // Verificar si el usuario ya está registrado
         window.onload = function() {
-            if(localStorage.getItem('user')) {
+            if (localStorage.getItem('user')) {
                 mostrarPerfil();
             } else {
                 document.getElementById('registro').style.display = 'block';
             }
         };
 
-        // Registro con envío de correo de verificación
+        // Registro de usuario con envío de correo de verificación
         document.getElementById("form-registro").addEventListener("submit", function(event) {
-            event.preventDefault();
+            event.preventDefault();  
 
             const nombre = document.getElementById('nombre').value;
             const email = document.getElementById('email').value;
 
-            // Guardar usuario en localStorage
-            localStorage.setItem('user', JSON.stringify({ nombre, email }));
-
-            // Enviar correo de verificación con EmailJS
-            emailjs.send("service_ID", "template_k7go9rc", {
+            // Enviar correo con EmailJS
+            emailjs.send("TU_SERVICE_ID", "template_k7go9rc", {
                 to_email: email,
                 user_name: nombre
             }).then(function(response) {
-                alert("Correo de verificación enviado. Revisa tu bandeja de entrada.");
+                console.log("Correo enviado con éxito:", response);
+                alert("Registro exitoso. Revisa tu correo electrónico.");
+
+                // Guardar usuario en localStorage solo si el correo se envía correctamente
+                localStorage.setItem('user', JSON.stringify({ nombre, email }));
                 mostrarPerfil();
-            }, function(error) {
+            }).catch(function(error) {
                 console.error("Error al enviar el correo:", error);
+                alert("Hubo un problema al enviar el correo. Revisa la consola.");
             });
         });
 
-        // Mostrar el perfil del usuario
+        // Mostrar perfil del usuario
         function mostrarPerfil() {
             const usuario = JSON.parse(localStorage.getItem('user'));
             document.getElementById('user-name').innerText = usuario.nombre;
@@ -130,7 +133,7 @@
             document.getElementById('seleccion-bots').style.display = 'none';
         }
 
-        // Mostrar método de pago
+        // Mostrar formulario de pago
         function mostrarPago() {
             document.getElementById('seleccion-bots').style.display = 'none';
             document.getElementById('pago').style.display = 'block';
