@@ -1,65 +1,48 @@
-// main.js
+require('dotenv').config();
+const express = require('express');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Verificar si ya hay un usuario registrado
-    if (localStorage.getItem('user')) {
-        mostrarPerfil();
-    } else {
-        document.getElementById('registro').style.display = 'block';
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,  // Usa variables de entorno para seguridad
+        pass: process.env.PASSWORD
     }
+});
 
-    // Evento para el formulario de registro
-    document.getElementById("form-registro").addEventListener("submit", function(event) {
-        event.preventDefault();
+// Ruta para enviar correo de verificación
+app.post('/enviar-correo', (req, res) => {
+    const { email, nombre } = req.body;
+    const token = Math.random().toString(36).substr(2); // Token de verificación
 
-        const nombre = document.getElementById('nombre').value;
-        const email = document.getElementById('email').value;
-
-        // Guardar usuario en localStorage
-        localStorage.setItem('user', JSON.stringify({ nombre, email }));
-        mostrarPerfil();
-    });
-
-    // Función para mostrar el perfil del usuario
-    function mostrarPerfil() {
-        const usuario = JSON.parse(localStorage.getItem('user'));
-        document.getElementById('user-name').innerText = usuario.nombre;
-        document.getElementById('user-email').innerText = usuario.email;
-
-        document.getElementById('registro').style.display = 'none';
-        document.getElementById('perfil').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'block';
-    }
-
-    // Función para cerrar sesión (disponible globalmente)
-    window.cerrarSesion = function() {
-        localStorage.removeItem('user');
-        document.getElementById('perfil').style.display = 'none';
-        document.getElementById('registro').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'none';
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: email,
+        subject: 'Verificación de cuenta - Kirito Bot',
+        html: `<h2>Hola, ${nombre}</h2>
+               <p>Confirma tu correo haciendo clic en el siguiente enlace:</p>
+               <a href="http://tu-dominio.com/verificar?token=${token}">Verificar cuenta</a>`
     };
 
-    // Función para mostrar el formulario de pago (disponible globalmente)
-    window.mostrarPago = function() {
-        document.getElementById('seleccion-bots').style.display = 'none';
-        document.getElementById('pago').style.display = 'block';
-    };
-
-    // Función para eliminar el registro, solicitando el correo
-    window.eliminarRegistro = function() {
-        const emailInput = prompt("Ingresa tu correo para eliminar tu registro:");
-        if (!emailInput) return; // Si no se ingresa nada, salir
-
-        const usuario = JSON.parse(localStorage.getItem('user'));
-        if (usuario && usuario.email === emailInput.trim()) {
-            localStorage.removeItem('user');
-            alert("Tu registro ha sido eliminado.");
-            // Regresar al estado de registro
-            document.getElementById('perfil').style.display = 'none';
-            document.getElementById('seleccion-bots').style.display = 'none';
-            document.getElementById('registro').style.display = 'block';
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Error al enviar el correo');
         } else {
-            alert("El correo ingresado no coincide con tu registro.");
+            console.log('Correo enviado: ' + info.response);
+            res.status(200).send('Correo enviado con éxito');
         }
-    };
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
