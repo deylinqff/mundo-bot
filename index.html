@@ -16,41 +16,38 @@
     <meta name="twitter:image" content="https://qu.ax/ktODx.jpg">  
 </head>  
 <body>  
-<div id="registro" class="container" style="display: none;">  
-    <h1>Registro de Usuario</h1>  
-    <form id="form-registro">  
-        <label for="nombre">Nombre:</label>  
-        <input type="text" id="nombre" name="nombre" required>  
-        <label for="email">Correo Electrónico:</label>  
-        <input type="email" id="email" name="email" required>  
-        <label for="password">Contraseña:</label>  
-        <input type="password" id="password" name="password" required>  
-        <button type="submit">Registrarse</button>  
-    </form>  
-</div>  
+<div id="registro" class="container" style="display: none;">
+    <h1>Registro de Usuario</h1>
+    <form id="form-registro">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
 
-<div id="perfil" class="container" style="display: none;">  
-    <h1>Bienvenido, <span id="user-name"></span>!</h1>  
-    <p>Correo: <span id="user-email"></span></p>  
-    <button onclick="cerrarSesion()">Cerrar sesión</button>  
-</div>  
+<div id="perfil" class="container" style="display: none;">
+    <h1>Bienvenido, <span id="user-name"></span>!</h1>
+    <p>Correo: <span id="user-email"></span></p>
+    <button onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
 
-<div id="seleccion-bots" class="container" style="display: none;">  
-    <h1>Elige tu Bot</h1>  
-    <div class="bot">  
-        <img src="assets/images/bot1.png" alt="Bot de Grupos">  
-        <h2>Bot de Grupos</h2>  
-        <button onclick="mostrarPago()">Comprar</button>  
-        <button onclick="mostrarPago()">Alquilar</button>  
-    </div>  
-    <div class="bot">  
-        <img src="assets/images/bot2.jpg" alt="Bot Personal">  
-        <h2>Bot Personal</h2>  
-        <button onclick="mostrarPago()">Comprar</button>  
-        <button onclick="mostrarPago()">Alquilar</button>  
-    </div>  
-</div>  
-
+<div id="seleccion-bots" class="container" style="display: none;">
+    <h1>Elige tu Bot</h1>
+    <div class="bot">
+        <img src="assets/images/bot1.jpg" alt="Bot de Grupos">
+        <h2>Bot de Grupos</h2>
+        <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
+    </div>
+    <div class="bot">
+        <img src="assets/images/bot2.jpg" alt="Bot Personal">
+        <h2>Bot Personal</h2>
+        <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 10$</button>
+    </div>
+</div>
 
 <p align="center">
   <a href="https://github.com/deylinqff">
@@ -64,56 +61,47 @@
   </a>
 </p>
 
-<div id="pago" class="container" style="display: none;">  
-    <h1>Método de Pago</h1>  
-    <form id="form-pago">  
-        <label for="tarjeta">Número de Tarjeta:</label>  
-        <input type="text" id="tarjeta" name="tarjeta" required>  
-        <label for="cvv">CVV:</label>  
-        <input type="text" id="cvv" name="cvv" required>  
-        <button type="submit">Pagar</button>  
-    </form>  
-</div>  
+<script src="main.js"></script>
+<script>
+    window.onload = function() {
+        if(localStorage.getItem('user')) {
+            mostrarPerfil();
+        } else {
+            document.getElementById('registro').style.display = 'block';
+        }
+    };
 
-<script src="main.js"></script>  
-<script>  
-    window.onload = function() {  
-        if(localStorage.getItem('user')) {  
-            mostrarPerfil();  
-        } else {  
-            document.getElementById('registro').style.display = 'block';  
-        }  
-    };  
+    document.getElementById("form-registro").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+        localStorage.setItem('user', JSON.stringify({ nombre, email }));
+        mostrarPerfil();
+    });
 
-    document.getElementById("form-registro").addEventListener("submit", function(event) {  
-        event.preventDefault();  
-        const nombre = document.getElementById('nombre').value;  
-        const email = document.getElementById('email').value;  
-        localStorage.setItem('user', JSON.stringify({ nombre, email }));  
-        mostrarPerfil();  
-    });  
+    function mostrarPerfil() {
+        const usuario = JSON.parse(localStorage.getItem('user'));
+        document.getElementById('user-name').innerText = usuario.nombre;
+        document.getElementById('user-email').innerText = usuario.email;
+        document.getElementById('registro').style.display = 'none';
+        document.getElementById('perfil').style.display = 'block';
+        document.getElementById('seleccion-bots').style.display = 'block';
+    }
 
-    function mostrarPerfil() {  
-        const usuario = JSON.parse(localStorage.getItem('user'));  
-        document.getElementById('user-name').innerText = usuario.nombre;  
-        document.getElementById('user-email').innerText = usuario.email;  
-        document.getElementById('registro').style.display = 'none';  
-        document.getElementById('perfil').style.display = 'block';  
-        document.getElementById('seleccion-bots').style.display = 'block';  
-    }  
+    function cerrarSesion() {
+        localStorage.removeItem('user');
+        document.getElementById('perfil').style.display = 'none';
+        document.getElementById('registro').style.display = 'block';
+        document.getElementById('seleccion-bots').style.display = 'none';
+    }
 
-    function cerrarSesion() {  
-        localStorage.removeItem('user');  
-        document.getElementById('perfil').style.display = 'none';  
-        document.getElementById('registro').style.display = 'block';  
-        document.getElementById('seleccion-bots').style.display = 'none';  
-    }  
+    function redireccionarPago(tipoBot, precio) {
+        const numero = "50488198573";  
+        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;  
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;  
+        window.location.href = url;  
+    }
+</script>
 
-    function mostrarPago() {  
-        document.getElementById('seleccion-bots').style.display = 'none';  
-        document.getElementById('pago').style.display = 'block';  
-    }  
-</script>  
-
-</body>  
+</body>
 </html>
