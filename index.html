@@ -1,25 +1,21 @@
-
-
-<!DOCTYPE html>  <html lang="es">  
+<!DOCTYPE html>  
+<html lang="es">  
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Kirito Bot Web</title>  
-    <link rel="stylesheet" href="estilos.css">  <!-- Open Graph (Para WhatsApp, Facebook y otras redes sociales) -->  
-<meta property="og:title" content="Kirito Bot Web">  
-<meta property="og:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">  
-<meta property="og:image" content="https://qu.ax/ktODx.jpg">  
-<meta property="og:url" content="https://deylinqff.github.io/Kirito-Bot-web/">  
-<meta property="og:type" content="website">  
-
-<!-- Twitter Card (Para Twitter) -->  
-<meta name="twitter:card" content="summary_large_image">  
-<meta name="twitter:title" content="Kirito Bot Web">  
-<meta name="twitter:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">  
-<meta name="twitter:image" content="https://qu.ax/ktODx.jpg">
-
+    <link rel="stylesheet" href="estilos.css">  
+    <meta property="og:title" content="Kirito Bot Web">  
+    <meta property="og:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">  
+    <meta property="og:image" content="https://qu.ax/ktODx.jpg">  
+    <meta property="og:url" content="https://deylinqff.github.io/Kirito-Bot-web/">  
+    <meta property="og:type" content="website">  
+    <meta name="twitter:card" content="summary_large_image">  
+    <meta name="twitter:title" content="Kirito Bot Web">  
+    <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">  
+    <meta name="twitter:image" content="https://qu.ax/ktODx.jpg">  
 </head>  
-<body>  <!-- Registro (solo se mostrará si no está registrado) -->  
+<body>  
 <div id="registro" class="container" style="display: none;">  
     <h1>Registro de Usuario</h1>  
     <form id="form-registro">  
@@ -33,14 +29,12 @@
     </form>  
 </div>  
 
-<!-- Perfil del Usuario (mostrado si ya está registrado) -->  
 <div id="perfil" class="container" style="display: none;">  
     <h1>Bienvenido, <span id="user-name"></span>!</h1>  
     <p>Correo: <span id="user-email"></span></p>  
     <button onclick="cerrarSesion()">Cerrar sesión</button>  
 </div>  
 
-<!-- Selección de Bots (Oculto hasta registro) -->  
 <div id="seleccion-bots" class="container" style="display: none;">  
     <h1>Elige tu Bot</h1>  
     <div class="bot">  
@@ -57,7 +51,6 @@
     </div>  
 </div>  
 
-<!-- Método de Pago (Oculto al inicio) -->  
 <div id="pago" class="container" style="display: none;">  
     <h1>Método de Pago</h1>  
     <form id="form-pago">  
@@ -71,60 +64,43 @@
 
 <script src="main.js"></script>  
 <script>  
-    // Verificar si ya está registrado al cargar la página  
     window.onload = function() {  
         if(localStorage.getItem('user')) {  
-            // Si el usuario ya está registrado, mostrar su perfil y la selección de bots  
             mostrarPerfil();  
         } else {  
-            // Si no está registrado, mostrar el formulario de registro  
             document.getElementById('registro').style.display = 'block';  
         }  
     };  
 
-    // Función para guardar el registro en localStorage  
     document.getElementById("form-registro").addEventListener("submit", function(event) {  
-        event.preventDefault();  // Evitar que la página se recargue  
-
+        event.preventDefault();  
         const nombre = document.getElementById('nombre').value;  
         const email = document.getElementById('email').value;  
-
-        // Guardar datos del usuario en localStorage  
         localStorage.setItem('user', JSON.stringify({ nombre, email }));  
-
-        // Mostrar el perfil del usuario  
         mostrarPerfil();  
     });  
 
-    // Función para mostrar el perfil del usuario  
     function mostrarPerfil() {  
         const usuario = JSON.parse(localStorage.getItem('user'));  
         document.getElementById('user-name').innerText = usuario.nombre;  
         document.getElementById('user-email').innerText = usuario.email;  
-
-        // Ocultar el formulario de registro, mostrar el perfil y los bots  
         document.getElementById('registro').style.display = 'none';  
         document.getElementById('perfil').style.display = 'block';  
         document.getElementById('seleccion-bots').style.display = 'block';  
     }  
 
-    // Función para cerrar sesión  
     function cerrarSesion() {  
-        // Eliminar los datos del usuario del localStorage  
         localStorage.removeItem('user');  
-
-        // Volver a mostrar el formulario de registro  
         document.getElementById('perfil').style.display = 'none';  
         document.getElementById('registro').style.display = 'block';  
         document.getElementById('seleccion-bots').style.display = 'none';  
     }  
 
-    // Función para mostrar el formulario de pago  
     function mostrarPago() {  
         document.getElementById('seleccion-bots').style.display = 'none';  
         document.getElementById('pago').style.display = 'block';  
     }  
-</script>
+</script>  
 
 </body>  
 </html>
