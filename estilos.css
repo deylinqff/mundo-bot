@@ -1,4 +1,5 @@
-/* Estilos Generales */
+
+/* Estilos generales */
 * {
     margin: 0;
     padding: 0;
@@ -7,66 +8,95 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: url('assets/images/fondo.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    text-align: center;
-    padding: 20px;
+    background-color: #f7f7f7;
+    padding: 10px;
 }
 
-/* Encabezado del panel */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.user-info h2 {
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-.header .user-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.header .menu {
-    display: flex;
-    gap: 20px;
-}
-
-.header .menu a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.header .menu a:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-/* Estilo para el contenido principal */
-.main-content {
+/* Contenedor principal de las tarjetas */
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+gap: 20px;
+    justify-items: center;
+    margin: 20px auto;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Estilo de las tarjetas */
+.card {
+    background-color: #fff;
+    border: 2px solid #00bcd4;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efecto de elevación */
+}
+
+.card img {
+    width: 100%;
+    height: auto;
     border-radius: 10px;
 }
 
-.main-content h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+.card h2 {
+    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
-.main-content p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+.card p {
+    font-size: 1rem;
+    color: #007BFF;
+    margin: 10px 0;
+}
+
+.card button {
+    font-size: 1rem;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el botón flotante */
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #00bcd4;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.floating-button:hover {
+    background-color: #007b8f;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+    }
+    .card {
+        max-width: 90%;
+        margin: 10px auto;
+    }
 }
