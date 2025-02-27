@@ -41,14 +41,16 @@ document.addEventListener("DOMContentLoaded", function() {
             try {
                 const response = await fetch(`https://apis-starlights-team.koyeb.app/starlight/gemini?text=${encodeURIComponent(userInput)}`);
                 const data = await response.json();
-                
+
+                // Verifica si la API devolvió un resultado válido
                 if (data && data.result) {
                     appendMessage("IA: " + data.result, "ia");
                 } else {
-                    appendMessage("IA: No se pudo obtener una respuesta.", "ia");
+                    appendMessage("IA: No se pudo obtener una respuesta de la API.", "ia");
                 }
             } catch (error) {
                 appendMessage("IA: Error al conectar con la API.", "ia");
+                console.error("Error en la API:", error);
             }
         }
     }
