@@ -6,7 +6,7 @@ function mostrarMensaje(mensaje) {
     document.getElementById("resultado").innerHTML = mensaje;
 }
 
-// Función para buscar imágenes en Google
+// Función para buscar imágenes en DuckDuckGo
 async function buscarImagenGoogle() {
     const prompt = document.getElementById("prompt").value;
 
@@ -16,16 +16,17 @@ async function buscarImagenGoogle() {
     }
 
     try {
-        mostrarMensaje("🔍 Buscando imagen en Google...");
+        mostrarMensaje("🔍 Buscando imagen en DuckDuckGo...");
 
-        const res = await googleImage(prompt);
-        const image = await res.getRandom();
+        // Hacemos la solicitud a la API de DuckDuckGo
+        const respuesta = await fetch(`https://duckduckgo.com/i.js?q=${encodeURIComponent(prompt)}`);
+        const datos = await respuesta.json();
 
-        if (!image) {
+        if (!datos.results.length) {
             throw new Error("No se encontró ninguna imagen.");
         }
 
-        urlImagen = image;
+        urlImagen = datos.results[0].image; // Tomamos la primera imagen
         mostrarImagenEncontrada(urlImagen);
     } catch (error) {
         mostrarMensaje("🚨 No se encontraron resultados 😔");
