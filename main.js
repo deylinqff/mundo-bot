@@ -42,8 +42,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 const response = await fetch(`https://apis-starlights-team.koyeb.app/starlight/gemini?text=${encodeURIComponent(userInput)}`);
                 const data = await response.json();
                 
-                if (data && data.response) {
-                    appendMessage("IA: " + data.response, "ia");
+                if (data && data.result) {
+                    appendMessage("IA: " + data.result, "ia");
                 } else {
                     appendMessage("IA: No se pudo obtener una respuesta.", "ia");
                 }
