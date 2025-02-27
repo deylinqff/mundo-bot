@@ -13,6 +13,7 @@ body {
     text-align: center;
 }
 
+/* Botones */
 button {
     background: #007BFF;
     color: white;
@@ -27,6 +28,11 @@ button:hover {
     background: #0056b3;
 }
 
+button:focus {
+    outline: none;
+}
+
+/* Header */
 header {
     background: rgba(0, 0, 0, 0.7);
     padding: 20px;
@@ -37,14 +43,10 @@ header {
     margin: 10px 0;
 }
 
-button:focus {
-    outline: none;
-}
-
-/* Contenedor de Bots */
+/* Contenedor de Bots - Cuadrícula */
 .bot-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr); /* Cuatro columnas en pantalla grande */
     gap: 20px;
     padding: 20px;
 }
@@ -55,8 +57,29 @@ button:focus {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
     text-align: center;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.bot-card:nth-child(1) {
+    background-color: #FF5733; /* Rojo */
+}
+
+.bot-card:nth-child(2) {
+    background-color: #FF8D1A; /* Naranja */
+}
+
+.bot-card:nth-child(3) {
+    background-color: #FFC300; /* Amarillo */
+}
+
+.bot-card:nth-child(4) {
+    background-color: #28A745; /* Verde */
+}
+
+/* Imágenes de los bots */
 .bot-card img {
     width: 100%;
     height: auto;
@@ -67,6 +90,7 @@ button:focus {
     margin: 15px 0;
 }
 
+/* Botones de las tarjetas */
 .bot-card button {
     background: #28a745;
 }
@@ -89,9 +113,15 @@ button:focus {
 }
 
 /* Responsividad */
+@media (max-width: 1024px) {
+    .bot-container {
+        grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
+    }
+}
+
 @media (max-width: 768px) {
     .bot-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
     }
 
     header {
