@@ -22,6 +22,14 @@
 </div>
 
 <script>
+    // Verificar si el usuario ya está registrado
+    window.onload = function() {
+        if (localStorage.getItem('user')) {
+            window.location.href = "panel.html"; // Redirige automáticamente si ya está registrado
+        }
+    };
+
+    // Guardar datos del usuario y redirigir al panel
     document.getElementById("form-registro").addEventListener("submit", function(event) {
         event.preventDefault();
         const nombre = document.getElementById('nombre').value;
