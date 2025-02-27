@@ -15,19 +15,6 @@
     <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">  
     <meta name="twitter:image" content="https://qu.ax/ktODx.jpg">  
     <style>
-        /* Estilos generales */
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
         /* Estilos del chat de la IA */
         #ia-chat {
             display: none;
@@ -89,14 +76,10 @@
 
         /* Estilos del botón IA flotante */
         .floating-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
             background-color: #4CAF50;
             color: white;
-            border-radius: 50%;
-            padding: 20px;
-            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
             border: none;
             z-index: 1001;
@@ -122,6 +105,18 @@
             width: 200px;
             height: 200px;
             border-radius: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
         }
 
         p {
@@ -243,27 +238,4 @@
     function mostrarPerfil() {
         const usuario = JSON.parse(localStorage.getItem('user'));
         document.getElementById('user-name').innerText = usuario.nombre;
-        document.getElementById('user-email').innerText = usuario.email;
-        document.getElementById('registro').style.display = 'none';
-        document.getElementById('perfil').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'block';
-    }
-
-    function cerrarSesion() {
-        localStorage.removeItem('user');
-        document.getElementById('perfil').style.display = 'none';
-        document.getElementById('registro').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'none';
-    }
-
-    // Redireccionar al pago por WhatsApp
-    function redireccionarPago(tipoBot, precio) {
-        const numero = "50488198573";  
-        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;  
-        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;  
-        window.location.href = url;  
-    }
-</script>
-
-</body>
-</html>
+        document.getElementById('user-email').innerText = usuario.email
