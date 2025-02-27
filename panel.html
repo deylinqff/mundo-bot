@@ -46,15 +46,39 @@
     </a>
 </div>
 
+<!-- Botón solo visible para Deylin -->
+<button id="estadisticas-btn" style="display: none;">Ver estadísticas</button>
+
+<!-- Sección de estadísticas -->
+<div id="estadisticas" style="display: none;">
+    <p>Visitas a la página: <span id="visitas-contador">0</span></p>
+    <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
+</div>
+
 <script>
     window.onload = function() {
         const usuario = JSON.parse(localStorage.getItem('user'));
+        const visitas = localStorage.getItem('visitas') || 0;
+        const usuariosRegistrados = localStorage.getItem('usuariosRegistrados') || 0;
+
         if (usuario) {
             document.getElementById('user-name').innerText = usuario.nombre;
             document.getElementById('user-email').innerText = usuario.email;
+
+            // Si el usuario es Deylin, mostrar botón de estadísticas
+            if (usuario.email === "deylibaquedano801@gmail.com") {
+                document.getElementById("estadisticas-btn").style.display = "block";
+            }
         } else {
             window.location.href = "index.html";
         }
+
+        // Mostrar estadísticas cuando se presiona el botón
+        document.getElementById("estadisticas-btn").addEventListener("click", function() {
+            document.getElementById("estadisticas").style.display = "block";
+            document.getElementById("visitas-contador").innerText = visitas;
+            document.getElementById("usuarios-contador").innerText = usuariosRegistrados;
+        });
     };
 
     function cerrarSesion() {
