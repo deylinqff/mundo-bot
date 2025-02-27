@@ -1,37 +1,48 @@
-<!-- Selección de Bots -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Bots</title>
     <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- Selección de Bots -->
 <div class="bot-container">
     <div class="bot-card">
         <img src="assets/images/bot3.jpg" alt="Bot 1">
         <h3>PERSONALIZADO 1 MES</h3>
-        <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
+        <button onclick="redireccionarPago('Personalizado 1 Mes', 10)">𝗠𝗘𝗡𝗦: 10$</button>
     </div>
     <div class="bot-card">
         <img src="assets/images/bot3.jpg" alt="Bot Personal">
         <h3>PERSONALIZADO 2 MESES</h3>
-        <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
+        <button onclick="redireccionarPago('Personalizado 2 Meses', 20)">𝗠𝗘𝗡𝗦: 20$</button>
     </div>
     <div class="bot-card">
         <img src="assets/images/bot3.jpg" alt="Bot Personal">
         <h3>PERSONALIZADO 3 MESES</h3>
-        <button onclick="bots.html('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
+        <button onclick="redireccionarPago('Personalizado 3 Meses', 30)">𝗠𝗘𝗡𝗦: 30$</button>
     </div>
     <div class="bot-card">
         <img src="assets/images/bot3.jpg" alt="Bot 1">
-        <h3>PERSONALIZADO 4  MESES</h3>
-        <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
+        <h3>PERSONALIZADO 4 MESES</h3>
+        <button onclick="redireccionarPago('Personalizado 4 Meses', 40)">𝗠𝗘𝗡𝗦: 40$</button>
     </div>
     <div class="bot-card">
         <img src="assets/images/bot3.jpg" alt="Bot Personal">
         <h3>PERSONALIZADO 5 MESES</h3>
-        <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
+        <button onclick="redireccionarPago('Personalizado 5 Meses', 50)">𝗠𝗘𝗡𝗦: 50$</button>
     </div>
     <div class="bot-card">
         <img src="assets/images/bot3.jpg" alt="Bot Personal">
         <h3>PERSONALIZADO 6 MESES</h3>
-        <button onclick="bots.html('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
+        <button onclick="redireccionarPago('Personalizado 6 Meses', 60)">𝗠𝗘𝗡𝗦: 60$</button>
     </div>
+</div>
 
+<script>
     function redireccionarPago(tipoBot, precio) {
         const numero = "50488198573";
         const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
