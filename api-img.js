@@ -1,34 +1,27 @@
 // Variable para almacenar la URL de la imagen generada
 let urlImagen = "";
 
-// Función para generar la imagen
+// Función para generar la imagen con IA
 async function generarImagen(prompt) {
-    // Verificar si el usuario ingresó un prompt
     if (!prompt) {
         alert("⚠️ Debes ingresar un texto para generar la imagen.");
         return;
     }
 
     try {
-        // Mostrar mensaje de carga mientras se genera la imagen
         mostrarMensaje("✨ Generando imagen...");
 
-        // Realizar la solicitud a la API
         const respuesta = await obtenerImagenDesdeAPI(prompt);
 
-        // Si la respuesta es válida, procesar la imagen
         if (!respuesta) {
             throw new Error("La API no devolvió una imagen válida.");
         }
 
-        // Convertir la respuesta a un objeto Blob (imagen)
         const blob = await respuesta.blob();
         urlImagen = URL.createObjectURL(blob);
 
-        // Mostrar la imagen generada con un botón para descargarla
         mostrarImagenGenerada(urlImagen);
     } catch (error) {
-        // Mostrar mensaje de error si algo falla
         mostrarMensaje("🚨 Ha ocurrido un error 😔");
         console.error("Error en la generación de imagen:", error);
         alert(`❌ Error: ${error.message}`);
@@ -40,23 +33,22 @@ function mostrarMensaje(mensaje) {
     document.getElementById("resultado").innerHTML = mensaje;
 }
 
-// Función para realizar la solicitud a la API
+// Función para realizar la solicitud a la API de IA
 async function obtenerImagenDesdeAPI(prompt) {
     try {
         const urlAPI = "https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=" + encodeURIComponent(prompt);
         const respuesta = await fetch(urlAPI, {
             method: "GET",
             headers: {
-                "User-Agent": "Mozilla/5.0" // Solo User-Agent, ya que la API no requiere API Key
+                "User-Agent": "Mozilla/5.0"
             }
         });
 
-        // Si la respuesta no es correcta, lanzar un error
         if (!respuesta.ok) {
             throw new Error(`Error HTTP: ${respuesta.status} - ${respuesta.statusText}`);
         }
 
-        return respuesta; // Retornar la respuesta si todo es correcto
+        return respuesta;
     } catch (error) {
         console.error("Error al obtener la imagen desde la API:", error);
         return null;
@@ -79,11 +71,37 @@ function descargarImagen() {
         return;
     }
 
-    // Crear un enlace temporal para descargar la imagen
     const enlace = document.createElement("a");
     enlace.href = urlImagen;
     enlace.download = "imagen_generada.png";
     document.body.appendChild(enlace);
     enlace.click();
     document.body.removeChild(enlace);
+}
+
+// Función para buscar imágenes en Google
+async function buscarImagenGoogle() {
+    const prompt = document.getElementById("prompt").value;
+
+    if (!prompt) {
+        alert("⚠️ Debes ingresar un texto para buscar una imagen.");
+        return;
+    }
+
+    try {
+        mostrarMensaje("🔍 Buscando imagen en Google...");
+
+        const res = await googleImage(prompt);
+        const image = await res.getRandom();
+
+        if (!image) {
+            throw new Error("No se encontró ninguna imagen.");
+        }
+
+        urlImagen = image;
+        mostrarImagenGenerada(urlImagen);
+    } catch (error) {
+        mostrarMensaje("🚨 No se encontraron resultados 😔");
+        console.error("Error en la búsqueda de imagen:", error);
+    }
 }
