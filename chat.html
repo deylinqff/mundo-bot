@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat con Kirito-Bot</title>
+    <title>Kirito-Bot - IA</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <div id="chat-container">
         <div id="chat-header">
             <img src="https://qu.ax/ktODx.jpg" alt="Kirito-Bot" class="bot-avatar">
-            <span>Kirito-Bot</span>
+            <span>Kirito-Bot IA</span>
         </div>
         <div id="chat-box"></div>
         <div id="chat-input">
@@ -19,145 +19,6 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById("send-btn").addEventListener("click", sendMessage);
-        document.getElementById("user-input").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        });
-
-        function sendMessage() {
-            const userInput = document.getElementById("user-input").value.trim();
-            if (userInput) {
-                appendMessage(userInput, "user");
-                document.getElementById("user-input").value = '';
-
-                setTimeout(() => {
-                    const botResponse = obtenerRespuestaIA(userInput);
-                    appendMessage(botResponse, "bot");
-                }, 500);
-            }
-        }
-
-        function appendMessage(message, sender) {
-            const chatBox = document.getElementById("chat-box");
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message", sender);
-            messageDiv.textContent = message;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function obtenerRespuestaIA(input) {
-            const respuestas = [
-                "¡Hola! ¿En qué puedo ayudarte?",
-                "No entendí bien, ¿puedes repetirlo?",
-                "Eso suena interesante, cuéntame más.",
-                "Estoy aquí para responder tus preguntas.",
-                "Buena pregunta, déjame pensar..."
-            ];
-            return respuestas[Math.floor(Math.random() * respuestas.length)];
-        }
-    </script>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ece5dd;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        
-        #chat-container {
-            width: 90%;
-            max-width: 400px;
-            height: 80vh;
-            background-color: #ffffff;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        
-        #chat-header {
-            background-color: #075e54;
-            color: white;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            font-size: 18px;
-        }
-
-        .bot-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        #chat-box {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            background-color: #ece5dd;
-        }
-
-        .message {
-            max-width: 70%;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            word-wrap: break-word;
-        }
-
-        .user {
-            align-self: flex-end;
-            background-color: #dcf8c6;
-        }
-
-        .bot {
-            align-self: flex-start;
-            background-color: #ffffff;
-            border: 1px solid #ccc;
-        }
-
-        #chat-input {
-            display: flex;
-            padding: 10px;
-            background-color: white;
-            border-top: 1px solid #ddd;
-        }
-
-        #user-input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            outline: none;
-        }
-
-        #send-btn {
-            background-color: #25d366;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            margin-left: 8px;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #send-btn:hover {
-            background-color: #1ebe5d;
-        }
-    </style>
+    <script type="module" src="chat.js"></script>
 </body>
 </html>
