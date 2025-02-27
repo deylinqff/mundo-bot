@@ -3,43 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bot Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Panel de Bots</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <header>
-        <div class="user-info">
-            <h2>Bienvenido, Usuario</h2>
-            <p>Selecciona un bot para interactuar</p>
-        </div>
-    </header>
 
-    <div class="bot-container">
-        <div class="bot-card">
-            <img src="assets/images/bot1.png" alt="Bot 1">
-            <h3>Bot 1</h3>
-            <button>Interactuar</button>
-        </div>
-        <div class="bot-card">
-            <img src="assets/images/bot2.jpg" alt="Bot 2">
-            <h3>Bot 2</h3>
-            <button>Interactuar</button>
-        </div>
-        <div class="bot-card">
-            <img src="assets/images/bot1.png" alt="Bot 3">
-            <h3>Bot 3</h3>
-            <button>Interactuar</button>
-        </div>
-        <div class="bot-card">
-            <img src="assets/images/bot2.jpg" alt="Bot 4">
-            <h3>Bot 4</h3>
-            <button>Interactuar</button>
-        </div>
+<!-- Encabezado con información del usuario -->
+<div class="header">
+    <div class="user-info">
+        <h2>Bienvenido, <span id="user-name"></span></h2>
+        <p>Email: <span id="user-email"></span></p>
     </div>
+    <button onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
 
-    <div class="additional-links">
-        <a href="#"><button>Enlace Adicional 1</button></a>
-        <a href="#"><button>Enlace Adicional 2</button></a>
+<!-- Selección de Bots -->
+<div class="bot-container">
+    <div class="bot-card">
+        <img src="assets/images/bot1.png" alt="Bot 1">
+        <h3>KIRITO-BOT PARA GRUPOS</h3>
+        <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
     </div>
+    <div class="bot-card">
+        <img src="assets/images/bot2.jpg" alt="Bot Personal">
+        <h3>KIRITO-BOT PERSONAL</h3>
+        <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
+    </div>
+</div>
+
+<!-- Enlaces adicionales -->
+<div class="additional-links">
+    <a href="chat.html">
+        <button>Ir al Chat con Kirito-Bot</button>
+    </a>
+    <a href="grd-img.html">
+        <button>Generar Imágenes</button>
+    </a>
+</div>
+
+<script>
+    window.onload = function() {
+        const usuario = JSON.parse(localStorage.getItem('user'));
+        if (usuario) {
+            document.getElementById('user-name').innerText = usuario.nombre;
+            document.getElementById('user-email').innerText = usuario.email;
+        } else {
+            window.location.href = "index.html";
+        }
+    };
+
+    function cerrarSesion() {
+        localStorage.removeItem('user');
+        window.location.href = "index.html";
+    }
+
+    function redireccionarPago(tipoBot, precio) {
+        const numero = "50488198573";
+        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+        window.location.href = url;
+    }
+</script>
+
 </body>
 </html>
