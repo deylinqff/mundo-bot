@@ -8,7 +8,7 @@ async function generarImagen(prompt) {
 
     try {
         // Mostrar mensaje de carga en la web
-        document.getElementById("resultado").innerHTML = "✨ Generando imagen...";
+        document.getElementById("resultado").innerHTML = "🔥 Generando imagen...";
 
         // Llamada a la API
         const respuesta = await fetch(`https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(prompt)}`);
