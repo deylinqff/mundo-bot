@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Imágenes IA</title>
+    <title>Buscador de Imágenes</title>
+    <script src="api-img.js"></script> <!-- Conecta el script -->
 </head>
 <body style="text-align: center; font-family: Arial, sans-serif;">
-    <h2>Generador de Imágenes con IA</h2>
-    <input type="text" id="prompt" placeholder="Describe la imagen..." style="width: 80%; padding: 10px;">
-    <button onclick="generarImagen(document.getElementById('prompt').value)">Generar Imagen</button>
+    <h2>🔍 Buscador de Imágenes</h2>
+    <input type="text" id="prompt" placeholder="Ingresa un término de búsqueda..." style="width: 80%; padding: 10px;">
+    <br><br>
+    <button onclick="buscarImagenGoogle()">🔎 Buscar en Google</button>
     <div id="resultado" style="margin-top: 20px;"></div>
-
-    <script src="api-img.js"></script> <!-- Vincula el script de arriba -->
 </body>
 </html>
