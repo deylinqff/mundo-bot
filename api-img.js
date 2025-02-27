@@ -9,10 +9,11 @@ async function generarImagen(prompt) {
     try {
         document.getElementById("resultado").innerHTML = "✨ Generando imagen...";
 
-        // Usando CORS Anywhere para evitar problemas de CORS
-        const respuesta = await fetch(`https://cors-anywhere.herokuapp.com/https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(prompt)}`, {
+        // Reemplaza 'TU_API_KEY_AQUI' con tu clave API de la API que estás utilizando
+        const respuesta = await fetch("https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=" + encodeURIComponent(prompt), {
             method: "GET",
             headers: {
+                "Authorization": "Bearer https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=", // Aquí pones tu API Key
                 "User-Agent": "Mozilla/5.0"
             }
         });
