@@ -3,20 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirito Bot Web</title>
+    <title>Kirito Bot Web - Registro</title>
     <link rel="stylesheet" href="estilos.css">
-    <meta property="og:title" content="Kirito Bot Web">
-    <meta property="og:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">
-    <meta property="og:image" content="https://qu.ax/ktODx.jpg">
-    <meta property="og:url" content="https://deylinqff.github.io/Kirito-Bot-web/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kirito Bot Web">
-    <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">
-    <meta name="twitter:image" content="https://qu.ax/ktODx.jpg">
 </head>
 <body>
-<div id="registro" class="container" style="display: none;">
+
+<div id="registro" class="container">
     <h1>Registro de Usuario</h1>
     <form id="form-registro">
         <label for="nombre">Nombre:</label>
@@ -29,92 +21,14 @@
     </form>
 </div>
 
-<div id="perfil" class="container" style="display: none;">
-    <h1>Bienvenido, <span id="user-name"></span>!</h1>
-    <p>Correo: <span id="user-email"></span></p>
-    <button onclick="cerrarSesion()">Cerrar sesión</button>
-</div>
-
-<div id="seleccion-bots" class="container" style="display: none;">
-    <h1>Elige tu Bot</h1>
-    <div class="bot">
-        <img src="assets/images/bot1.png" alt="bot de grupo">
-        <h2>KIRITO-BOT PARA GRUPOS</h2>
-        <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
-    </div>
-    <div class="bot">
-        <img src="assets/images/bot2.jpg" alt="Bot Personal">
-        <h2>KIRITO-BOT PERSONAL</h2>
-        <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
-    </div>
-</div>
-
-<!-- Botón para ir al chat de la IA -->
-<div class="container">
-    <a href="chat.html">
-        <button>Ir al Chat con Kirito-Bot</button>
-    </a>
-</div>
-
-<!-- Botón para ir al generador de imagen-->
-<div class="container">
-    <a href="grd-img.html">
-        <button>generar imágenes</button>
-    </a>
-</div>
-
-<p align="center">
-  <a href="https://github.com/deylinqff">
-    <img src="https://img.shields.io/badge/GitHub-Deylinqff-181717?style=for-the-badge&logo=github">
-  </a>
-  <a href="https://wa.me/50488198573">
-    <img src="https://img.shields.io/badge/WhatsApp-Contactar-25D366?style=for-the-badge&logo=whatsapp">
-  </a>
-  <a href="mailto:deylibaquedano801@gmail.com">
-    <img src="https://img.shields.io/badge/Email-Enviame%20un%20correo-EA4335?style=for-the-badge&logo=gmail">
-  </a>
-</p>
-
-<script src="main.js"></script>
 <script>
-    window.onload = function() {
-        if(localStorage.getItem('user')) {
-            mostrarPerfil();
-        } else {
-            document.getElementById('registro').style.display = 'block';
-        }
-    };
-
     document.getElementById("form-registro").addEventListener("submit", function(event) {
         event.preventDefault();
         const nombre = document.getElementById('nombre').value;
         const email = document.getElementById('email').value;
         localStorage.setItem('user', JSON.stringify({ nombre, email }));
-        mostrarPerfil();
+        window.location.href = "panel.html";
     });
-
-    function mostrarPerfil() {
-        const usuario = JSON.parse(localStorage.getItem('user'));
-        document.getElementById('user-name').innerText = usuario.nombre;
-        document.getElementById('user-email').innerText = usuario.email;
-        document.getElementById('registro').style.display = 'none';
-        document.getElementById('perfil').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'block';
-    }
-
-    function cerrarSesion() {
-        localStorage.removeItem('user');
-        document.getElementById('perfil').style.display = 'none';
-        document.getElementById('registro').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'none';
-    }
-
-    function redireccionarPago(tipoBot, precio) {
-        const numero = "50488198573";
-        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
-        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-        window.location.href = url;
-    }
 </script>
 
 </body>
