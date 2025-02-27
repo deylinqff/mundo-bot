@@ -8,28 +8,31 @@
 </head>
 <body>
 
-<div id="perfil" class="container">
-    <h1>Bienvenido, <span id="user-name"></span>!</h1>
-    <p>Correo: <span id="user-email"></span></p>
+<!-- Encabezado con información del usuario -->
+<div class="header">
+    <div class="user-info">
+        <h2>Bienvenido, <span id="user-name"></span></h2>
+        <p>Email: <span id="user-email"></span></p>
+    </div>
     <button onclick="cerrarSesion()">Cerrar sesión</button>
 </div>
 
-<div id="seleccion-bots" class="container">
-    <h1>Elige tu Bot</h1>
-    <div class="bot">
-        <img src="assets/images/bot1.png" alt="bot de grupo">
-        <h2>KIRITO-BOT PARA GRUPOS</h2>
+<!-- Selección de Bots -->
+<div class="bot-container">
+    <div class="bot-card">
+        <img src="assets/images/bot1.png" alt="Bot 1">
+        <h3>KIRITO-BOT PARA GRUPOS</h3>
         <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
     </div>
-    <div class="bot">
+    <div class="bot-card">
         <img src="assets/images/bot2.jpg" alt="Bot Personal">
-        <h2>KIRITO-BOT PERSONAL</h2>
+        <h3>KIRITO-BOT PERSONAL</h3>
         <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
     </div>
 </div>
 
-<!-- Botones adicionales -->
-<div class="container">
+<!-- Enlaces adicionales -->
+<div class="additional-links">
     <a href="chat.html">
         <button>Ir al Chat con Kirito-Bot</button>
     </a>
