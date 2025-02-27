@@ -47,8 +47,8 @@ body {
     margin: 10px 0;
 }
 
-/* Botones */
-.bot-card button {
+/* Botones (Todos iguales) */
+button {
     background: #007BFF;
     color: white;
     border: none;
@@ -56,10 +56,11 @@ body {
     padding: 8px;
     font-size: 12px;
     cursor: pointer;
-    width: 100%;
+    width: auto;
+    margin: 5px;
 }
 
-.bot-card button:hover {
+button:hover {
     background: #0056b3;
 }
 
