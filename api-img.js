@@ -13,15 +13,23 @@ async function generarImagen(prompt) {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "api-key": "TU_API_KEY_AQUI" // Reemplázala con tu API Key de DeepAI
+                "api-key": "9c4524ee-9053-4834-9e0d-038bc33aebd8" // Tu API Key
             },
             body: `text=${encodeURIComponent(prompt)}`
         });
 
-        const data = await respuesta.json();
-        console.log("Respuesta de la API:", data);
+        if (!respuesta.ok) {
+            throw new Error(`Error en la API: ${respuesta.status} ${respuesta.statusText}`);
+        }
 
-        if (!data || !data.output_url) {
+        const data = await respuesta.json();
+        console.log("Respuesta completa de la API:", data);
+
+        if (data.error) {
+            throw new Error(`Error de la API: ${data.error}`);
+        }
+
+        if (!data.output_url) {
             throw new Error("La API no devolvió una imagen válida.");
         }
 
@@ -35,6 +43,7 @@ async function generarImagen(prompt) {
     } catch (error) {
         document.getElementById("resultado").innerHTML = "🚨 Ha ocurrido un error 😔";
         console.error("Error en la generación de imagen:", error);
+        alert(`❌ Error: ${error.message}`);
     }
 }
 
