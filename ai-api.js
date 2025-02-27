@@ -2,7 +2,6 @@ const API_URL = "https://apis-starlights-team.koyeb.app/starlight/gemini?text=";
 
 async function obtenerRespuestaIA(mensaje) {
     try {
-        // Convertir mensaje a minúsculas para comparar sin problemas
         const mensajeLower = mensaje.toLowerCase();
 
         // Respuestas personalizadas
@@ -18,9 +17,13 @@ async function obtenerRespuestaIA(mensaje) {
             return "Solo hablo español.";
         }
 
-        // Si no coincide con ninguna respuesta personalizada, consulta la IA
-        const respuesta = await fetch(API_URL + encodeURIComponent(mensaje));
+        // Agregamos un prompt base para que la IA tenga una personalidad fija
+        const promptBase = `Tu nombre es Kirito-Bot, fuiste creado por Deylin y solo hablas español. Te gusta ser amigable, divertido y ayudar a los demás. `;
+        const consultaIA = promptBase + mensaje;
+
+        const respuesta = await fetch(API_URL + encodeURIComponent(consultaIA));
         const data = await respuesta.json();
+        
         return data.result || "Lo siento, no entendí eso.";
     } catch (error) {
         console.error("Error en la IA:", error);
