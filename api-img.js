@@ -7,13 +7,12 @@ async function generarImagen(prompt) {
     }
 
     try {
-        document.getElementById("resultado").innerHTML = "✨ Generando imagen...";
+        document.getElementById("resultado").innerHTML = "👑 Generando imagen...";
 
-        // Reemplaza 'TU_API_KEY_AQUI' con tu clave API de la API que estás utilizando
+        // Realiza la solicitud sin necesidad de API Key
         const respuesta = await fetch("https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=" + encodeURIComponent(prompt), {
             method: "GET",
             headers: {
-                "Authorization": "Bearer https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=", // Aquí pones tu API Key
                 "User-Agent": "Mozilla/5.0"
             }
         });
