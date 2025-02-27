@@ -5,6 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Kirito Bot Web</title>  
     <link rel="stylesheet" href="estilos.css">  
+    <meta property="og:title" content="Kirito Bot Web">  
+    <meta property="og:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">  
+    <meta property="og:image" content="https://qu.ax/ktODx.jpg">  
+    <meta property="og:url" content="https://deylinqff.github.io/Kirito-Bot-web/">  
+    <meta property="og:type" content="website">  
+    <meta name="twitter:card" content="summary_large_image">  
+    <meta name="twitter:title" content="Kirito Bot Web">  
+    <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Kirito-Bot.">  
+    <meta name="twitter:image" content="https://qu.ax/ktODx.jpg">  
+    <style>
+        /* Estilos del chat de la IA */
+        #ia-chat {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            height: 400px;
+            z-index: 1000;
+        }
+
+        #ia-chat .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        #ia-chat .input-group {
+            display: flex;
+        }
+
+        #ia-chat .input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #ia-chat .input-group button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #ia-chat .input-group button:hover {
+            background-color: #45a049;
+        }
+
+        #ia-chat .message.user {
+            text-align: right;
+            color: #007bff;
+        }
+
+        #ia-chat .message.ia {
+            text-align: left;
+            color: #333;
+        }
+    </style>
 </head>  
 <body>  
 
@@ -12,63 +81,13 @@
 <button class="floating-btn" onclick="toggleIAChat()">IA</button>
 
 <!-- Chat de la IA -->
-<div id="ia-chat" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: white; padding: 10px; border-radius: 10px; width: 300px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
-    <div class="chat-box" id="chat-box" style="height: 300px; overflow-y: auto; padding: 10px; border: 1px solid #ddd;"></div>
-    <div class="input-group" style="display: flex;">
-        <input type="text" id="user-input" placeholder="Escribe tu mensaje..." style="flex: 1; padding: 10px; border: 1px solid #ddd;">
-        <button id="send-btn" style="padding: 10px; background-color: #4CAF50; color: white; border: none;">Enviar</button>
+<div id="ia-chat">
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-group">
+        <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+        <button id="send-btn">Enviar</button>
     </div>
 </div>
-
-<!-- Registro de Usuario -->
-<div id="registro" class="container">
-    <h1>Registro de Usuario</h1>
-    <form id="form-registro">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" required>
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" required>
-        <button type="submit">Registrarse</button>
-    </form>
-</div>
-
-<!-- Perfil del Usuario -->
-<div id="perfil" class="container" style="display: none;">
-    <h1>Bienvenido, <span id="user-name"></span>!</h1>
-    <button onclick="cerrarSesion()">Cerrar sesión</button>
-</div>
-
-<!-- Selección de Bots -->
-<div id="seleccion-bots" class="container" style="display: none;">
-    <h1>Elige tu Bot</h1>
-    <div class="bot">
-        <img src="assets/images/bot1.png" alt="bot de grupo">
-        <h2>KIRITO-BOT PARA GRUPOS</h2>
-        <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
-    </div>
-    <div class="bot">
-        <img src="assets/images/bot2.jpg" alt="Bot Personal">
-        <h2>KIRITO-BOT PERSONAL</h2>
-        <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
-    </div>
-    <div class="bot">
-        <h2>Bot de la IA</h2>
-        <button onclick="toggleIAChat()">Chatea con la IA</button>
-    </div>
-</div>
-
-<!-- Contactos -->
-<p align="center">
-  <a href="https://github.com/deylinqff">
-    <img src="https://img.shields.io/badge/GitHub-Deylinqff-181717?style=for-the-badge&logo=github">
-  </a>
-  <a href="https://wa.me/50488198573">
-    <img src="https://img.shields.io/badge/WhatsApp-Contactar-25D366?style=for-the-badge&logo=whatsapp">
-  </a>
-  <a href="mailto:deylibaquedano801@gmail.com">
-    <img src="https://img.shields.io/badge/Email-Enviame%20un%20un%20correo-EA4335?style=for-the-badge&logo=gmail">
-  </a>
-</p>
 
 <script>
     // Función para mostrar/ocultar el chat de la IA
@@ -77,6 +96,17 @@
         chat.style.display = (chat.style.display === "none" || chat.style.display === "") ? "block" : "none";
     }
 
+    // Función para manejar los mensajes en el chat
+    function appendMessage(message, sender) {
+        const chatBox = document.getElementById("chat-box");
+        const newMessage = document.createElement("div");
+        newMessage.textContent = message;
+        newMessage.className = 'message ' + sender;
+        chatBox.appendChild(newMessage);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Función para obtener respuesta desde la API
     async function obtenerRespuestaIA(text) {
         try {
             let response = await fetch(`https://apis-starlights-team.koyeb.app/starlight/gemini?text=${encodeURIComponent(text)}`);
@@ -88,63 +118,17 @@
         }
     }
 
-    function appendMessage(message, sender) {
-        const chatBox = document.getElementById("chat-box");
-        const newMessage = document.createElement("div");
-        newMessage.textContent = message;
-        newMessage.className = 'message ' + sender;
-        chatBox.appendChild(newMessage);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
+    // Enviar mensaje y recibir respuesta de la IA
     document.getElementById("send-btn").addEventListener("click", async () => {
         const userInput = document.getElementById("user-input").value;
         if (userInput.trim()) {
             appendMessage("Tú: " + userInput, "user");
             document.getElementById("user-input").value = '';
+
             let respuestaIA = await obtenerRespuestaIA(userInput);
             appendMessage("IA: " + respuestaIA, "ia");
         }
     });
-
-    // Registro y sesión de usuario
-    window.onload = function() {
-        if (localStorage.getItem('user')) {
-            mostrarPerfil();
-        } else {
-            document.getElementById('registro').style.display = 'block';
-        }
-    };
-
-    document.getElementById("form-registro").addEventListener("submit", function(event) {
-        event.preventDefault();
-        const nombre = document.getElementById('nombre').value;
-        const email = document.getElementById('email').value;
-        localStorage.setItem('user', JSON.stringify({ nombre, email }));
-        mostrarPerfil();
-    });
-
-    function mostrarPerfil() {
-        const usuario = JSON.parse(localStorage.getItem('user'));
-        document.getElementById('user-name').innerText = usuario.nombre;
-        document.getElementById('registro').style.display = 'none';
-        document.getElementById('perfil').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'block';
-    }
-
-    function cerrarSesion() {
-        localStorage.removeItem('user');
-        document.getElementById('perfil').style.display = 'none';
-        document.getElementById('registro').style.display = 'block';
-        document.getElementById('seleccion-bots').style.display = 'none';
-    }
-
-    function redireccionarPago(tipoBot, precio) {
-        const numero = "50488198573";  
-        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;  
-        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;  
-        window.location.href = url;  
-    }
 </script>
 
 </body>
