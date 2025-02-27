@@ -33,6 +33,13 @@
 </div>
 
 <script>
+    // Incrementar contador de visitas
+    if (!localStorage.getItem('visitas')) {
+        localStorage.setItem('visitas', 1);
+    } else {
+        localStorage.setItem('visitas', parseInt(localStorage.getItem('visitas')) + 1);
+    }
+
     // Verificar si el usuario ya está registrado
     window.onload = function() {
         if (localStorage.getItem('user')) {
@@ -45,7 +52,17 @@
         event.preventDefault();
         const nombre = document.getElementById('nombre').value;
         const email = document.getElementById('email').value;
+
+        // Guardar en localStorage
         localStorage.setItem('user', JSON.stringify({ nombre, email }));
+
+        // Incrementar contador de usuarios registrados
+        if (!localStorage.getItem('usuariosRegistrados')) {
+            localStorage.setItem('usuariosRegistrados', 1);
+        } else {
+            localStorage.setItem('usuariosRegistrados', parseInt(localStorage.getItem('usuariosRegistrados')) + 1);
+        }
+
         window.location.href = "panel.html";
     });
 </script>
