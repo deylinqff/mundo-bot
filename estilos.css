@@ -12,13 +12,13 @@ body {
     text-align: center;
 }
 
-/* Contenedor de Bots - Flexbox para móviles */
+/* Contenedor de Bots - Grid para mejor alineación */
 .bot-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas en móviles */
     gap: 10px;
     padding: 10px;
+    justify-items: center;
 }
 
 /* Tarjetas */
@@ -27,22 +27,23 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 45%; /* Tamaño más compacto */
+    width: 90%; /* Ajuste de ancho */
+    max-width: 160px;
     padding: 10px;
     height: auto;
 }
 
-/* Imágenes de los bots */
+/* Imágenes */
 .bot-card img {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 10px;
     object-fit: cover;
 }
 
 /* Títulos */
 .bot-card h3 {
-    font-size: 14px;
+    font-size: 13px;
     margin: 10px 0;
 }
 
@@ -64,8 +65,13 @@ body {
 
 /* Responsividad */
 @media (max-width: 768px) {
+    .bot-container {
+        grid-template-columns: repeat(2, 1fr); /* Mantener 2 columnas en móviles */
+    }
+
     .bot-card {
-        width: 90%; /* Para ocupar casi todo el ancho en móviles */
+        width: 90%;
+        max-width: 140px;
     }
 
     .bot-card img {
