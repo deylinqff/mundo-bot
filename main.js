@@ -15,28 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
         alert("Pago realizado con éxito. ¡Gracias por tu compra!");
     });
 
-    // Función para manejar la interacción con la IA
-    document.getElementById("send-btn").addEventListener("click", async () => {
-        const userInput = document.getElementById("user-input").value;
-        if (userInput.trim()) {
-            appendMessage("Tú: " + userInput, "user");
-            document.getElementById("user-input").value = '';
+    // Función para abrir/cerrar el chat de IA
+    window.toggleIAChat = function() {
+        const chat = document.getElementById("ia-chat");
+        chat.style.display = (chat.style.display === "none" || chat.style.display === "") ? "block" : "none";
+    };
 
-            // Llamada al backend para obtener la respuesta de la IA
-            const response = await fetch('/get-response', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userInput })
-            });
-
-            const data = await response.json();
-            appendMessage("IA: " + data.response, "ia");
-        }
-    });
-
-    // Función para mostrar los mensajes en el chat
+    // Función para agregar mensajes al chat
     function appendMessage(message, sender) {
         const chatBox = document.getElementById("chat-box");
         const newMessage = document.createElement("div");
@@ -45,4 +30,28 @@ document.addEventListener("DOMContentLoaded", function() {
         chatBox.appendChild(newMessage);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
+
+    // Función para enviar mensajes a la API de IA y mostrar la respuesta
+    async function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        if (userInput.trim()) {
+            appendMessage("Tú: " + userInput, "user");
+            document.getElementById("user-input").value = '';
+
+            try {
+                const response = await fetch(`https://apis-starlights-team.koyeb.app/starlight/gemini?text=${encodeURIComponent(userInput)}`);
+                const data = await response.json();
+                
+                if (data && data.response) {
+                    appendMessage("IA: " + data.response, "ia");
+                } else {
+                    appendMessage("IA: No se pudo obtener una respuesta.", "ia");
+                }
+            } catch (error) {
+                appendMessage("IA: Error al conectar con la API.", "ia");
+            }
+        }
+    }
+
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
 });
