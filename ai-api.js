@@ -4,7 +4,7 @@ async function obtenerRespuestaIA(mensaje) {
     try {
         const respuesta = await fetch(API_URL + encodeURIComponent(mensaje));
         const data = await respuesta.json();
-        return data.response || "Lo siento, no entendí eso.";
+        return data.result || "Lo siento, no entendí eso.";
     } catch (error) {
         console.error("Error en la IA:", error);
         return "Hubo un error al contactar a la IA.";
