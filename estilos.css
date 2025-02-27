@@ -1,3 +1,18 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('assets/images/fondo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    padding: 20px;
+}
+
 /* Contenedor Central */
 .container {
     width: 100%;
@@ -7,17 +22,24 @@
     padding: 20px;
     border-radius: 10px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    flex-wrap: wrap; /* Para ajustar en varias filas */
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
 }
 
-/* Diseño de Bots */
+/* Títulos */
+h1 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Botones y opciones */
 .bot {
-    display: flex;
-    flex-direction: column;
-    width: 30%; /* Espacio horizontal para 3 elementos */
-    margin: 10px;
+    display: inline-block;
+    width: 48%;
+    margin-bottom: 20px;
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 10px;
@@ -48,6 +70,37 @@
     background-color: #0056b3;
 }
 
+/* Formularios */
+form {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+button {
+    background: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
     .container {
@@ -56,7 +109,16 @@
     }
 
     .bot {
-        width: 100%; /* Los bots se apilan verticalmente */
+        width: 100%;
         margin-bottom: 15px;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    button {
+        font-size: 1.1rem;
+        padding: 12px 20px;
     }
 }
