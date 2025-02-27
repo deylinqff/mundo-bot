@@ -7,16 +7,9 @@ async function generarImagen(prompt) {
     }
 
     try {
-        document.getElementById("resultado").innerHTML = "✨ Generando imagen...";
+        document.getElementById("resultado").innerHTML = "👑 Generando imagen...";
 
-        const respuesta = await fetch("https://api.deepai.org/api/text2img", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "api-key": "9c4524ee-9053-4834-9e0d-038bc33aebd8" // Tu API Key
-            },
-            body: `text=${encodeURIComponent(prompt)}`
-        });
+        const respuesta = await fetch(`https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(prompt)}`);
 
         if (!respuesta.ok) {
             throw new Error(`Error en la API: ${respuesta.status} ${respuesta.statusText}`);
@@ -25,15 +18,11 @@ async function generarImagen(prompt) {
         const data = await respuesta.json();
         console.log("Respuesta completa de la API:", data);
 
-        if (data.error) {
-            throw new Error(`Error de la API: ${data.error}`);
-        }
-
-        if (!data.output_url) {
+        if (!data || !data.image || !data.image.url) {
             throw new Error("La API no devolvió una imagen válida.");
         }
 
-        urlImagen = data.output_url;
+        urlImagen = data.image.url;
 
         document.getElementById("resultado").innerHTML = `
             <p>✅ Imagen generada con éxito:</p>
