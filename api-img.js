@@ -7,27 +7,26 @@ async function generarImagen(prompt) {
     }
 
     try {
-        // Mostrar mensaje de carga en la web
-        document.getElementById("resultado").innerHTML = "🔥 Generando imagen...";
+        document.getElementById("resultado").innerHTML = "✨ Generando imagen...";
 
-        // Llamada a la API
-        const respuesta = await fetch(`https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(prompt)}`);
+        const respuesta = await fetch("https://api.deepai.org/api/text2img", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "api-key": "TU_API_KEY_AQUI" // Reemplázala con tu API Key de DeepAI
+            },
+            body: `text=${encodeURIComponent(prompt)}`
+        });
 
-        if (!respuesta.ok) {
-            throw new Error("Error en la generación de la imagen.");
-        }
-
-        // Convertir la respuesta a JSON
         const data = await respuesta.json();
+        console.log("Respuesta de la API:", data);
 
-        if (!data || !data.image || !data.image.url) {
+        if (!data || !data.output_url) {
             throw new Error("La API no devolvió una imagen válida.");
         }
 
-        // Obtener la URL de la imagen generada
-        urlImagen = data.image.url;
+        urlImagen = data.output_url;
 
-        // Mostrar imagen generada en la web con botón de descarga
         document.getElementById("resultado").innerHTML = `
             <p>✅ Imagen generada con éxito:</p>
             <img src="${urlImagen}" alt="Imagen generada" style="max-width:100%;border-radius:10px;"><br><br>
