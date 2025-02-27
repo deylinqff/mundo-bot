@@ -1,11 +1,11 @@
-const API_URL = "https://apis-starlights-team.koyeb.app/starlight/gemini?text=";
+const API_URL = "https://api.ryzendesu.vip/api/ai/gemini-pro?text=";
 
 async function obtenerRespuestaIA(mensaje) {
     try {
-        const promptBase = `Tu nombre es Kirito-Bot, fuiste creado por Deylin y solo hablas español. Te gusta ser amigable, divertido y ayudar a los demás. Solo mencionarás tu nombre, creador e idioma si alguien te pregunta delo contrario no y tienes que responder a todo.`;
+        const promptBase = `Tu nombre es Kirito-Bot, fuiste creado por Deylin y solo hablas español. Te gusta ser amigable, divertido y ayudar a los demás. Solo mencionarás tu nombre, creador e idioma si alguien te pregunta, de lo contrario no, y tienes que responder a todo.`;
         const consultaIA = promptBase + " " + mensaje;
 
-        const respuesta = await fetch(API_URL + encodeURIComponent(consultaIA));
+        const respuesta = await fetch(`${API_URL}${encodeURIComponent(mensaje)}&prompt=${encodeURIComponent(promptBase)}`);
         const data = await respuesta.json();
 
         return data.result || "Lo siento, no entendí eso.";
