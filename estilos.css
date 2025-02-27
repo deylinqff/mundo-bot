@@ -13,78 +13,94 @@ body {
     text-align: center;
 }
 
-/* Diseño de Cuadrícula */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 50px auto;
-}
-
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.card {
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-.card img {
-    width: 100%;
-    border-radius: 10px;
-    max-height: 200px;
-    object-fit: cover;
-}
-
-.card h3 {
-    margin: 15px 0;
-}
-
-.card p {
-    margin-bottom: 20px;
-    color: #ccc;
-}
-
-.card button {
+button {
     background: #007BFF;
     color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
-.card button:hover {
+button:hover {
     background: #0056b3;
 }
 
-/* Diseño para pantallas pequeñas */
+header {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-bottom: 2px solid #444;
+}
+
+.user-info h2, .user-info p {
+    margin: 10px 0;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Contenedor de Bots */
+.bot-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.bot-card {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.bot-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.bot-card h3 {
+    margin: 15px 0;
+}
+
+.bot-card button {
+    background: #28a745;
+}
+
+.bot-card button:hover {
+    background: #218838;
+}
+
+/* Enlaces adicionales */
+.additional-links {
+    margin-top: 30px;
+}
+
+.additional-links a {
+    text-decoration: none;
+}
+
+.additional-links button {
+    margin: 10px;
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
-    .card-grid {
+    .bot-container {
         grid-template-columns: 1fr;
     }
-}
 
-/* Botón Flotante */
-.floating-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #FF5722;
-    color: white;
-    padding: 15px 25px;
-    border: none;
-    border-radius: 50px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+    header {
+        text-align: center;
+    }
 
-.floating-btn:hover {
-    background: #e64a19;
+    .additional-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
