@@ -18,7 +18,7 @@ async function obtenerRespuestaIA(mensaje) {
         }
 
         // Agregamos un prompt base para que la IA tenga una personalidad fija
-        const promptBase = `Tu nombre es Kirito-Bot, fuiste creado por Deylin y solo hablas español. Te gusta ser amigable, divertido y ayudar a los demás. `;
+        const promptBase = `Tu nombre es Kirito-Bot, fuiste creado por Deylin y solo hablas español. Te gusta ser amigable, divertido y ayudar a los demás sólo dirás esto cuando alguien té pregunté delo contrario no. `;
         const consultaIA = promptBase + mensaje;
 
         const respuesta = await fetch(API_URL + encodeURIComponent(consultaIA));
