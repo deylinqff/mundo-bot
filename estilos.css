@@ -1,136 +1,66 @@
 /* Estilos Generales */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
     background: url('assets/images/fondo.jpg') no-repeat center center fixed;
     background-size: cover;
+    margin: 0;
+    padding: 0;
     color: white;
+}
+
+/* Contenedor Central */
+.container {
+    width: 90%;
+    max-width: 400px;
+    margin: 50px auto;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
 }
 
-/* Botones */
+/* Formularios */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
 button {
     background: #007BFF;
     color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
 button:hover {
     background: #0056b3;
 }
 
-button:focus {
-    outline: none;
-}
-
-/* Header */
-header {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-bottom: 2px solid #444;
-}
-
-.user-info h2, .user-info p {
-    margin: 10px 0;
-}
-
-/* Contenedor de Bots - Cuadrícula */
-.bot-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Cuatro columnas en pantalla grande */
-    gap: 20px;
-    padding: 20px;
-}
-
-.bot-card {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
+/* Diseño de Bots */
+.bot {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    margin-top: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-    text-align: center;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
-.bot-card:nth-child(1) {
-    background-color: #FF5733; /* Rojo */
-}
-
-.bot-card:nth-child(2) {
-    background-color: #FF8D1A; /* Naranja */
-}
-
-.bot-card:nth-child(3) {
-    background-color: #FFC300; /* Amarillo */
-}
-
-.bot-card:nth-child(4) {
-    background-color: #28A745; /* Verde */
-}
-
-/* Imágenes de los bots */
-.bot-card img {
+.bot img {
     width: 100%;
-    height: auto;
     border-radius: 10px;
 }
 
-.bot-card h3 {
-    margin: 15px 0;
-}
-
-/* Botones de las tarjetas */
-.bot-card button {
-    background: #28a745;
-}
-
-.bot-card button:hover {
-    background: #218838;
-}
-
-/* Enlaces adicionales */
-.additional-links {
-    margin-top: 30px;
-}
-
-.additional-links a {
-    text-decoration: none;
-}
-
-.additional-links button {
-    margin: 10px;
-}
-
-/* Responsividad */
-@media (max-width: 1024px) {
-    .bot-container {
-        grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
-    }
-}
-
-@media (max-width: 768px) {
-    .bot-container {
-        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-    }
-
-    header {
-        text-align: center;
-    }
-
-    .additional-links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+.bot h2 {
+    margin: 10px 0;
 }
