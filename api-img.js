@@ -7,7 +7,7 @@ async function generarImagen(prompt) {
     }
 
     try {
-        document.getElementById("resultado").innerHTML = "🔥 Generando imagen...";
+        document.getElementById("resultado").innerHTML = "✨ Generando imagen...";
 
         // Usando CORS Anywhere para evitar problemas de CORS
         const respuesta = await fetch(`https://cors-anywhere.herokuapp.com/https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(prompt)}`, {
@@ -18,7 +18,7 @@ async function generarImagen(prompt) {
         });
 
         if (!respuesta.ok) {
-            throw new Error("Error en la generación de la imagen.");
+            throw new Error(`Error HTTP: ${respuesta.status} - ${respuesta.statusText}`);
         }
 
         // Convertir la respuesta a Blob para imagen
@@ -34,6 +34,7 @@ async function generarImagen(prompt) {
     } catch (error) {
         document.getElementById("resultado").innerHTML = "🚨 Ha ocurrido un error 😔";
         console.error("Error en la generación de imagen:", error);
+        alert(`❌ Error: ${error.message}`); // Muestra el mensaje de error en una alerta
     }
 }
 
