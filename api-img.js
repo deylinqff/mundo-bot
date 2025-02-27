@@ -1,5 +1,3 @@
-let urlImagen = ""; // Variable para almacenar la URL de la imagen generada
-
 async function generarImagen(prompt) {
     if (!prompt) {
         alert("⚠️ Debes ingresar un texto para generar la imagen.");
@@ -7,21 +5,24 @@ async function generarImagen(prompt) {
     }
 
     try {
-        // Mostrar mensaje de carga en la web
         document.getElementById("resultado").innerHTML = "✨ Generando imagen...";
 
-        // Llamada a la API
         const respuesta = await fetch(`https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(prompt)}`);
-        
+
         if (!respuesta.ok) {
-            throw new Error("Error en la generación de la imagen.");
+            throw new Error(`Error HTTP: ${respuesta.status}`);
         }
 
-        // Convertir la respuesta a Blob para imagen
-        const blob = await respuesta.blob();
-        urlImagen = URL.createObjectURL(blob);
+        // Ver la respuesta JSON antes de continuar
+        const data = await respuesta.json();
+        console.log("Respuesta de la API:", data);
 
-        // Mostrar imagen generada en la web con botón de descarga
+        if (!data || !data.image || !data.image.url) {
+            throw new Error("La API no devolvió una imagen válida.");
+        }
+
+        urlImagen = data.image.url; // Guarda la URL de la imagen
+
         document.getElementById("resultado").innerHTML = `
             <p>✅ Imagen generada con éxito:</p>
             <img src="${urlImagen}" alt="Imagen generada" style="max-width:100%;border-radius:10px;"><br><br>
@@ -31,19 +32,4 @@ async function generarImagen(prompt) {
         document.getElementById("resultado").innerHTML = "🚨 Ha ocurrido un error 😔";
         console.error("Error en la generación de imagen:", error);
     }
-}
-
-// Función para descargar la imagen
-function descargarImagen() {
-    if (!urlImagen) {
-        alert("⚠️ No hay imagen generada para descargar.");
-        return;
-    }
-
-    const enlace = document.createElement("a");
-    enlace.href = urlImagen;
-    enlace.download = "imagen_generada.png";
-    document.body.appendChild(enlace);
-    enlace.click();
-    document.body.removeChild(enlace);
 }
