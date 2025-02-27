@@ -31,3 +31,14 @@
         <h3>PERSONALIZADO 6 MESES</h3>
         <button onclick="bots.html('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
     </div>
+
+    function redireccionarPago(tipoBot, precio) {
+        const numero = "50488198573";
+        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+        window.location.href = url;
+    }
+</script>
+
+</body>
+</html>
