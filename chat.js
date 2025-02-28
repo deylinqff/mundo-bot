@@ -13,7 +13,7 @@ async function sendMessage() {
         appendMessage(userInput, "user");
         document.getElementById("user-input").value = '';
 
-        appendMessage("Escribiendo...", "bot");
+        appendMessage("👑 Escribiendo...", "bot");
 
         try {
             const botResponse = await obtenerRespuestaIA(userInput);
