@@ -1,1 +1,73 @@
-https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Bots</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- Selección de Bots -->
+<n1>𝗠𝗔𝗦 𝗕𝗢𝗧𝗦</n1>
+<div class="bot-container">
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg" alt="Bot 1">
+        <h3>PERSONALIZADO 1 MES</h3>
+        <button onclick="redireccionarPago('Personalizado 1 Mes', 10)">𝗠𝗘𝗡𝗦: 10$</button>
+    </div>
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg" alt="Bot Personal">
+        <h3>PERSONALIZADO 2 MESES</h3>
+        <button onclick="redireccionarPago('Personalizado 2 Meses', 20)">𝗠𝗘𝗡𝗦: 20$</button>
+    </div>
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg" alt="Bot Personal">
+        <h3>PERSONALIZADO 3 MESES</h3>
+        <button onclick="redireccionarPago('Personalizado 3 Meses', 30)">𝗠𝗘𝗡𝗦: 30$</button>
+    </div>
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg" alt="Bot 1">
+        <h3>PERSONALIZADO 4 MESES</h3>
+        <button onclick="redireccionarPago('Personalizado 4 Meses', 40)">𝗠𝗘𝗡𝗦: 40$</button>
+    </div>
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg" alt="Bot Personal">
+        <h3>PERSONALIZADO 5 MESES</h3>
+        <button onclick="redireccionarPago('Personalizado 5 Meses', 50)">𝗠𝗘𝗡𝗦: 50$</button>
+    </div>
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg" alt="Bot Personal">
+        <h3>PERSONALIZADO 6 MESES</h3>
+        <button onclick="redireccionarPago('Personalizado 6 Meses', 60)">𝗠𝗘𝗡𝗦: 60$</button>
+    </div>
+</div>
+
+<!-- Información del Bot -->
+<div style="text-align: center; margin-top: 20px; font-weight: bold;">
+    <p>Información del Bot</p>
+    <p>Este bot ha sido desarrollado por Andrea Castillo y está disponible para su uso en grupos o de manera personal.</p>
+    <p>Ofrecemos la opción de adquirirlo con o sin servidores, según tus necesidades.</p>
+    <p>Planes de alquiler disponibles:</p>
+    <ul>
+        <li>✔ 1 mes</li>
+        <li>✔ 2 meses</li>
+        <li>✔ 3 meses</li>
+        <li>✔ 4 meses</li>
+        <li>✔ 5 meses</li>
+        <li>✔ 6 meses</li>
+    </ul>
+    <p>Optimiza la gestión de tus grupos o tareas con un bot adaptado a ti.</p>
+</div>
+
+<script>
+    function redireccionarPago(tipoBot, precio) {
+        const numero = "527441071835";
+        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+        window.location.href = url;
+    }
+</script>
+
+</body>
+</html>
