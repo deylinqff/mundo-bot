@@ -10,19 +10,10 @@
     <meta property="og:title" content="Mundo-Bot Web">
     <meta property="og:description" content="Alquila o compra tu bot personalizado con Mundo-Bot.">
     <meta property="og:image" content="https://i.postimg.cc/hPqtZ6VV/bot1.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://deylinqff.github.io/mundo-bot/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Mundo-Bot Web">
     <meta name="theme-color" content="#000000">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mundo-Bot Web">
-    <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Mundo-Bot.">
-    <meta name="twitter:image" content="https://i.postimg.cc/hPqtZ6VV/bot1.png">
-    <meta name="twitter:url" content="https://deylinqff.github.io/mundo-bot/">
 </head>
 <body>
 
@@ -42,14 +33,13 @@
         </form>
     </div>
 
-    <script>
-        // Contador de visitas
-        if (!sessionStorage.getItem('visitas')) {
-            sessionStorage.setItem('visitas', 1);
-        } else {
-            sessionStorage.setItem('visitas', parseInt(sessionStorage.getItem('visitas')) + 1);
-        }
+    <!-- Ventana de mensaje -->
+    <div id="mensajeRegistro" class="mensaje-oculto">
+        <p id="mensajeTexto"></p>
+        <button id="btnOk">OK</button>
+    </div>
 
+    <script>
         // Verificar si el usuario ya está registrado
         window.onload = function() {
             if (localStorage.getItem('user')) {
@@ -70,10 +60,51 @@
             const usuariosRegistrados = localStorage.getItem('usuariosRegistrados') || 0;
             localStorage.setItem('usuariosRegistrados', parseInt(usuariosRegistrados) + 1);
 
-            // Redirigir al panel
-            window.location.href = "panel.html";
+            // Mostrar mensaje
+            document.getElementById("mensajeTexto").textContent = "¡Registro exitoso! Bienvenido a Mundo-Bot, " + nombre;
+            document.getElementById("mensajeRegistro").classList.remove("mensaje-oculto");
+
+            // Botón OK para cerrar el mensaje y redirigir al panel
+            document.getElementById("btnOk").addEventListener("click", function() {
+                document.getElementById("mensajeRegistro").classList.add("mensaje-oculto");
+                window.location.href = "panel.html";
+            });
         });
     </script>
+
+    <style>
+        /* Estilos para el mensaje emergente */
+        .mensaje-oculto {
+            display: none;
+        }
+
+        #mensajeRegistro {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        #btnOk {
+            margin-top: 10px;
+            padding: 5px 15px;
+            background: #00ff00;
+            border: none;
+            color: black;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #btnOk:hover {
+            background: #008000;
+        }
+    </style>
 
 </body>
 </html>
