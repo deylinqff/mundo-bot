@@ -13,7 +13,9 @@ Kirito-Bot Web es una plataforma que permite a los usuarios registrarse, selecci
 🔹 **Interfaz moderna y responsiva**  
 
 ---
+
  <summary><b> 🔱 Info Bot</b></summary>
+
 ## 📊 Estado del Proyecto  
 🟢 **En desarrollo** – Se están añadiendo nuevas funcionalidades y mejoras.  
 
@@ -24,6 +26,7 @@ Kirito-Bot Web es una plataforma que permite a los usuarios registrarse, selecci
 ✔️ Optimización del proceso de pago  
 
 </details>
+
 ---
 
 ## 📂 Mapa del Repositorio
