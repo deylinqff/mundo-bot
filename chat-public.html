@@ -79,6 +79,11 @@
             border-radius: 5px;
             padding: 5px;
             cursor: pointer;
+            display: none; /* Por defecto oculto */
+        }
+
+        .delete-btn.show {
+            display: inline-block; /* Se muestra solo a Deylin */
         }
 
         .delete-btn:hover {
@@ -109,6 +114,7 @@
     }
 
     const nombreUsuario = usuario.nombre; // Nombre del usuario registrado
+    const emailUsuario = usuario.email; // Correo del usuario
 
     // Cargar mensajes guardados
     document.addEventListener("DOMContentLoaded", () => {
@@ -141,12 +147,14 @@
     function addMessageToChat(user, text, timestamp) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message");
-        messageDiv.setAttribute("data-timestamp", timestamp); // Añadir timestamp para eliminarlo fácilmente
+        messageDiv.setAttribute("data-timestamp", timestamp);
 
-        messageDiv.innerHTML = `
-            <span class="user">${user}:</span> ${text}
-            <button class="delete-btn" onclick="deleteMessage(${timestamp})">Eliminar</button>
-        `;
+        let deleteButton = "";
+        if (emailUsuario === "deylibaquedano801@gmail.com") {
+            deleteButton = `<button class="delete-btn show" onclick="deleteMessage(${timestamp})">Eliminar</button>`;
+        }
+
+        messageDiv.innerHTML = `<span class="user">${user}:</span> ${text} ${deleteButton}`;
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
