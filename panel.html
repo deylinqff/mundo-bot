@@ -22,25 +22,26 @@
     <div class="bot-card">
         <img src="assets/images/bot1.png" alt="Bot 1">
         <h3>KIRITO-BOT PARA GRUPOS</h3>
-        <button onclick="redireccionarPago('Bot de Grupos', 10)">𝗠𝗘𝗡𝗦: 10$</button>
+        <button onclick="redireccionarPago('Bot de Grupos', 10, '50488198573')">𝗠𝗘𝗡𝗦: 10$</button>
     </div>
     <div class="bot-card">
         <img src="assets/images/bot2.jpg" alt="Bot Personal">
         <h3>KIRITO-BOT PERSONAL</h3>
-        <button onclick="redireccionarPago('Bot Personal', 5)">𝗠𝗘𝗡𝗦: 5$</button>
+        <button onclick="redireccionarPago('Bot Personal', 5, '50488198573')">𝗠𝗘𝗡𝗦: 5$</button>
     </div>
     <div class="bot-card">
         <img src="assets/images/bot3.jpg" alt="Bot Personal">
         <h3>MAFER X ELMO PERSONAL</h3>
         <button onclick="window.location.href='bots.html'">𝗩𝗘𝗥 𝗠𝗔𝗦</button>
     </div>
-<!-- Bot 2 con imagen de URL -->
-<div class="bot-card">
-    <img src="https://i.postimg.cc/KYNCVByd/IMG-20250227-WA0397.jpg" alt="Bot Barboza Ai">
-    <h3>BOT BARBOZA AI</h3>
-    <button onclick="redireccionarPago('Bot Personalizado ', 26$)">Grupo 5$</button>
-<button onclick="redireccionarPago('Bot de Grupo', 5$)">Personalizado 26$</button>
-</div>
+
+    <!-- Bot 2 con imagen de URL -->
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/KYNCVByd/IMG-20250227-WA0397.jpg" alt="Bot Barboza Ai">
+        <h3>BOT BARBOZA AI</h3>
+        <button onclick="redireccionarPago('Bot Personalizado', 26, '50481112222')">Personalizado 26$</button>
+        <button onclick="redireccionarPago('Bot de Grupo', 5, '50482223333')">Grupo 5$</button>
+    </div>
 </div>
 
 <!-- Enlaces adicionales -->
@@ -93,8 +94,7 @@
         window.location.href = "index.html";
     }
 
-    function redireccionarPago(tipoBot, precio) {
-        const numero = "50488198573";
+    function redireccionarPago(tipoBot, precio, numero) {
         const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
         const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
         window.location.href = url;
