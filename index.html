@@ -1,42 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundo Bot Web</title>
-    <link rel="stylesheet" href="registro.css">
-
-    <!-- Meta etiquetas para compartir en redes -->
-    <meta property="og:title" content="Mundo-Bot Web">
-    <meta property="og:description" content="Alquila o compra tu bot personalizado con Mundo-Bot.">
-    <meta property="og:image" content="https://i.postimg.cc/hPqtZ6VV/bot1.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://deylinqff.github.io/mundo-bot/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Mundo-Bot Web">
-    <meta name="theme-color" content="#000000">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mundo-Bot Web">
-    <meta name="twitter:description" content="Alquila o compra tu bot personalizado con Mundo-Bot.">
-    <meta name="twitter:image" content="https://i.postimg.cc/hPqtZ6VV/bot1.png">
-    <meta name="twitter:url" content="https://deylinqff.github.io/mundo-bot/">
-</head>
+    <link rel="stylesheet" href="registro.css"><!-- Meta etiquetas para compartir en redes --><meta property="og:title" content="Mundo-Bot Web">
+<meta property="og:description" content="Alquila o compra tu bot personalizado con Mundo-Bot.">
+<meta property="og:image" content="https://i.postimg.cc/hPqtZ6VV/bot1.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://deylinqff.github.io/mundo-bot/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mundo-Bot Web">
+<meta name="theme-color" content="#000000"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mundo-Bot Web">
+<meta name="twitter:description" content="Alquila o compra tu bot personalizado con Mundo-Bot.">
+<meta name="twitter:image" content="https://i.postimg.cc/hPqtZ6VV/bot1.png">
+<meta name="twitter:url" content="https://deylinqff.github.io/mundo-bot/"></head>
 <body>
-    <!-- Contenedor de video y logo -->
-    <div class="container">
-        <!-- Video que se mostrará al unirse -->
-        <video class="loading-video" id="loading-video" autoplay muted>
-            <source src="video-cargando.mp4" type="video/mp4">
-            Tu navegador no soporta el formato de video.
-        </video>
-
-        <!-- Logo redondo que aparecerá después del video -->
-        <img src="https://files.fm/u/pdkn5w9r7r?ak=b97d8" alt="Mundo Bot" class="logo" id="logo">
-    </div>
-
     <div id="registro" class="container">
         <h1>Registro de Usuario</h1>
         <form id="form-registro">
@@ -48,101 +28,40 @@
             <input type="password" id="password" name="password" required>
             <button type="submit">Registrarse</button>
         </form>
-    </div>
+    </div><script>
+    // Incrementar contador de visitas
+    if (!localStorage.getItem('visitas')) {
+        localStorage.setItem('visitas', 1);
+    } else {
+        localStorage.setItem('visitas', parseInt(localStorage.getItem('visitas')) + 1);
+    }
 
-    <script>
-        // Incrementar contador de visitas
-        if (!localStorage.getItem('visitas')) {
-            localStorage.setItem('visitas', 1);
+    // Verificar si el usuario ya está registrado
+    window.onload = function() {
+        if (localStorage.getItem('user')) {
+            window.location.href = "panel.html"; // Redirige automáticamente si ya está registrado
+        }
+    };
+
+    // Guardar datos del usuario y redirigir al panel
+    document.getElementById("form-registro").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+
+        // Guardar en localStorage
+        localStorage.setItem('user', JSON.stringify({ nombre, email }));
+
+        // Incrementar contador de usuarios registrados
+        if (!localStorage.getItem('usuariosRegistrados')) {
+            localStorage.setItem('usuariosRegistrados', 1);
         } else {
-            localStorage.setItem('visitas', parseInt(localStorage.getItem('visitas')) + 1);
+            localStorage.setItem('usuariosRegistrados', parseInt(localStorage.getItem('usuariosRegistrados')) + 1);
         }
 
-        // Verificar si el usuario ya está registrado
-        window.onload = function() {
-            if (localStorage.getItem('user')) {
-                window.location.href = "panel.html"; // Redirige automáticamente si ya está registrado
-            }
-        };
-
-        // Guardar datos del usuario y redirigir al panel
-        document.getElementById("form-registro").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-
-            // Guardar en localStorage
-            localStorage.setItem('user', JSON.stringify({ nombre, email }));
-
-            // Incrementar contador de usuarios registrados
-            if (!localStorage.getItem('usuariosRegistrados')) {
-                localStorage.setItem('usuariosRegistrados', 1);
-            } else {
-                localStorage.setItem('usuariosRegistrados', parseInt(localStorage.getItem('usuariosRegistrados')) + 1);
-            }
-
-            window.location.href = "panel.html";
-        });
-
-        // Espera a que el video termine de reproducirse y luego muestra el logo después de un retraso
-        document.getElementById("loading-video").addEventListener("ended", function() {
-            // Después de 3 segundos (3000 ms), muestra el logo
-            setTimeout(function() {
-                document.getElementById("loading-video").style.display = "none";  // Oculta el video
-                document.getElementById("logo").style.display = "block";  // Muestra el logo
-
-                // Repite la animación del logo 3 veces
-                repeatLogo(3);
-            }, 3000); // Ajusta el valor si quieres más o menos tiempo
-        });
-
-        // Función para repetir la animación del logo
-        function repeatLogo(times) {
-            let count = 0;
-            const logo = document.getElementById("logo");
-            const interval = setInterval(function() {
-                if (count < times) {
-                    logo.style.display = (logo.style.display === "none" ? "block" : "none");
-                    count++;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 1000); // Cada 1 segundo, muestra y oculta el logo
-        }
-    </script>
-
-    <style>
-        /* Estilo para el contenedor del logo y el video */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            position: relative;
-        }
-
-        /* Estilo para el logo redondo */
-        .logo {
-            display: none;
-            position: absolute;
-            z-index: 10;
-            width: 150px; /* Ajusta el tamaño del logo */
-            height: 150px; /* Ajusta el tamaño del logo */
-            border-radius: 50%; /* Hace que el logo sea redondo */
-            object-fit: cover; /* Asegura que el logo se ajuste bien */
-        }
-
-        /* Estilo para el video */
-        .loading-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+        window.location.href = "panel.html";
+    });
+</script>
 
 </body>
 </html>
