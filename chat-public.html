@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Grupal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #chat-container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+        #chat-box {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .user {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        #message-input {
+            width: calc(100% - 80px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-btn {
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #send-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chat-container">
+    <h2>Chat Grupal</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="message-input" placeholder="Escribe un mensaje...">
+    <button id="send-btn">Enviar</button>
+</div>
+
+<script>
+    const chatBox = document.getElementById("chat-box");
+    const messageInput = document.getElementById("message-input");
+    const sendBtn = document.getElementById("send-btn");
+
+    // Obtener el usuario desde localStorage
+    const usuario = JSON.parse(localStorage.getItem("user"));
+
+    if (!usuario || !usuario.nombre) {
+        // Si no hay usuario, redirigir al login
+        window.location.href = "index.html";
+    }
+
+    const nombreUsuario = usuario.nombre; // Nombre del usuario registrado
+
+    // Cargar mensajes guardados
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+        savedMessages.forEach(msg => addMessageToChat(msg.user, msg.text));
+    });
+
+    sendBtn.addEventListener("click", sendMessage);
+    messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") sendMessage();
+    });
+
+    function sendMessage() {
+        const messageText = messageInput.value.trim();
+        if (!messageText) return;
+
+        addMessageToChat(nombreUsuario, messageText);
+
+        // Guardar en localStorage
+        const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+        savedMessages.push({ user: nombreUsuario, text: messageText });
+        localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
+
+        messageInput.value = "";
+    }
+
+    function addMessageToChat(user, text) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message");
+        messageDiv.innerHTML = `<span class="user">${user}:</span> ${text}`;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
