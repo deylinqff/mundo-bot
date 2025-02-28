@@ -7,20 +7,18 @@ async function buscarImagenGoogle() {
     }
 
     try {
-        mostrarMensaje("🔥 Buscando imagen en Google...");
+        mostrarMensaje("🔥 Buscando imagen...");
 
-        const url = `https://www.google.com/search?q=${encodeURIComponent(prompt)}&tbm=isch`;
+        // URL de búsqueda en DuckDuckGo (no bloquea CORS)
+        const url = `https://duckduckgo.com/?q=${encodeURIComponent(prompt)}&t=h_&iax=images&ia=images`;
 
-        // Realizamos la petición
-        const respuesta = await fetch(url, {
-            headers: { "User-Agent": "Mozilla/5.0" } // Simula ser un navegador
-        });
-
+        // Hacemos la petición a DuckDuckGo
+        const respuesta = await fetch(url);
         const html = await respuesta.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
 
-        // Buscamos la primera imagen en los resultados
+        // Buscamos la primera imagen
         const imagen = doc.querySelector("img");
         if (!imagen) throw new Error("No se encontró ninguna imagen.");
 
