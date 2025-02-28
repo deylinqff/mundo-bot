@@ -90,8 +90,25 @@
             setTimeout(function() {
                 document.getElementById("loading-video").style.display = "none";  // Oculta el video
                 document.getElementById("logo").style.display = "block";  // Muestra el logo
+
+                // Repite la animación del logo 3 veces
+                repeatLogo(3);
             }, 3000); // Ajusta el valor si quieres más o menos tiempo
         });
+
+        // Función para repetir la animación del logo
+        function repeatLogo(times) {
+            let count = 0;
+            const logo = document.getElementById("logo");
+            const interval = setInterval(function() {
+                if (count < times) {
+                    logo.style.display = (logo.style.display === "none" ? "block" : "none");
+                    count++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 1000); // Cada 1 segundo, muestra y oculta el logo
+        }
     </script>
 
     <style>
