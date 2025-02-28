@@ -84,10 +84,13 @@
             window.location.href = "panel.html";
         });
 
-        // Espera a que el video termine de reproducirse y luego muestra el logo
+        // Espera a que el video termine de reproducirse y luego muestra el logo después de un retraso
         document.getElementById("loading-video").addEventListener("ended", function() {
-            document.getElementById("loading-video").style.display = "none";  // Oculta el video
-            document.getElementById("logo").style.display = "block";  // Muestra el logo
+            // Después de 3 segundos (3000 ms), muestra el logo
+            setTimeout(function() {
+                document.getElementById("loading-video").style.display = "none";  // Oculta el video
+                document.getElementById("logo").style.display = "block";  // Muestra el logo
+            }, 3000); // Ajusta el valor si quieres más o menos tiempo
         });
     </script>
 
