@@ -42,11 +42,14 @@
             margin: 5px 0;
             padding: 8px;
             border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .user {
             font-weight: bold;
-            color: black; /* Cambié aquí el color a negro para los mensajes del usuario */
+            color: black;
         }
 
         #message-input {
@@ -67,6 +70,19 @@
 
         #send-btn:hover {
             background: #0056b3;
+        }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: darkred;
         }
     </style>
 </head>
@@ -97,7 +113,7 @@
     // Cargar mensajes guardados
     document.addEventListener("DOMContentLoaded", () => {
         const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-        savedMessages.forEach(msg => addMessageToChat(msg.user, msg.text));
+        savedMessages.forEach(msg => addMessageToChat(msg.user, msg.text, msg.timestamp));
     });
 
     sendBtn.addEventListener("click", sendMessage);
@@ -105,26 +121,48 @@
         if (e.key === "Enter") sendMessage();
     });
 
+    // Función para enviar un mensaje
     function sendMessage() {
         const messageText = messageInput.value.trim();
         if (!messageText) return;
 
-        addMessageToChat(nombreUsuario, messageText);
+        const timestamp = Date.now(); // Guardar un timestamp para cada mensaje
+        addMessageToChat(nombreUsuario, messageText, timestamp);
 
-        // Guardar en localStorage
+        // Guardar el mensaje en localStorage
         const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-        savedMessages.push({ user: nombreUsuario, text: messageText });
+        savedMessages.push({ user: nombreUsuario, text: messageText, timestamp: timestamp });
         localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
 
         messageInput.value = "";
     }
 
-    function addMessageToChat(user, text) {
+    // Función para agregar un mensaje al chat
+    function addMessageToChat(user, text, timestamp) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message");
-        messageDiv.innerHTML = `<span class="user">${user}:</span> ${text}`;
+        messageDiv.setAttribute("data-timestamp", timestamp); // Añadir timestamp para eliminarlo fácilmente
+
+        messageDiv.innerHTML = `
+            <span class="user">${user}:</span> ${text}
+            <button class="delete-btn" onclick="deleteMessage(${timestamp})">Eliminar</button>
+        `;
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Función para eliminar un mensaje
+    function deleteMessage(timestamp) {
+        // Eliminar el mensaje del chat
+        const messageDiv = document.querySelector(`div[data-timestamp='${timestamp}']`);
+        if (messageDiv) {
+            messageDiv.remove();
+        }
+
+        // Eliminar el mensaje de localStorage
+        let savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+        savedMessages = savedMessages.filter(msg => msg.timestamp !== timestamp);
+        localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
     }
 </script>
 
