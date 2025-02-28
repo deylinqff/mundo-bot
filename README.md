@@ -22,6 +22,7 @@ Kirito-Bot Web es una plataforma que permite a los usuarios registrarse, selecci
 📌 **Cambios recientes:**  
 ✔️ Mejoras en la interfaz de usuario  
 ✔️ Optimización del proceso de pago  
+
 </details>
 ---
 
