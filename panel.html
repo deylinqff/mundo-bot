@@ -5,6 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Bots</title>
     <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilos para el botón flotante */
+        #chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        #chat-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para el mensaje emergente */
+        #chat-message {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            background: #ffcc00;
+            color: black;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
 </head>
 <body>
 
@@ -68,6 +108,10 @@
     <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
 </div>
 
+<!-- Botón flotante para ir al chat grupal -->
+<div id="chat-message">Únete al chat</div>
+<button id="chat-button" onclick="window.location.href='chat.html'">💬</button>
+
 <script>
     window.onload = function() {
         const usuario = JSON.parse(localStorage.getItem('user'));
@@ -82,6 +126,13 @@
             if (usuario.email === "deylibaquedano801@gmail.com") {
                 document.getElementById("estadisticas-btn").style.display = "block";
             }
+
+            // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos
+            const chatMessage = document.getElementById("chat-message");
+            chatMessage.style.opacity = "1";
+            setTimeout(() => {
+                chatMessage.style.opacity = "0";
+            }, 5000);
         } else {
             window.location.href = "index.html";
         }
