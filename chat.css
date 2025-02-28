@@ -6,11 +6,10 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background: url('assets/images/fondo2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: black;
+    text-align: center;
 }
 
 #chat-container {
