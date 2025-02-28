@@ -1,12 +1,3 @@
-// Variable para almacenar la URL de la imagen encontrada
-let urlImagen = "";
-
-// Función para mostrar un mensaje en la página
-function mostrarMensaje(mensaje) {
-    document.getElementById("resultado").innerHTML = mensaje;
-}
-
-// Función para buscar imágenes en DuckDuckGo
 async function buscarImagenGoogle() {
     const prompt = document.getElementById("prompt").value;
 
@@ -16,17 +7,24 @@ async function buscarImagenGoogle() {
     }
 
     try {
-        mostrarMensaje("🔍 Buscando imagen en DuckDuckGo...");
+        mostrarMensaje("🔥 Buscando imagen en Google...");
 
-        // Hacemos la solicitud a la API de DuckDuckGo
-        const respuesta = await fetch(`https://duckduckgo.com/i.js?q=${encodeURIComponent(prompt)}`);
-        const datos = await respuesta.json();
+        const url = `https://www.google.com/search?q=${encodeURIComponent(prompt)}&tbm=isch`;
 
-        if (!datos.results.length) {
-            throw new Error("No se encontró ninguna imagen.");
-        }
+        // Realizamos la petición
+        const respuesta = await fetch(url, {
+            headers: { "User-Agent": "Mozilla/5.0" } // Simula ser un navegador
+        });
 
-        urlImagen = datos.results[0].image; // Tomamos la primera imagen
+        const html = await respuesta.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Buscamos la primera imagen en los resultados
+        const imagen = doc.querySelector("img");
+        if (!imagen) throw new Error("No se encontró ninguna imagen.");
+
+        const urlImagen = imagen.src;
         mostrarImagenEncontrada(urlImagen);
     } catch (error) {
         mostrarMensaje("🚨 No se encontraron resultados 😔");
@@ -34,26 +32,26 @@ async function buscarImagenGoogle() {
     }
 }
 
-// Función para mostrar la imagen encontrada con un botón de descarga
+// Función para mostrar la imagen encontrada
 function mostrarImagenEncontrada(url) {
     document.getElementById("resultado").innerHTML = `
         <p>✅ Imagen encontrada:</p>
         <img src="${url}" alt="Imagen encontrada" style="max-width:100%;border-radius:10px;"><br><br>
-        <button onclick="descargarImagen()">📥 Descargar Imagen</button>
+        <button onclick="descargarImagen('${url}')">📥 Descargar Imagen</button>
     `;
 }
 
 // Función para descargar la imagen encontrada
-function descargarImagen() {
-    if (!urlImagen) {
-        alert("⚠️ No hay imagen disponible para descargar.");
-        return;
-    }
-
+function descargarImagen(url) {
     const enlace = document.createElement("a");
-    enlace.href = urlImagen;
+    enlace.href = url;
     enlace.download = "imagen_encontrada.png";
     document.body.appendChild(enlace);
     enlace.click();
     document.body.removeChild(enlace);
+}
+
+// Función para mostrar mensajes en la página
+function mostrarMensaje(mensaje) {
+    document.getElementById("resultado").innerHTML = mensaje;
 }
