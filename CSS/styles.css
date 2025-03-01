@@ -1,10 +1,10 @@
-/* Estilos generales para el body y html */
+/* Estilos generales */
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Evita el desplazamiento */
+    overflow: hidden;
     font-family: Arial, sans-serif;
     background: url('assets/images/fondo2.jpg') no-repeat center center fixed;
     background-size: cover;
@@ -13,7 +13,7 @@ html, body {
     align-items: center;
 }
 
-/* Contenedor principal del chat */
+/* Contenedor principal */
 #chat-container {
     width: 100vw;
     height: 100vh;
@@ -22,7 +22,7 @@ html, body {
     flex-direction: column;
 }
 
-/* Área de mensajes ocupa todo el espacio disponible */
+/* Área de mensajes */
 #chat-box {
     flex-grow: 1;
     overflow-y: auto;
@@ -38,7 +38,7 @@ html, body {
     width: 100%;
     padding: 8px;
     background: #f1f1f1;
-    gap: 5px; /* Espacio entre elementos */
+    gap: 0; /* Sin espacio entre elementos */
 }
 
 /* Caja de texto con bordes redondeados */
@@ -46,18 +46,24 @@ html, body {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     background: white;
     outline: none;
+    border-right: none; /* Para unir con los botones */
 }
 
-/* Botones de adjuntar y enviar al lado del input */
+/* Contenedor de botones */
+#button-group {
+    display: flex;
+}
+
+/* Botones de adjuntar y enviar dentro de la barra */
 #file-btn, #send-btn {
-    padding: 8px 12px;
+    padding: 8px;
     border: none;
     background: #007bff;
     color: white;
-    border-radius: 50%;
     cursor: pointer;
     font-size: 16px;
     display: flex;
@@ -65,10 +71,17 @@ html, body {
     justify-content: center;
     width: 40px;
     height: 40px;
+    border-left: 1px solid #ccc;
 }
 
 #file-btn {
     background: #ccc;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#send-btn {
+    background: #007bff;
 }
 
 #send-btn:hover {
