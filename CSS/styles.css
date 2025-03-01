@@ -1,66 +1,57 @@
-/* Estilos generales para el body */
-body {
+/* Estilos generales para el body y html */
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita el desplazamiento */
     font-family: Arial, sans-serif;
     background: url('assets/images/fondo2.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: black;
-    text-align: center;
-    margin: 0;
-    padding: 0;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
-    width: 100vw; /* Asegura que el body ocupe todo el ancho de la ventana */
 }
 
-/* Contenedor principal del chat */
+/* Contenedor principal del chat (ocupa toda la pantalla) */
 #chat-container {
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
-    height: 100%; /* Asegura que el contenedor ocupe toda la altura */
-    background: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente para un mejor contraste */
+    width: 100vw;
+    height: 100vh;
+    background: white;
     display: flex;
     flex-direction: column;
-    padding: 0; /* Elimina el padding para que ocupe toda la pantalla */
-    margin: 0; /* Elimina el margen */
 }
 
-/* Área de visualización de mensajes */
+/* Área de visualización de mensajes (ocupa todo el espacio disponible) */
 #chat-box {
-    flex-grow: 1; /* Hace que el área de chat crezca para llenar el espacio disponible */
+    flex-grow: 1;
     overflow-y: auto;
     padding: 10px;
     background: #fff;
-    margin-bottom: 10px; /* Espacio entre los mensajes y el campo de entrada */
-    width: 100%; /* Asegura que el área de chat ocupe todo el ancho */
+    width: 100%;
 }
 
-/* Estilo común para los mensajes */
-.message {
-    margin: 5px 0;
-    padding: 8px;
-    border-radius: 5px;
-    word-wrap: break-word;
+/* Estilo para la barra de entrada de mensajes (estática abajo) */
+#input-container {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    background: #f1f1f1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
-/* Estilo específico para los mensajes del usuario */
-.user {
-    font-weight: bold;
-    color: black;
-}
-
-/* Estilo para el campo de texto */
+/* Campo de texto ocupa todo el espacio posible */
 #message-input {
-    width: calc(100% - 110px); /* El campo de entrada ocupa casi todo el ancho */
+    flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px; /* Espacio entre el campo de texto y los botones */
-    background: #f1f1f1; /* Fondo claro para el campo de texto */
+    background: white;
 }
 
-/* Botones de envío y archivos */
+/* Botones de enviar y adjuntar */
 #send-btn, #file-btn {
     padding: 10px;
     border: none;
@@ -75,16 +66,7 @@ body {
     background: #0056b3;
 }
 
-/* Imágenes y videos en miniatura */
-.media-preview {
-    max-width: 120px; /* Tamaño pequeño dentro del chat */
-    max-height: 120px;
-    border-radius: 5px;
-    margin-top: 5px;
-    cursor: pointer; /* Indica que se puede hacer clic */
-}
-
-/* Modal para ver imágenes y videos en grande */
+/* Modal para imágenes y videos */
 .modal {
     display: none;
     position: fixed;
@@ -98,14 +80,12 @@ body {
     align-items: center;
 }
 
-/* Contenido de la imagen o video dentro del modal */
 .modal-content {
     max-width: 90%;
     max-height: 90%;
     border-radius: 10px;
 }
 
-/* Botón para cerrar el modal */
 .close-modal {
     position: absolute;
     top: 10px;
