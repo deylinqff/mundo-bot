@@ -28,7 +28,7 @@ function escribirLetraPorLetra(texto, callback) {
             setTimeout(escribir, 50); // Velocidad de escritura
         }
     }
-    
+
     escribir();
 }
 
