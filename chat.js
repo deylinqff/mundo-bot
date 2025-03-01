@@ -13,10 +13,12 @@ async function sendMessage() {
         appendMessage(userInput, "user");
         document.getElementById("user-input").value = '';
 
-        appendMessage("🔥 Escribiendo...", "bot");
+        appendMessage("👑 Escribiendo...", "bot");
 
         try {
-            const botResponse = await obtenerRespuestaIA(userInput, appendMessageWithTyping);
+            const botResponse = await obtenerRespuestaIA(userInput);
+            removeTypingIndicator();
+            appendMessage(botResponse, "bot");
         } catch (error) {
             removeTypingIndicator();
             appendMessage("Hubo un error al obtener la respuesta.", "bot");
@@ -28,15 +30,6 @@ function appendMessage(message, sender) {
     const chatBox = document.getElementById("chat-box");
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message", sender);
-    messageDiv.textContent = message;
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function appendMessageWithTyping(message) {
-    const chatBox = document.getElementById("chat-box");
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", "bot");
     messageDiv.textContent = message;
     chatBox.appendChild(messageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
