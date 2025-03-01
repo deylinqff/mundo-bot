@@ -13,7 +13,7 @@ html, body {
     align-items: center;
 }
 
-/* Contenedor principal del chat (ocupa toda la pantalla) */
+/* Contenedor principal del chat */
 #chat-container {
     width: 100vw;
     height: 100vh;
@@ -22,7 +22,7 @@ html, body {
     flex-direction: column;
 }
 
-/* Área de visualización de mensajes (ocupa todo el espacio disponible) */
+/* Área de mensajes ocupa todo el espacio disponible */
 #chat-box {
     flex-grow: 1;
     overflow-y: auto;
@@ -31,70 +31,50 @@ html, body {
     width: 100%;
 }
 
-/* Estilo para la barra de entrada de mensajes (estática abajo) */
+/* Barra de entrada estilo WhatsApp */
 #input-container {
     display: flex;
+    align-items: center;
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     background: #f1f1f1;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    gap: 5px; /* Espacio entre elementos */
 }
 
-/* Campo de texto ocupa todo el espacio posible */
+/* Caja de texto con bordes redondeados */
 #message-input {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
     background: white;
+    outline: none;
 }
 
-/* Botones de enviar y adjuntar */
-#send-btn, #file-btn {
-    padding: 10px;
+/* Botones de adjuntar y enviar al lado del input */
+#file-btn, #send-btn {
+    padding: 8px 12px;
     border: none;
     background: #007bff;
     color: white;
-    border-radius: 5px;
+    border-radius: 50%;
     cursor: pointer;
-    margin-left: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
 }
 
-#send-btn:hover, #file-btn:hover {
+#file-btn {
+    background: #ccc;
+}
+
+#send-btn:hover {
     background: #0056b3;
 }
 
-/* Modal para imágenes y videos */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-}
-
-.close-modal:hover {
-    color: red;
+#file-btn:hover {
+    background: #999;
 }
