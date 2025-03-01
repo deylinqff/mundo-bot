@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileBtn = document.getElementById("file-btn");
     const fileInput = document.getElementById("file-input");
 
+    const adminEmail = "deylibaquedano801@gmail.com";
+    const userEmail = prompt("Ingresa tu correo:");
+
+    if (userEmail === adminEmail) {
+        document.body.classList.add("show-delete");
+    }
+
     // 🔹 Cargar mensajes guardados en LocalStorage
     function loadMessages() {
         const messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
@@ -14,19 +21,41 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🔹 Guardar mensajes en LocalStorage
     function saveMessages() {
         const messages = [];
-        document.querySelectorAll(".message").forEach(msg => {
-            messages.push({ text: msg.innerHTML, type: msg.classList.contains("sent") ? "sent" : "received" });
+        document.querySelectorAll(".message-container").forEach(container => {
+            messages.push({
+                text: container.querySelector(".message").innerHTML,
+                type: container.querySelector(".message").classList.contains("sent") ? "sent" : "received"
+            });
         });
         localStorage.setItem("chatMessages", JSON.stringify(messages));
     }
 
     // 🔹 Agregar mensaje al chat
     function addMessage(content, type, save = true) {
+        const container = document.createElement("div");
+        container.classList.add("message-container");
+
         const newMessage = document.createElement("div");
         newMessage.classList.add("message", type);
         newMessage.innerHTML = content;
-        chatBox.appendChild(newMessage);
+
+        container.appendChild(newMessage);
+
+        // 🔹 Si el usuario es admin, agregar botón de eliminar
+        if (userEmail === adminEmail) {
+            const deleteBtn = document.createElement("button");
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.innerHTML = "🗑️";
+            deleteBtn.addEventListener("click", function () {
+                container.remove();
+                saveMessages();
+            });
+            container.appendChild(deleteBtn);
+        }
+
+        chatBox.appendChild(container);
         chatBox.scrollTop = chatBox.scrollHeight;
+
         if (save) saveMessages();
     }
 
