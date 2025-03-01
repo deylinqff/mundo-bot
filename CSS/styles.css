@@ -40,6 +40,7 @@ html, body {
     border-radius: 10px;
     font-size: 16px;
     display: inline-block;
+    word-wrap: break-word;
 }
 
 /* 📩 Mensajes Recibidos */
@@ -112,4 +113,13 @@ html, body {
 
 #send-btn:hover {
     background: #0056b3;
+}
+
+/* 🔹 Miniaturas de Imagen y Video */
+.message img, .message video {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    display: block;
+    margin-top: 5px;
 }
