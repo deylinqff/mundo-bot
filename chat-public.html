@@ -189,7 +189,7 @@
         messageDiv.setAttribute("data-timestamp", timestamp);
 
         let content = `<strong>${user}:</strong> ${text}`;
-        
+
         if (media) {
             content += `<br>${media.type.startsWith("image/") ? `<img src="${media.url}" class="media-preview">` : `<video controls class="media-preview"><source src="${media.url}" type="${media.type}"></video>`}`;
         }
