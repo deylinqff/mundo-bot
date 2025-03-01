@@ -10,31 +10,30 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
+    width: 100vw; /* Asegura que el body ocupe todo el ancho de la ventana */
 }
 
 /* Contenedor principal del chat */
 #chat-container {
-    width: 90%;
-    max-width: 600px;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    height: 100%; /* Asegura que el contenedor ocupe toda la altura */
     background: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente para un mejor contraste */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    height: 80%; /* Ajusta la altura del contenedor para que ocupe el 80% de la pantalla */
     display: flex;
     flex-direction: column;
+    padding: 0; /* Elimina el padding para que ocupe toda la pantalla */
+    margin: 0; /* Elimina el margen */
 }
 
 /* Área de visualización de mensajes */
 #chat-box {
     flex-grow: 1; /* Hace que el área de chat crezca para llenar el espacio disponible */
     overflow-y: auto;
-    border: 1px solid #ccc;
     padding: 10px;
     background: #fff;
     margin-bottom: 10px; /* Espacio entre los mensajes y el campo de entrada */
+    width: 100%; /* Asegura que el área de chat ocupe todo el ancho */
 }
 
 /* Estilo común para los mensajes */
@@ -53,11 +52,12 @@ body {
 
 /* Estilo para el campo de texto */
 #message-input {
-    width: calc(100% - 110px);
+    width: calc(100% - 110px); /* El campo de entrada ocupa casi todo el ancho */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px; /* Espacio entre el campo de texto y los botones */
+    background: #f1f1f1; /* Fondo claro para el campo de texto */
 }
 
 /* Botones de envío y archivos */
