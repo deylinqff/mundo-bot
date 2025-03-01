@@ -67,12 +67,6 @@
             margin-right: auto;
         }
 
-        /* Estilo para el nombre del usuario */
-        .user {
-            font-weight: bold;
-            color: black;
-        }
-
         /* Estilo para el campo de texto */
         #message-input {
             width: calc(100% - 110px);
@@ -82,7 +76,7 @@
         }
 
         /* Botones de envío y archivos */
-        #send-btn, #file-btn {
+        #send-btn, #file-btn, #ia-btn {
             padding: 10px;
             border: none;
             background: #007bff;
@@ -92,52 +86,8 @@
             margin-left: 5px;
         }
 
-        #send-btn:hover, #file-btn:hover {
+        #send-btn:hover, #file-btn:hover, #ia-btn:hover {
             background: #0056b3;
-        }
-
-        /* Imágenes y videos en miniatura */
-        .media-preview {
-            max-width: 120px; /* Tamaño pequeño dentro del chat */
-            max-height: 120px;
-            border-radius: 5px;
-            margin-top: 5px;
-            cursor: pointer; /* Indica que se puede hacer clic */
-        }
-
-        /* Modal para ver imágenes y videos en grande */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Contenido de la imagen o video dentro del modal */
-        .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-        }
-
-        /* Botón para cerrar el modal */
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .close-modal:hover {
-            color: red;
         }
     </style>
 </head>
@@ -150,57 +100,52 @@
     <input type="file" id="file-input" style="display: none;" accept="image/*,video/*">
     <button id="file-btn">📎</button>
     <button id="send-btn">Enviar</button>
+    <button id="ia-btn">IA</button>
 </div>
 
 <script>
     const chatBox = document.getElementById("chat-box");
     const messageInput = document.getElementById("message-input");
     const sendBtn = document.getElementById("send-btn");
+    const iaBtn = document.getElementById("ia-btn");
     const fileInput = document.getElementById("file-input");
     const fileBtn = document.getElementById("file-btn");
 
-    const usuario = JSON.parse(localStorage.getItem("user"));
-    if (!usuario || !usuario.nombre) {
-        window.location.href = "index.html";
-    }
+    let iaActive = false;
 
-    const nombreUsuario = usuario.nombre;
-    const emailUsuario = usuario.email;
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-        savedMessages.forEach(msg => addMessageToChat(msg.user, msg.text, msg.timestamp, msg.media));
+    // Al presionar el botón IA, activamos el modo IA
+    iaBtn.addEventListener("click", () => {
+        iaActive = !iaActive;
+        if (iaActive) {
+            iaBtn.style.backgroundColor = '#28a745';  // Botón verde cuando está activo
+        } else {
+            iaBtn.style.backgroundColor = '#007bff';  // Botón azul cuando está desactivado
+        }
     });
 
+    // Función para enviar mensaje
     sendBtn.addEventListener("click", sendMessage);
     messageInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") sendMessage();
-    });
-
-    fileBtn.addEventListener("click", () => fileInput.click());
-
-    fileInput.addEventListener("change", function () {
-        if (fileInput.files.length > 0) {
-            sendMedia(fileInput.files[0]);
-        }
     });
 
     function sendMessage() {
         const messageText = messageInput.value.trim();
         if (!messageText) return;
 
-        const timestamp = Date.now();
-        addMessageToChat(nombreUsuario, messageText, timestamp);
+        // Si la IA está activa, enviar el mensaje a la IA
+        if (iaActive) {
+            addMessageToChat("IA", messageText, Date.now(), null);
+        } else {
+            addMessageToChat("Usuario", messageText, Date.now(), null);
+        }
 
+        // Guardar el mensaje en el almacenamiento local
         const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-        savedMessages.push({ user: nombreUsuario, text: messageText, timestamp });
+        savedMessages.push({ user: "Usuario", text: messageText, timestamp: Date.now() });
         localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
 
         messageInput.value = "";
-
-        if (isValidURL(messageText)) {
-            generateLinkPreview(messageText);
-        }
     }
 
     function addMessageToChat(user, text, timestamp, media = null) {
@@ -210,19 +155,9 @@
 
         let content = `<strong>${user}:</strong> ${text}`;
 
-        if (media) {
-            content += `<br>${media.type.startsWith("image/") ? `<img src="${media.url}" class="media-preview">` : `<video controls class="media-preview"><source src="${media.url}" type="${media.type}"></video>`}`;
-        }
+        messageDiv.innerHTML = content;
 
-        let deleteButton = "";
-        if (emailUsuario === "deylibaquedano801@gmail.com") {
-            deleteButton = `<button class="delete-btn show" onclick="deleteMessage(${timestamp})">Eliminar</button>`;
-        }
-
-        messageDiv.innerHTML = content + deleteButton;
-        
-        // Aplicar clases para alineación
-        if (user === nombreUsuario) {
+        if (user === "Usuario") {
             messageDiv.classList.add("user-message");
         } else {
             messageDiv.classList.add("other-message");
@@ -230,55 +165,6 @@
 
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function isValidURL(string) {
-        try {
-            new URL(string);
-            return true;
-        } catch (_) {
-            return false;
-        }
-    }
-
-    function generateLinkPreview(url) {
-        fetch(`https://api.linkpreview.net/?key=YOUR_API_KEY&q=${encodeURIComponent(url)}`)
-            .then(response => response.json())
-            .then(data => {
-                const previewElement = document.createElement("div");
-                previewElement.classList.add("link-preview");
-                previewElement.innerHTML = `
-                    <img src="${data.image || 'assets/images/default-preview.jpg'}" alt="Preview">
-                    <div>
-                        <a href="${data.url}" target="_blank">${data.title}</a>
-                        <p>${data.description || ""}</p>
-                    </div>
-                `;
-                chatBox.appendChild(previewElement);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            })
-            .catch(() => addMessageToChat("bot", "No se pudo generar la vista previa."));
-    }
-
-    function sendMedia(file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const mediaData = { type: file.type, url: e.target.result };
-            addMessageToChat(nombreUsuario, "", Date.now(), mediaData);
-
-            // Guardar el mensaje con el archivo en el almacenamiento local
-            const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-            savedMessages.push({ user: nombreUsuario, text: "", timestamp: Date.now(), media: mediaData });
-            localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function deleteMessage(timestamp) {
-        document.querySelector(`div[data-timestamp='${timestamp}']`)?.remove();
-        let savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-        savedMessages = savedMessages.filter(msg => msg.timestamp !== timestamp);
-        localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
     }
 </script>
 
