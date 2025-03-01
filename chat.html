@@ -62,6 +62,7 @@
             margin: 5px 0;
             padding: 8px;
             border-radius: 5px;
+            word-wrap: break-word;
         }
 
         .user {
@@ -81,22 +82,23 @@
         }
 
         #user-input {
-            width: calc(100% - 50px);
+            width: calc(100% - 110px);
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        #send-btn {
+        #send-btn, #file-btn {
             padding: 10px;
             border: none;
             background: #007bff;
             color: white;
             border-radius: 5px;
             cursor: pointer;
+            margin-left: 5px;
         }
 
-        #send-btn:hover {
+        #send-btn:hover, #file-btn:hover {
             background: #0056b3;
         }
 
@@ -104,6 +106,39 @@
             font-style: italic;
             color: #6c757d;
         }
+
+        /* Estilos para vista previa de enlaces */
+        .link-preview {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin-top: 5px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .link-preview img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .link-preview a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .link-preview a:hover {
+            text-decoration: underline;
+        }
+
+        .media-preview img, .media-preview video {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -115,11 +150,99 @@
         </div>
         <div id="chat-box"></div>
         <div id="chat-input">
-            <input type="text" id="user-input" placeholder="Escribe un mensaje..." autocomplete="off">
+            <input type="text" id="user-input" placeholder="Escribe un mensaje o envía un enlace..." autocomplete="off">
+            <input type="file" id="file-input" style="display: none;" accept="image/*,video/*">
+            <button id="file-btn">📎</button>
             <button id="send-btn">➤</button>
         </div>
     </div>
 
-    <script type="module" src="chat.js"></script>
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const userInput = document.getElementById("user-input");
+        const sendBtn = document.getElementById("send-btn");
+        const fileInput = document.getElementById("file-input");
+        const fileBtn = document.getElementById("file-btn");
+
+        sendBtn.addEventListener("click", sendMessage);
+        userInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") sendMessage();
+        });
+
+        fileBtn.addEventListener("click", () => fileInput.click());
+
+        fileInput.addEventListener("change", function () {
+            if (fileInput.files.length > 0) {
+                sendMedia(fileInput.files[0]);
+            }
+        });
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === "") return;
+
+            appendMessage("user", message);
+            userInput.value = "";
+
+            if (isValidURL(message)) {
+                generateLinkPreview(message);
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message", sender);
+            messageElement.innerHTML = `<strong>${sender === "user" ? "Tú" : "Kirito-Bot"}:</strong> ${text}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function isValidURL(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        function generateLinkPreview(url) {
+            fetch(`https://api.linkpreview.net/?key=YOUR_API_KEY&q=${encodeURIComponent(url)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const previewElement = document.createElement("div");
+                    previewElement.classList.add("link-preview");
+                    previewElement.innerHTML = `
+                        <img src="${data.image || 'assets/images/default-preview.jpg'}" alt="Preview">
+                        <div>
+                            <a href="${data.url}" target="_blank">${data.title}</a>
+                            <p>${data.description || ""}</p>
+                        </div>
+                    `;
+                    chatBox.appendChild(previewElement);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                })
+                .catch(() => appendMessage("bot", "No se pudo generar la vista previa."));
+        }
+
+        function sendMedia(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const mediaElement = document.createElement("div");
+                mediaElement.classList.add("message", "user");
+
+                if (file.type.startsWith("image/")) {
+                    mediaElement.innerHTML = `<strong>Tú:</strong><br><img src="${e.target.result}" class="media-preview">`;
+                } else if (file.type.startsWith("video/")) {
+                    mediaElement.innerHTML = `<strong>Tú:</strong><br><video controls class="media-preview"><source src="${e.target.result}" type="${file.type}"></video>`;
+                }
+
+                chatBox.appendChild(mediaElement);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+            reader.readAsDataURL(file);
+        }
+
+    </script>
 </body>
 </html>
