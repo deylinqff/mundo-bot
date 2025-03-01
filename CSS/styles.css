@@ -31,63 +31,59 @@ html, body {
     width: 100%;
 }
 
-/* Barra de entrada estilo WhatsApp */
+/* Barra de entrada con estilo similar a WhatsApp */
 #input-container {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: calc(100% - 20px); /* Margen lateral */
     padding: 8px;
     background: #f1f1f1;
-    gap: 0; /* Sin espacio entre elementos */
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Caja de texto con bordes redondeados */
+/* Botón de adjuntar archivos */
+#file-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    color: #555;
+}
+
+/* Caja de texto */
 #message-input {
     flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    background: white;
-    outline: none;
-    border-right: none; /* Para unir con los botones */
-}
-
-/* Contenedor de botones */
-#button-group {
-    display: flex;
-}
-
-/* Botones de adjuntar y enviar dentro de la barra */
-#file-btn, #send-btn {
-    padding: 8px;
+    padding: 12px;
     border: none;
-    background: #007bff;
-    color: white;
-    cursor: pointer;
+    border-radius: 20px;
+    outline: none;
+    background: white;
     font-size: 16px;
+    margin: 0 10px;
+}
+
+/* Botón de enviar */
+#send-btn {
+    background: #007bff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-left: 1px solid #ccc;
-}
-
-#file-btn {
-    background: #ccc;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-#send-btn {
-    background: #007bff;
 }
 
 #send-btn:hover {
     background: #0056b3;
-}
-
-#file-btn:hover {
-    background: #999;
 }
