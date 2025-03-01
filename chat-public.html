@@ -42,9 +42,7 @@
             margin: 5px 0;
             padding: 8px;
             border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            word-wrap: break-word;
         }
 
         .user {
@@ -53,22 +51,23 @@
         }
 
         #message-input {
-            width: calc(100% - 80px);
+            width: calc(100% - 110px);
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        #send-btn {
+        #send-btn, #file-btn {
             padding: 10px;
             border: none;
             background: #007bff;
             color: white;
             border-radius: 5px;
             cursor: pointer;
+            margin-left: 5px;
         }
 
-        #send-btn:hover {
+        #send-btn:hover, #file-btn:hover {
             background: #0056b3;
         }
 
@@ -79,15 +78,46 @@
             border-radius: 5px;
             padding: 5px;
             cursor: pointer;
-            display: none; /* Por defecto oculto */
+            display: none;
         }
 
         .delete-btn.show {
-            display: inline-block; /* Se muestra solo a Deylin */
+            display: inline-block;
         }
 
         .delete-btn:hover {
             background-color: darkred;
+        }
+
+        .link-preview {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin-top: 5px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .link-preview img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .link-preview a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .link-preview a:hover {
+            text-decoration: underline;
+        }
+
+        .media-preview img, .media-preview video {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -97,6 +127,8 @@
     <h2>Chat Grupal</h2>
     <div id="chat-box"></div>
     <input type="text" id="message-input" placeholder="Escribe un mensaje...">
+    <input type="file" id="file-input" style="display: none;" accept="image/*,video/*">
+    <button id="file-btn">📎</button>
     <button id="send-btn">Enviar</button>
 </div>
 
@@ -104,22 +136,20 @@
     const chatBox = document.getElementById("chat-box");
     const messageInput = document.getElementById("message-input");
     const sendBtn = document.getElementById("send-btn");
+    const fileInput = document.getElementById("file-input");
+    const fileBtn = document.getElementById("file-btn");
 
-    // Obtener el usuario desde localStorage
     const usuario = JSON.parse(localStorage.getItem("user"));
-
     if (!usuario || !usuario.nombre) {
-        // Si no hay usuario, redirigir al login
         window.location.href = "index.html";
     }
 
-    const nombreUsuario = usuario.nombre; // Nombre del usuario registrado
-    const emailUsuario = usuario.email; // Correo del usuario
+    const nombreUsuario = usuario.nombre;
+    const emailUsuario = usuario.email;
 
-    // Cargar mensajes guardados
     document.addEventListener("DOMContentLoaded", () => {
         const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-        savedMessages.forEach(msg => addMessageToChat(msg.user, msg.text, msg.timestamp));
+        savedMessages.forEach(msg => addMessageToChat(msg.user, msg.text, msg.timestamp, msg.media));
     });
 
     sendBtn.addEventListener("click", sendMessage);
@@ -127,47 +157,92 @@
         if (e.key === "Enter") sendMessage();
     });
 
-    // Función para enviar un mensaje
+    fileBtn.addEventListener("click", () => fileInput.click());
+
+    fileInput.addEventListener("change", function () {
+        if (fileInput.files.length > 0) {
+            sendMedia(fileInput.files[0]);
+        }
+    });
+
     function sendMessage() {
         const messageText = messageInput.value.trim();
         if (!messageText) return;
 
-        const timestamp = Date.now(); // Guardar un timestamp para cada mensaje
+        const timestamp = Date.now();
         addMessageToChat(nombreUsuario, messageText, timestamp);
 
-        // Guardar el mensaje en localStorage
         const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-        savedMessages.push({ user: nombreUsuario, text: messageText, timestamp: timestamp });
+        savedMessages.push({ user: nombreUsuario, text: messageText, timestamp });
         localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
 
         messageInput.value = "";
+
+        if (isValidURL(messageText)) {
+            generateLinkPreview(messageText);
+        }
     }
 
-    // Función para agregar un mensaje al chat
-    function addMessageToChat(user, text, timestamp) {
+    function addMessageToChat(user, text, timestamp, media = null) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message");
         messageDiv.setAttribute("data-timestamp", timestamp);
+
+        let content = `<strong>${user}:</strong> ${text}`;
+        
+        if (media) {
+            content += `<br>${media.type.startsWith("image/") ? `<img src="${media.url}" class="media-preview">` : `<video controls class="media-preview"><source src="${media.url}" type="${media.type}"></video>`}`;
+        }
 
         let deleteButton = "";
         if (emailUsuario === "deylibaquedano801@gmail.com") {
             deleteButton = `<button class="delete-btn show" onclick="deleteMessage(${timestamp})">Eliminar</button>`;
         }
 
-        messageDiv.innerHTML = `<span class="user">${user}:</span> ${text} ${deleteButton}`;
+        messageDiv.innerHTML = content + deleteButton;
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Función para eliminar un mensaje
-    function deleteMessage(timestamp) {
-        // Eliminar el mensaje del chat
-        const messageDiv = document.querySelector(`div[data-timestamp='${timestamp}']`);
-        if (messageDiv) {
-            messageDiv.remove();
+    function isValidURL(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
         }
+    }
 
-        // Eliminar el mensaje de localStorage
+    function generateLinkPreview(url) {
+        fetch(`https://api.linkpreview.net/?key=YOUR_API_KEY&q=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => {
+                const previewElement = document.createElement("div");
+                previewElement.classList.add("link-preview");
+                previewElement.innerHTML = `
+                    <img src="${data.image || 'assets/images/default-preview.jpg'}" alt="Preview">
+                    <div>
+                        <a href="${data.url}" target="_blank">${data.title}</a>
+                        <p>${data.description || ""}</p>
+                    </div>
+                `;
+                chatBox.appendChild(previewElement);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(() => addMessageToChat("bot", "No se pudo generar la vista previa."));
+    }
+
+    function sendMedia(file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const mediaData = { type: file.type, url: e.target.result };
+            addMessageToChat(nombreUsuario, "", Date.now(), mediaData);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function deleteMessage(timestamp) {
+        document.querySelector(`div[data-timestamp='${timestamp}']`)?.remove();
         let savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
         savedMessages = savedMessages.filter(msg => msg.timestamp !== timestamp);
         localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
