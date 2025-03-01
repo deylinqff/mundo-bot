@@ -6,6 +6,7 @@
     <title>Chat Grupal</title>
     <link rel="stylesheet" href="CSS/styles.css">
     <style>
+        /* Estilos generales para el body */
         body {
             font-family: Arial, sans-serif;
             background: url('assets/images/fondo2.jpg') no-repeat center center fixed;
@@ -21,6 +22,7 @@
             height: 100vh;
         }
 
+        /* Contenedor principal del chat */
         #chat-container {
             width: 90%;
             max-width: 600px;
@@ -30,26 +32,48 @@
             padding: 10px;
         }
 
+        /* Área de visualización de mensajes */
         #chat-box {
             height: 400px;
             overflow-y: auto;
             border: 1px solid #ccc;
             padding: 10px;
             background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
+        /* Estilo común para los mensajes */
         .message {
             margin: 5px 0;
             padding: 8px;
             border-radius: 5px;
             word-wrap: break-word;
+            max-width: 80%;
         }
 
+        /* Estilo para los mensajes del usuario */
+        .user-message {
+            align-self: flex-end;
+            background-color: #DCF8C6; /* Color verde claro similar a WhatsApp */
+            margin-left: auto;
+        }
+
+        /* Estilo para los mensajes de otros usuarios */
+        .other-message {
+            align-self: flex-start;
+            background-color: #E5E5E5; /* Color gris claro */
+            margin-right: auto;
+        }
+
+        /* Estilo para el nombre del usuario */
         .user {
             font-weight: bold;
             color: black;
         }
 
+        /* Estilo para el campo de texto */
         #message-input {
             width: calc(100% - 110px);
             padding: 10px;
@@ -57,6 +81,7 @@
             border-radius: 5px;
         }
 
+        /* Botones de envío y archivos */
         #send-btn, #file-btn {
             padding: 10px;
             border: none;
@@ -71,53 +96,48 @@
             background: #0056b3;
         }
 
-        .delete-btn {
-            background-color: red;
-            color: white;
-            border: none;
+        /* Imágenes y videos en miniatura */
+        .media-preview {
+            max-width: 120px; /* Tamaño pequeño dentro del chat */
+            max-height: 120px;
             border-radius: 5px;
-            padding: 5px;
-            cursor: pointer;
-            display: none;
-        }
-
-        .delete-btn.show {
-            display: inline-block;
-        }
-
-        .delete-btn:hover {
-            background-color: darkred;
-        }
-
-        .link-preview {
-            border: 1px solid #ddd;
-            padding: 5px;
             margin-top: 5px;
-            border-radius: 5px;
-            display: flex;
+            cursor: pointer; /* Indica que se puede hacer clic */
+        }
+
+        /* Modal para ver imágenes y videos en grande */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
             align-items: center;
         }
 
-        .link-preview img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            border-radius: 5px;
+        /* Contenido de la imagen o video dentro del modal */
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
         }
 
-        .link-preview a {
-            color: #007bff;
-            text-decoration: none;
+        /* Botón para cerrar el modal */
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
         }
 
-        .link-preview a:hover {
-            text-decoration: underline;
-        }
-
-        .media-preview img, .media-preview video {
-            max-width: 100%;
-            border-radius: 5px;
-            margin-top: 5px;
+        .close-modal:hover {
+            color: red;
         }
     </style>
 </head>
@@ -200,6 +220,14 @@
         }
 
         messageDiv.innerHTML = content + deleteButton;
+        
+        // Aplicar clases para alineación
+        if (user === nombreUsuario) {
+            messageDiv.classList.add("user-message");
+        } else {
+            messageDiv.classList.add("other-message");
+        }
+
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
@@ -237,6 +265,11 @@
         reader.onload = function (e) {
             const mediaData = { type: file.type, url: e.target.result };
             addMessageToChat(nombreUsuario, "", Date.now(), mediaData);
+
+            // Guardar el mensaje con el archivo en el almacenamiento local
+            const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+            savedMessages.push({ user: nombreUsuario, text: "", timestamp: Date.now(), media: mediaData });
+            localStorage.setItem("chatMessages", JSON.stringify(savedMessages));
         };
         reader.readAsDataURL(file);
     }
