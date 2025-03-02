@@ -116,6 +116,10 @@
         <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
     </div>
 
+    <!-- Botón flotante para ir al chat grupal -->
+    <div id="chat-message">Únete al chat</div>
+    <button id="chat-button" onclick="window.location.href='chat-public.html'">💬</button>
+
     <!-- Pie de página -->
     <footer>
         <p>&copy; DEYLIN® 2025</p>
@@ -214,8 +218,9 @@
               botCard.innerHTML = `
                   <img src="${solicitud.imagen}" alt="${solicitud.nombre}">
                   <h3>${solicitud.nombre}</h3>
-                  <p><strong>Precio:</strong> $${solicitud.precio}</p>
-                  <p><strong>WhatsApp:</strong> ${solicitud.whatsapp}</p>
+                  <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">
+                      Comprar $${solicitud.precio}
+                  </button>
                   <p class="status"><strong>Estado:</strong> ${displayStatus}</p>
               `;
               
