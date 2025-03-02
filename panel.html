@@ -45,83 +45,24 @@
     </style>
 </head>
 <body>
+    <!-- Menú de navegación -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Bot</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .menu-btn {
-            width: 50px;
-            height: 40px;
-            background: #333;
-            color: white;
-            border: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .menu-btn div {
-            height: 5px;
-            background: white;
-            width: 100%;
-        }
-        .barra {
-            display: none;
-            position: absolute;
-            top: 60px;
-            background: white;
-            width: 200px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        .barra a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-        }
-        .barra a:hover {
-            background: #ddd;
-        }
-    </style>
-</head>
-<body>
+    <div class="barra" id="menu">
+        <a href="sube.html">Sube tu Bot</a>
+    </div>
 
-<button class="menu-btn" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-</button>
+    <script>
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+    </script>
 
-<div class="barra" id="menu">
-    <a href="sube.html">Sube tu Bot</a>
-</div>
-
-<script>
-    function toggleMenu() {
-        let menu = document.getElementById("menu");
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-</script>
-
-</body>
-</html>
     <!-- Encabezado con información del usuario -->
     <div class="header">
         <div class="user-info">
@@ -129,7 +70,9 @@
             <p>Email: <span id="user-email"></span></p>
         </div>
         <button onclick="cerrarSesion()">Cerrar sesión</button>
-    </div><!-- Selección de Bots -->
+    </div>
+
+    <!-- Selección de Bots -->
     <div class="bot-container">
         <div class="bot-card">
             <img src="assets/images/bot1.png" alt="Bot 1">
@@ -163,7 +106,9 @@
             <button onclick="redireccionarPago('Vegeta_Super Bot Personalizado', 10, '526641804242')">Personalizado 10$</button>
             <button onclick="redireccionarPago('Vegeta_Super Bot de Grupo', 5, '526641804242')">Grupo 5$</button>
         </div>
-    </div> <!-- Enlaces adicionales -->
+    </div>
+
+    <!-- Enlaces adicionales -->
     <div class="additional-links">
         <a href="chat.html">
             <button>Ir al Chat con Kirito-Bot</button>
@@ -172,19 +117,23 @@
             <button>Generar Imágenes</button>
         </a>
     </div>
-    </p>
+
     <a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>
-    </div>
-    </div> <!-- Botón solo visible para Deylin -->
+
+    <!-- Botón solo visible para Deylin -->
     <button id="estadisticas-btn" style="display: none;">Ver estadísticas</button>
 
     <!-- Sección de estadísticas -->
     <div id="estadisticas" style="display: none;">
         <p>Visitas a la página: <span id="visitas-contador">0</span></p>
         <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
-    </div> <!-- Botón flotante para ir al chat grupal -->
+    </div>
+
+    <!-- Botón flotante para ir al chat grupal -->
     <div id="chat-message">Únete al chat</div>
-    <button id="chat-button" onclick="window.location.href='chat-public.html'">💬</button> <!-- Pie de página -->
+    <button id="chat-button" onclick="window.location.href='chat-public.html'">💬</button>
+
+    <!-- Pie de página -->
     <footer>
         <p>&copy; DEYLIN® 2025</p>
     </footer>
