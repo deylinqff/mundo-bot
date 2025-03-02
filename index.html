@@ -47,38 +47,35 @@
         </div>
     </div>
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
-        const supabaseUrl = "https://smvcadmfigjirokbxfks.supabase.co";
-        const supabaseKey = "TU_NUEVA_CLAVE_API"; // Reemplázala por la nueva clave
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-        document.getElementById("form-registro").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const nombre = document.getElementById("nombre").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const { error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: { nombre: nombre }
-                }
-            });
-
-            if (error) {
-                alert("Error: " + error.message);
-            } else {
-                alert("Registro exitoso. Verifica tu correo.");
-                window.location.href = "panel.html";
+        // Verificar si el usuario ya está registrado
+        window.onload = function() {
+            if (localStorage.getItem('user')) {
+                window.location.href = "panel.html"; // Redirigir si ya está registrado
             }
-        });
+        };
 
-        // Modal
-        document.getElementById("btnOk").addEventListener("click", function() {
-            document.getElementById("modalRegistro").style.display = "none";
+        // Manejo del formulario de registro
+        document.getElementById("form-registro").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+
+            // Guardar usuario en localStorage
+            localStorage.setItem('user', JSON.stringify({ nombre, email }));
+
+            // Contador de usuarios registrados
+            const usuariosRegistrados = localStorage.getItem('usuariosRegistrados') || 0;
+            localStorage.setItem('usuariosRegistrados', parseInt(usuariosRegistrados) + 1);
+
+            // Mostrar modal
+            document.getElementById("modalRegistro").style.display = "flex";
+
+            // Botón OK para cerrar el modal y redirigir al panel
+            document.getElementById("btnOk").addEventListener("click", function() {
+                document.getElementById("modalRegistro").style.display = "none";
+                window.location.href = "panel.html";
+            });
         });
     </script>
 
