@@ -77,6 +77,18 @@
             font-weight: bold;
             text-align: center;
         }
+        .add-btn {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .add-form input {
+            padding: 10px;
+            margin: 5px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -86,6 +98,16 @@
 
     <!-- Lista de solicitudes -->
     <div id="solicitudes-list"></div>
+
+    <!-- Formulario para agregar nuevas solicitudes -->
+    <div class="add-form">
+        <h3>Agregar Solicitud</h3>
+        <input type="text" id="nombre" placeholder="Nombre del Bot" required><br>
+        <input type="number" id="precio" placeholder="Precio" required><br>
+        <input type="text" id="whatsapp" placeholder="WhatsApp" required><br>
+        <input type="text" id="imagen" placeholder="URL de la imagen" required><br>
+        <button class="add-btn" onclick="agregarSolicitud()">Agregar Solicitud</button>
+    </div>
 </div>
 
 <script>
@@ -110,7 +132,7 @@
                 <h3>${solicitud.nombre}</h3>
                 <p>Precio: $${solicitud.precio}</p>
                 <p>WhatsApp: ${solicitud.whatsapp}</p>
-                <p class="status">Estado: ${solicitud.estado}</p>
+                <p class="status">Estado: ${solicitud.estado || 'Pendiente'}</p>
                 <button class="approve-btn" onclick="aprobarSolicitud(${index})">Aprobar</button>
                 <button class="reject-btn" onclick="rechazarSolicitud(${index})">Rechazar</button>
             `;
@@ -138,6 +160,37 @@
         solicitudes.splice(index, 1);
         localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
         cargarSolicitudes();
+    }
+
+    function agregarSolicitud() {
+        let nombre = document.getElementById("nombre").value;
+        let precio = document.getElementById("precio").value;
+        let whatsapp = document.getElementById("whatsapp").value;
+        let imagen = document.getElementById("imagen").value;
+
+        if (!nombre || !precio || !whatsapp || !imagen) {
+            alert("Por favor, complete todos los campos.");
+            return;
+        }
+
+        let nuevaSolicitud = {
+            nombre,
+            precio,
+            whatsapp,
+            imagen,
+            estado: "Pendiente"
+        };
+
+        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
+        solicitudes.push(nuevaSolicitud);
+        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
+        cargarSolicitudes();
+
+        // Limpiar campos del formulario
+        document.getElementById("nombre").value = '';
+        document.getElementById("precio").value = '';
+        document.getElementById("whatsapp").value = '';
+        document.getElementById("imagen").value = '';
     }
 
     window.onload = cargarSolicitudes;
