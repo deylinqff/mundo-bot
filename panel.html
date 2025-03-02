@@ -110,13 +110,15 @@
       
       // La imagen: se asume que en la solicitud se guarda el nombre del archivo o una URL. 
       // Si guardaste solo el nombre de archivo, deberás ajustar la ruta.
-      botCard.innerHTML = `
-        <img src="assets/images/${solicitud.imagen}" alt="${solicitud.nombre}">
-        <h3>${solicitud.nombre}</h3>
-        <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">
-          Comprar $${solicitud.precio}
-        </button>
-      `;
+solicitudDiv.innerHTML = `
+    <img src="${solicitud.imagen}" alt="${solicitud.nombre}">
+    <h3>${solicitud.nombre}</h3>
+    <p><strong>Precio:</strong> $${solicitud.precio}</p>
+    <p><strong>WhatsApp:</strong> ${solicitud.whatsapp}</p>
+    <p class="status"><strong>Estado:</strong> ${displayStatus}</p>
+    <button class="approve-btn" onclick="aprobarSolicitud(${index})">Aprobar</button>
+    <button class="reject-btn" onclick="rechazarSolicitud(${index})">Rechazar</button>
+`;
       
       // Agregar la tarjeta al contenedor
       botContainer.appendChild(botCard);
