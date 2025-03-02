@@ -1,143 +1,141 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración</title>
-    <style>
-        /* Estilos como los anteriores */
-    </style>
-</head>
-<body>
 
-<div class="container">
-    <h2>Panel de Administración de Solicitudes</h2>
 
-    <!-- Lista de solicitudes -->
-    <div id="solicitudes-list"></div>
+<!DOCTYPE html>  <html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Panel de Administración</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            background-color: #f4f4f4;  
+            text-align: center;  
+            padding: 20px;  
+        }  
+        .container {  
+            background: white;  
+            padding: 20px;  
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  
+            width: 80%;  
+            margin: auto;  
+            border-radius: 8px;  
+        }  
+        h2 {  
+            margin-bottom: 20px;  
+        }  
+        .bot-card {  
+            background-color: #ffffff;  
+            padding: 15px;  
+            border-radius: 8px;  
+            margin-bottom: 15px;  
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  
+            text-align: left;  
+            position: relative;  
+        }  
+        .bot-card img {  
+            width: 120px;  
+            height: 120px;  
+            border-radius: 5px;  
+            display: block;  
+            margin: 10px auto;  
+        }  
+        .bot-card p {  
+            font-size: 14px;  
+            text-align: center;  
+        }  
+        button {  
+            padding: 10px;  
+            font-size: 14px;  
+            cursor: pointer;  
+            border-radius: 5px;  
+            margin-top: 10px;  
+            display: block;  
+            width: 80%;  
+            margin-left: auto;  
+            margin-right: auto;  
+        }  
+        .approve-btn {  
+            background-color: #4CAF50;  
+            color: white;  
+            border: none;  
+        }  
+        .reject-btn {  
+            background-color: #f44336;  
+            color: white;  
+            border: none;  
+        }  
+        .delete-btn {  
+            background-color: transparent;  
+            color: red;  
+            border: none;  
+            font-size: 18px;  
+            position: absolute;  
+            right: 10px;  
+            top: 10px;  
+            cursor: pointer;  
+        }  
+        .status {  
+            font-weight: bold;  
+            text-align: center;  
+        }  
+    </style>  
+</head>  
+<body>  <div class="container">  
+    <h2>Panel de Administración de Solicitudes</h2>  <!-- Lista de solicitudes -->  
+<div id="solicitudes-list"></div>
 
-    <!-- Formulario para agregar nuevas solicitudes -->
-    <div class="add-form">
-        <h3>Agregar Solicitud</h3>
-        <input type="text" id="nombre" placeholder="Nombre del Bot" required><br>
-        <input type="number" id="precio" placeholder="Precio" required><br>
-        <input type="text" id="whatsapp" placeholder="WhatsApp" required><br>
-        <input type="text" id="imagen" placeholder="URL de la imagen" required><br>
-        <button class="add-btn" onclick="agregarSolicitud()">Agregar Solicitud</button>
-    </div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-
-<script>
-    // Configura Firebase
-    const firebaseConfig = {
-        apiKey: "TU_API_KEY",
-        authDomain: "TU_AUTH_DOMAIN",
-        databaseURL: "TU_DATABASE_URL",
-        projectId: "TU_PROJECT_ID",
-        storageBucket: "TU_STORAGE_BUCKET",
-        messagingSenderId: "TU_MESSAGING_SENDER_ID",
-        appId: "TU_APP_ID"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.database(app);
-
-    // Función para cargar solicitudes desde Firebase
-    function cargarSolicitudes() {
-        const solicitudesListDiv = document.getElementById("solicitudes-list");
-
-        // Obtén las solicitudes desde Firebase
-        const solicitudesRef = db.ref("solicitudes");
-
-        solicitudesRef.on("value", (snapshot) => {
-            const solicitudes = snapshot.val();
-            solicitudesListDiv.innerHTML = '';
-
-            if (!solicitudes) {
-                solicitudesListDiv.innerHTML = '<p>No hay solicitudes pendientes.</p>';
-                return;
-            }
-
-            for (let id in solicitudes) {
-                let solicitud = solicitudes[id];
-                let solicitudDiv = document.createElement("div");
-                solicitudDiv.classList.add("bot-card");
-
-                solicitudDiv.innerHTML = `
-                    <button class="delete-btn" onclick="eliminarSolicitud('${id}')">❌</button>
-                    <img src="${solicitud.imagen}" alt="Imagen del Bot">
-                    <h3>${solicitud.nombre}</h3>
-                    <p>Precio: $${solicitud.precio}</p>
-                    <p>WhatsApp: ${solicitud.whatsapp}</p>
-                    <p class="status">Estado: ${solicitud.estado || 'Pendiente'}</p>
-                    <button class="approve-btn" onclick="aprobarSolicitud('${id}')">Aprobar</button>
-                    <button class="reject-btn" onclick="rechazarSolicitud('${id}')">Rechazar</button>
-                `;
-
-                solicitudesListDiv.appendChild(solicitudDiv);
-            }
-        });
-    }
-
-    // Función para aprobar solicitud
-    function aprobarSolicitud(id) {
-        const solicitudRef = db.ref("solicitudes/" + id);
-        solicitudRef.update({
-            estado: "Aprobada"
-        });
-    }
-
-    // Función para rechazar solicitud
-    function rechazarSolicitud(id) {
-        const solicitudRef = db.ref("solicitudes/" + id);
-        solicitudRef.update({
-            estado: "Rechazada"
-        });
-    }
-
-    // Función para eliminar solicitud
-    function eliminarSolicitud(id) {
-        const solicitudRef = db.ref("solicitudes/" + id);
-        solicitudRef.remove();
-    }
-
-    // Función para agregar solicitud
-    function agregarSolicitud() {
-        const nombre = document.getElementById("nombre").value;
-        const precio = document.getElementById("precio").value;
-        const whatsapp = document.getElementById("whatsapp").value;
-        const imagen = document.getElementById("imagen").value;
-
-        if (!nombre || !precio || !whatsapp || !imagen) {
-            alert("Por favor, complete todos los campos.");
-            return;
-        }
-
-        const nuevaSolicitud = {
-            nombre,
-            precio,
-            whatsapp,
-            imagen,
-            estado: "Pendiente"
-        };
-
-        // Agregar solicitud a Firebase
-        const solicitudesRef = db.ref("solicitudes");
-        solicitudesRef.push(nuevaSolicitud);
-
-        // Limpiar los campos
-        document.getElementById("nombre").value = '';
-        document.getElementById("precio").value = '';
-        document.getElementById("whatsapp").value = '';
-        document.getElementById("imagen").value = '';
-    }
-
-    // Cargar las solicitudes al cargar la página
-    window.onload = cargarSolicitudes;
-</script>
-
-</body>
+</div>  <script>  
+    function cargarSolicitudes() {  
+        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];  
+        let solicitudesListDiv = document.getElementById("solicitudes-list");  
+  
+        solicitudesListDiv.innerHTML = '';  
+  
+        if (solicitudes.length === 0) {  
+            solicitudesListDiv.innerHTML = '<p>No hay solicitudes pendientes.</p>';  
+            return;  
+        }  
+  
+        solicitudes.forEach((solicitud, index) => {  
+            let solicitudDiv = document.createElement("div");  
+            solicitudDiv.classList.add("bot-card");  
+  
+            solicitudDiv.innerHTML = `  
+                <button class="delete-btn" onclick="eliminarSolicitud(${index})">❌</button>  
+                <img src="${solicitud.imagen}" alt="Imagen del Bot">  
+                <h3>${solicitud.nombre}</h3>  
+                <p>Precio: $${solicitud.precio}</p>  
+                <p>WhatsApp: ${solicitud.whatsapp}</p>  
+                <p class="status">Estado: ${solicitud.estado}</p>  
+                <button class="approve-btn" onclick="aprobarSolicitud(${index})">Aprobar</button>  
+                <button class="reject-btn" onclick="rechazarSolicitud(${index})">Rechazar</button>  
+            `;  
+  
+            solicitudesListDiv.appendChild(solicitudDiv);  
+        });  
+    }  
+  
+    function aprobarSolicitud(index) {  
+        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];  
+        solicitudes[index].estado = "Aprobada";  
+        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));  
+        cargarSolicitudes();  
+    }  
+  
+    function rechazarSolicitud(index) {  
+        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];  
+        solicitudes[index].estado = "Rechazada";  
+        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));  
+        cargarSolicitudes();  
+    }  
+  
+    function eliminarSolicitud(index) {  
+        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];  
+        solicitudes.splice(index, 1);  
+        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));  
+        cargarSolicitudes();  
+    }  
+  
+    window.onload = cargarSolicitudes;  
+</script>  </body>  
 </html>
