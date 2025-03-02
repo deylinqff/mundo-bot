@@ -6,5 +6,4 @@ const config = {
     ]
 };
 
-// Exportar la configuración para usarla en otros archivos
 export default config;
