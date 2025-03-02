@@ -1,14 +1,17 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const chatBox = document.getElementById("chat-box");
-    const messageInput = document.getElementById("message-input");
-    const sendBtn = document.getElementById("send-btn");
-    const fileBtn = document.getElementById("file-btn");
+import config from './config.js';
+
+document.addEventListener("DOMContentLoaded", function () { 
+    const chatBox = document.getElementById("chat-box"); 
+    const messageInput = document.getElementById("message-input"); 
+    const sendBtn = document.getElementById("send-btn"); 
+    const fileBtn = document.getElementById("file-btn"); 
     const fileInput = document.getElementById("file-input");
 
-    const adminEmail = "deylibaquedano801@gmail.com";
+    console.log("Correos de administradores:", config.adminEmails);
+
     const userEmail = prompt("Ingresa tu correo:");
 
-    if (userEmail === adminEmail) {
+    if (config.adminEmails.includes(userEmail)) {
         document.body.classList.add("show-delete");
     }
 
@@ -42,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         container.appendChild(newMessage);
 
         // 🔹 Si el usuario es admin, agregar botón de eliminar
-        if (userEmail === adminEmail) {
+        if (config.adminEmails.includes(userEmail)) {
             const deleteBtn = document.createElement("button");
             deleteBtn.classList.add("delete-btn");
             deleteBtn.innerHTML = "🗑️";
