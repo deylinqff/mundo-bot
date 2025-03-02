@@ -97,6 +97,10 @@
         <a href="chat.html">
             <button>Ir al Chat con Kirito-Bot</button>
         </a>
+        <!-- Botón para subir tu bot -->
+        <a href="sube.html">
+            <button>Sube tu Bot</button>
+        </a>
     </div>
     <a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>
 
@@ -124,12 +128,10 @@
                 document.getElementById('user-name').innerText = usuario.nombre;
                 document.getElementById('user-email').innerText = usuario.email;
 
-// Si el usuario es Deylin o el nuevo correo, mostrar botón de estadísticas
-const correosAdmins = ["deylibaquedano801@gmail.com", "sumiso40k@gmail.com"];
-
-if (correosAdmins.includes(usuario.email)) {
-    document.getElementById("estadisticas-btn").style.display = "block";
-}
+                // Si el usuario es Deylin, mostrar botón de estadísticas
+                if (usuario.email === "deylibaquedano801@gmail.com") {
+                    document.getElementById("estadisticas-btn").style.display = "block";
+                }
 
                 // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos
                 const chatMessage = document.getElementById("chat-message");
