@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Bots</title>
     <link rel="stylesheet" href="estilos.css">
-    <script type="module" src="config.js"></script> 
     <style>
+        /* Estilos para el botón flotante */
         #chat-button {
             position: fixed;
             bottom: 20px;
@@ -19,12 +19,16 @@
             border-radius: 50%;
             font-size: 24px;
             cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background 0.3s ease;
         }
-        #chat-button:hover { background-color: #0056b3; }
+        #chat-button:hover {
+            background-color: #0056b3;
+        }
+        /* Estilos para el mensaje emergente */
         #chat-message {
             position: fixed;
             bottom: 90px;
@@ -34,6 +38,7 @@
             padding: 10px 15px;
             border-radius: 10px;
             font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             opacity: 0;
             transition: opacity 0.5s ease;
         }
@@ -41,98 +46,127 @@
 </head>
 <body>
 
-    <div class="header">
-        <div class="user-info">
-            <h2>Bienvenido, <span id="user-name"></span></h2>
-            <p>Email: <span id="user-email"></span></p>
-        </div>
-        <button onclick="cerrarSesion()">Cerrar sesión</button>
+<!-- Encabezado con información del usuario -->
+<div class="header">
+    <div class="user-info">
+        <h2>Bienvenido, <span id="user-name"></span></h2>
+        <p>Email: <span id="user-email"></span></p>
     </div>
+    <button onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
 
-    <div class="bot-container">
-        <div class="bot-card">
-            <img src="assets/images/bot1.png" alt="Bot 1">
-            <h3>KIRITO-BOT PARA GRUPOS</h3>
-            <button onclick="redireccionarPago('Bot de Grupos', 10, '50488198573')">𝗠𝗘𝗡𝗦: 10$</button>
-        </div>
-        <div class="bot-card">
-            <img src="assets/images/bot2.jpg" alt="Bot Personal">
-            <h3>KIRITO-BOT PERSONAL</h3>
-            <button onclick="redireccionarPago('Bot Personal', 5, '50488198573')">𝗠𝗘𝗡𝗦: 5$</button>
-        </div>
+<!-- Selección de Bots -->
+<div class="bot-container">
+    <div class="bot-card">
+        <img src="assets/images/bot1.png" alt="Bot 1">
+        <h3>KIRITO-BOT PARA GRUPOS</h3>
+        <button onclick="redireccionarPago('Bot de Grupos', 10, '50488198573')">𝗠𝗘𝗡𝗦: 10$</button>
     </div>
-
-    <div class="additional-links">
-        <a href="chat.html"><button>Ir al Chat con Kirito-Bot</button></a>
-        <a href="grd-img.html"><button>Generar Imágenes</button></a>
+    <div class="bot-card">
+        <img src="assets/images/bot2.jpg" alt="Bot Personal">
+        <h3>KIRITO-BOT PERSONAL</h3>
+        <button onclick="redireccionarPago('Bot Personal', 5, '50488198573')">𝗠𝗘𝗡𝗦: 5$</button>
     </div>
-
-    <a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>
-
-    <button id="estadisticas-btn" style="display: none;">Ver estadísticas</button>
-
-    <div id="estadisticas" style="display: none;">
-        <p>Visitas a la página: <span id="visitas-contador">0</span></p>
-        <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
+    <div class="bot-card">
+        <img src="assets/images/bot3.jpg" alt="Bot Personal">
+        <h3>MAFER X ELMO PERSONAL</h3>
+        <button onclick="window.location.href='bots.html'">𝗩𝗘𝗥 𝗠𝗔𝗦</button>
     </div>
+    <div class="bot-card">
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg.jpg" alt="Bot Personal">
+        <h3>BOTS PERSONALIZADOS</h3>
+        <button onclick="window.location.href='bots2.html'">𝗩𝗘𝗥 𝗠𝗔𝗦</button>
+    </div>
+</div>
 
-    <div id="chat-message">Únete al chat</div>
-    <button id="chat-button" onclick="window.location.href='chat-public.html'">💬</button>
+<!-- Enlaces adicionales -->
+<div class="additional-links">
+    <a href="chat.html">
+        <button>Ir al Chat con Kirito-Bot</button>
+    </a>
+    <a href="grd-img.html">
+        <button>Generar Imágenes</button>
+    </a>
+</div>
+<a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>
 
-    <footer>
-        <p>&copy; DEYLIN® 2025</p>
-    </footer>
+<!-- Botón solo visible para Deylin -->
+<button id="estadisticas-btn" style="display: none;">Ver estadísticas</button>
 
-    <script type="module">
-        import config from './config.js';
+<!-- Sección de estadísticas -->
+<div id="estadisticas" style="display: none;">
+    <p>Visitas a la página: <span id="visitas-contador">0</span></p>
+    <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
+</div>
 
-        window.onload = function() {
-            const usuario = JSON.parse(localStorage.getItem('user'));
-            const visitas = localStorage.getItem('visitas') || 0;
-            const usuariosRegistrados = localStorage.getItem('usuariosRegistrados') || 0;
+<!-- Botón flotante para ir al chat grupal -->
+<div id="chat-message">Únete al chat</div>
+<button id="chat-button" onclick="window.location.href='chat-public.html'">💬</button>
 
-            if (usuario) {
-                document.getElementById('user-name').innerText = usuario.nombre;
-                document.getElementById('user-email').innerText = usuario.email;
+<!-- Pie de página -->
+<footer>
+    <p>&copy; DEYLIN® 2025</p>
+</footer>
 
-                // Verificar si el usuario es administrador
-                if (config.adminEmails.includes(usuario.email)) {
-                    document.getElementById("estadisticas-btn").style.display = "block";
-                }
+<!-- Importación del archivo de configuración -->
+<script type="module">
+    import config from './config.js';
+    console.log("Admins:", config.adminEmails);
+</script>
 
-                const chatMessage = document.getElementById("chat-message");
-                chatMessage.style.opacity = "1";
-                setTimeout(() => { chatMessage.style.opacity = "0"; }, 5000);
-            } else {
-                window.location.href = "index.html";
+<script>
+    window.onload = function() {
+        const usuario = JSON.parse(localStorage.getItem('user'));
+        const visitas = localStorage.getItem('visitas') || 0;
+        const usuariosRegistrados = localStorage.getItem('usuariosRegistrados') || 0;
+
+        if (usuario) {
+            document.getElementById('user-name').innerText = usuario.nombre;
+            document.getElementById('user-email').innerText = usuario.email;
+
+            // Si el usuario es Deylin, mostrar botón de estadísticas
+            if (usuario.email === "deylibaquedano801@gmail.com") {
+                document.getElementById("estadisticas-btn").style.display = "block";
             }
 
-            document.getElementById("estadisticas-btn").addEventListener("click", function() {
-                document.getElementById("estadisticas").style.display = "block";
-                document.getElementById("visitas-contador").innerText = visitas;
-                document.getElementById("usuarios-contador").innerText = usuariosRegistrados;
-            });
-        };
-
-        function cerrarSesion() {
-            const usuario = JSON.parse(localStorage.getItem('user'));
-            if (!usuario) {
-                window.location.href = "index.html";
-                return;
-            }
-            const confirmacion = confirm(`Hola ${usuario.nombre}, ¿estás seguro de que quieres eliminar tu sesión?`);
-            if (confirmacion) {
-                localStorage.removeItem('user');
-                window.location.href = "index.html";
-            }
+            // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos
+            const chatMessage = document.getElementById("chat-message");
+            chatMessage.style.opacity = "1";
+            setTimeout(() => {
+                chatMessage.style.opacity = "0";
+            }, 5000);
+        } else {
+            window.location.href = "index.html";
         }
 
-        function redireccionarPago(tipoBot, precio, numero) {
-            const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
-            const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-            window.location.href = url;
+        // Mostrar estadísticas cuando se presiona el botón
+        document.getElementById("estadisticas-btn").addEventListener("click", function() {
+            document.getElementById("estadisticas").style.display = "block";
+            document.getElementById("visitas-contador").innerText = visitas;
+            document.getElementById("usuarios-contador").innerText = usuariosRegistrados;
+        });
+    };
+
+    function cerrarSesion() {
+        const usuario = JSON.parse(localStorage.getItem('user'));
+        if (!usuario) {
+            window.location.href = "index.html";
+            return;
         }
-    </script>
+
+        const confirmacion = confirm(`Hola ${usuario.nombre}, ¿estás seguro de que quieres eliminar tu sesión?`);
+        if (confirmacion) {
+            localStorage.removeItem('user');
+            window.location.href = "index.html";
+        }
+    }
+
+    function redireccionarPago(tipoBot, precio, numero) {
+        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+        window.location.href = url;
+    }
+</script>
 
 </body>
 </html>
