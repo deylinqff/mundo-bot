@@ -45,24 +45,6 @@
     </style>
 </head>
 <body>
-    <!-- Menú de navegación -->
-    <button class="menu-btn" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </button>
-
-    <div class="barra" id="menu">
-        <a href="sube.html">Sube tu Bot</a>
-    </div>
-
-    <script>
-        function toggleMenu() {
-            let menu = document.getElementById("menu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
-    </script>
-
     <!-- Encabezado con información del usuario -->
     <div class="header">
         <div class="user-info">
@@ -70,6 +52,8 @@
             <p>Email: <span id="user-email"></span></p>
         </div>
         <button onclick="cerrarSesion()">Cerrar sesión</button>
+        <!-- Botón de administración, se mostrará solo para administradores -->
+        <button id="admin-btn" style="display: none;">Administración</button>
     </div>
 
     <!-- Selección de Bots -->
@@ -117,7 +101,6 @@
             <button>Generar Imágenes</button>
         </a>
     </div>
-
     <a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>
 
     <!-- Botón solo visible para Deylin -->
@@ -192,9 +175,22 @@
         }
     </script>
 
+    <!-- Importación del archivo de configuración para administradores -->
     <script type="module">
         import config from './config.js';
         console.log("Admins:", config.adminEmails);
+        window.addEventListener("load", function(){
+            const usuario = JSON.parse(localStorage.getItem('user'));
+            if (usuario && config.adminEmails.includes(usuario.email)) {
+                const adminBtn = document.getElementById("admin-btn");
+                if(adminBtn){
+                    adminBtn.style.display = "block";
+                    adminBtn.addEventListener("click", function(){
+                        window.location.href = "admin.html";
+                    });
+                }
+            }
+        });
     </script>
 </body>
 </html>
