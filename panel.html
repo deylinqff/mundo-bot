@@ -128,10 +128,15 @@
                 document.getElementById('user-name').innerText = usuario.nombre;
                 document.getElementById('user-email').innerText = usuario.email;
 
-                // Si el usuario es Deylin, mostrar botón de estadísticas
-                if (usuario.email === "deylibaquedano801@gmail.com") {
-                    document.getElementById("estadisticas-btn").style.display = "block";
-                }
+<script type="module">
+    import config from './config.js';
+    console.log("Admins:", config.adminEmails);
+
+    // Si el email del usuario está en la lista de administradores, mostrar el botón de estadísticas
+    if (config.adminEmails.includes(usuario.email)) {
+        document.getElementById("estadisticas-btn").style.display = "block";
+    }
+</script>
 
                 // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos
                 const chatMessage = document.getElementById("chat-message");
