@@ -1,13 +1,10 @@
-module.exports = {
-  db: {
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'webapp',
-  },
-  payment: {
-    stripeSecretKey: 'YOUR_STRIPE_SECRET_KEY',
-    paypalClientId: 'YOUR_PAYPAL_CLIENT_ID',
-    paypalSecret: 'YOUR_PAYPAL_SECRET',
-  },
+const config = {
+    adminEmails: [
+        "admin1@example.com",
+        "admin2@example.com",
+        "admin3@example.com"
+    ]
 };
+
+// Exportar la configuración para usarla en otros archivos
+export default config;
