@@ -97,9 +97,6 @@
         <a href="chat.html">
             <button>Ir al Chat con Kirito-Bot</button>
         </a>
-        <a href="grd-img.html">
-            <button>Generar Imágenes</button>
-        </a>
         <!-- Botón para subir tu bot -->
         <a href="sube.html">
             <button>Sube tu Bot</button>
@@ -115,7 +112,6 @@
         <p>Visitas a la página: <span id="visitas-contador">0</span></p>
         <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
     </div>
-
 
     <!-- Pie de página -->
     <footer>
@@ -209,16 +205,12 @@
               const botCard = document.createElement("div");
               botCard.classList.add("bot-card");
               
-              // Se muestra "Aprobada (Ai)" como estado
-              let displayStatus = "";
-              
               botCard.innerHTML = `
                   <img src="${solicitud.imagen}" alt="${solicitud.nombre}">
                   <h3>${solicitud.nombre}</h3>
                   <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">
                       Comprar $${solicitud.precio}
                   </button>
-                  <p class="status"><strong>Estado:</strong> ${displayStatus}</p>
               `;
               
               botContainer.appendChild(botCard);
