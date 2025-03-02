@@ -95,6 +95,10 @@
 
         solicitudesListDiv.innerHTML = '';
 
+        // Verificar si el usuario es administrador
+        const usuario = JSON.parse(localStorage.getItem('user'));  // Asumiendo que guardas el usuario en localStorage
+        const esAdministrador = usuario && usuario.email === "deylibaquedano801@gmail.com";  // Verifica si es un admin
+
         if (solicitudes.length === 0) {
             solicitudesListDiv.innerHTML = '<p>No hay solicitudes pendientes.</p>';
             return;
@@ -105,15 +109,21 @@
             solicitudDiv.classList.add("bot-card");
 
             solicitudDiv.innerHTML = `
-                <button class="delete-btn" onclick="eliminarSolicitud(${index})">❌</button>
                 <img src="${solicitud.imagen}" alt="Imagen del Bot">
                 <h3>${solicitud.nombre}</h3>
                 <p>Precio: $${solicitud.precio}</p>
                 <p>WhatsApp: ${solicitud.whatsapp}</p>
                 <p class="status">Estado: ${solicitud.estado}</p>
-                <button class="approve-btn" onclick="aprobarSolicitud(${index})">Aprobar</button>
-                <button class="reject-btn" onclick="rechazarSolicitud(${index})">Rechazar</button>
             `;
+
+            // Solo mostrar botones para administradores
+            if (esAdministrador) {
+                solicitudDiv.innerHTML += `
+                    <button class="delete-btn" onclick="eliminarSolicitud(${index})">❌</button>
+                    <button class="approve-btn" onclick="aprobarSolicitud(${index})">Aprobar</button>
+                    <button class="reject-btn" onclick="rechazarSolicitud(${index})">Rechazar</button>
+                `;
+            }
 
             solicitudesListDiv.appendChild(solicitudDiv);
         });
