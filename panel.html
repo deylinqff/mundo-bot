@@ -92,6 +92,44 @@
         </div>
     </div>
 
+<script>
+  // Función para cargar las solicitudes aprobadas y agregarlas al contenedor de bots
+  function cargarBotsAprobados() {
+    // Obtener las solicitudes guardadas en localStorage
+    let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
+    // Filtrar solo las solicitudes aprobadas
+    let aprobadas = solicitudes.filter(solicitud => solicitud.estado === "Aprobada");
+    // Seleccionar el contenedor donde se muestran los bots (suponiendo que tenga la clase 'bot-container')
+    const botContainer = document.querySelector(".bot-container");
+    
+    // Recorrer cada solicitud aprobada y crear una tarjeta de bot
+    aprobadas.forEach(solicitud => {
+      // Crear la tarjeta
+      const botCard = document.createElement("div");
+      botCard.classList.add("bot-card");
+      
+      // La imagen: se asume que en la solicitud se guarda el nombre del archivo o una URL. 
+      // Si guardaste solo el nombre de archivo, deberás ajustar la ruta.
+      botCard.innerHTML = `
+        <img src="assets/images/${solicitud.imagen}" alt="${solicitud.nombre}">
+        <h3>${solicitud.nombre}</h3>
+        <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">
+          Comprar $${solicitud.precio}
+        </button>
+      `;
+      
+      // Agregar la tarjeta al contenedor
+      botContainer.appendChild(botCard);
+    });
+  }
+
+  // Llamar a la función de carga de bots aprobados después de cargar la página
+  window.addEventListener("load", function() {
+    // Llamar a la función para cargar los bots aprobados
+    cargarBotsAprobados();
+  });
+</script>
+
     <!-- Enlaces adicionales -->
     <div class="additional-links">
         <a href="chat.html">
