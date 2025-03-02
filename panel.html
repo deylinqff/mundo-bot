@@ -97,6 +97,9 @@
         <a href="chat.html">
             <button>Ir al Chat con Kirito-Bot</button>
         </a>
+        <a href="grd-img.html">
+            <button>Generar Imágenes</button>
+        </a>
         <!-- Botón para subir tu bot -->
         <a href="sube.html">
             <button>Sube tu Bot</button>
@@ -127,6 +130,11 @@
             if (usuario) {
                 document.getElementById('user-name').innerText = usuario.nombre;
                 document.getElementById('user-email').innerText = usuario.email;
+
+                // Si el usuario es Deylin, mostrar botón de estadísticas
+                if (usuario.email === "deylibaquedano801@gmail.com") {
+                    document.getElementById("estadisticas-btn").style.display = "block";
+                }
 
                 // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos
                 const chatMessage = document.getElementById("chat-message");
@@ -171,8 +179,7 @@
     <script type="module">
         import config from './config.js';
         console.log("Admins:", config.adminEmails);
-
-        window.addEventListener("load", function() {
+        window.addEventListener("load", function(){
             const usuario = JSON.parse(localStorage.getItem('user'));
             if (usuario && config.adminEmails.includes(usuario.email)) {
                 const adminBtn = document.getElementById("admin-btn");
@@ -188,34 +195,34 @@
 
     <!-- Script para cargar los bots aprobados (solicitudes) en el panel -->
     <script>
-        function cargarBotsAprobados() {
-            // Obtener las solicitudes guardadas en localStorage
-            let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-            // Filtrar solo las solicitudes aprobadas
-            let aprobadas = solicitudes.filter(solicitud => solicitud.estado === "Aprobada");
-            // Seleccionar el contenedor donde se muestran los bots
-            const botContainer = document.querySelector(".bot-container");
-
-            // Recorrer cada solicitud aprobada y crear una tarjeta de bot
-            aprobadas.forEach((solicitud) => {
-                const botCard = document.createElement("div");
-                botCard.classList.add("bot-card");
-
-                botCard.innerHTML = `
-                    <img src="${solicitud.imagen}" alt="${solicitud.nombre}">
-                    <h3>${solicitud.nombre}</h3>
-                    <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">
-                        Comprar $${solicitud.precio}
-                    </button>
-                `;
-
-                botContainer.appendChild(botCard);
-            });
-        }
-
-        window.addEventListener("load", function() {
-            cargarBotsAprobados();
-        });
+      function cargarBotsAprobados() {
+          // Obtener las solicitudes guardadas en localStorage
+          let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
+          // Filtrar solo las solicitudes aprobadas
+          let aprobadas = solicitudes.filter(solicitud => solicitud.estado === "Aprobada");
+          // Seleccionar el contenedor donde se muestran los bots
+          const botContainer = document.querySelector(".bot-container");
+          
+          // Recorrer cada solicitud aprobada y crear una tarjeta de bot
+          aprobadas.forEach((solicitud) => {
+              const botCard = document.createElement("div");
+              botCard.classList.add("bot-card");
+              
+              botCard.innerHTML = `
+                  <img src="${solicitud.imagen}" alt="${solicitud.nombre}">
+                  <h3>${solicitud.nombre}</h3>
+                  <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">
+                      Comprar $${solicitud.precio}
+                  </button>
+              `;
+              
+              botContainer.appendChild(botCard);
+          });
+      }
+      
+      window.addEventListener("load", function(){
+          cargarBotsAprobados();
+      });
     </script>
 </body>
 </html>
