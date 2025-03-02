@@ -128,16 +128,6 @@
                 document.getElementById('user-name').innerText = usuario.nombre;
                 document.getElementById('user-email').innerText = usuario.email;
 
-<script type="module">
-    import config from './config.js';
-    console.log("Admins:", config.adminEmails);
-
-    // Si el email del usuario está en la lista de administradores, mostrar el botón de estadísticas
-    if (config.adminEmails.includes(usuario.email)) {
-        document.getElementById("estadisticas-btn").style.display = "block";
-    }
-</script>
-
                 // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos
                 const chatMessage = document.getElementById("chat-message");
                 chatMessage.style.opacity = "1";
@@ -181,6 +171,7 @@
     <script type="module">
         import config from './config.js';
         console.log("Admins:", config.adminEmails);
+
         window.addEventListener("load", function(){
             const usuario = JSON.parse(localStorage.getItem('user'));
             if (usuario && config.adminEmails.includes(usuario.email)) {
@@ -190,6 +181,12 @@
                     adminBtn.addEventListener("click", function(){
                         window.location.href = "admin.html";
                     });
+                }
+
+                // Si el email del usuario está en la lista de administradores, mostrar el botón de estadísticas
+                const estadisticasBtn = document.getElementById("estadisticas-btn");
+                if (estadisticasBtn) {
+                    estadisticasBtn.style.display = "block";
                 }
             }
         });
@@ -204,12 +201,12 @@
           let aprobadas = solicitudes.filter(solicitud => solicitud.estado === "Aprobada");
           // Seleccionar el contenedor donde se muestran los bots
           const botContainer = document.querySelector(".bot-container");
-          
+
           // Recorrer cada solicitud aprobada y crear una tarjeta de bot
           aprobadas.forEach((solicitud) => {
               const botCard = document.createElement("div");
               botCard.classList.add("bot-card");
-              
+
               botCard.innerHTML = `
                   <img src="${solicitud.imagen}" alt="${solicitud.nombre}">
                   <h3>${solicitud.nombre}</h3>
@@ -217,11 +214,11 @@
                       Comprar $${solicitud.precio}
                   </button>
               `;
-              
+
               botContainer.appendChild(botCard);
           });
       }
-      
+
       window.addEventListener("load", function(){
           cargarBotsAprobados();
       });
