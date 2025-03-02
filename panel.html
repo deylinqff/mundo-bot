@@ -1,221 +1,226 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Bots</title>
-    <link rel="stylesheet" href="estilos.css">
-    <style>
-        /* Estilos para el botón flotante */
-        #chat-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s ease;
-        }
-        #chat-button:hover {
-            background-color: #0056b3;
-        }
-        /* Estilos para el mensaje emergente */
-        #chat-message {
-            position: fixed;
-            bottom: 90px;
-            right: 30px;
-            background: #ffcc00;
-            color: black;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-size: 14px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-    </style>
-</head>
-<body>
-    <!-- Encabezado con información del usuario -->
-    <div class="header">
-        <div class="user-info">
-            <h2>Bienvenido, <span id="user-name"></span></h2>
-            <p>Email: <span id="user-email"></span></p>
-        </div>
-        <button onclick="cerrarSesion()">Cerrar sesión</button>
-        <!-- Botón de administración, se mostrará solo para administradores -->
-        <button id="admin-btn" style="display: none;">Administración</button>
-    </div>
+<!DOCTYPE html>  <html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Panel de Bots</title>  
+    <link rel="stylesheet" href="estilos.css">  
+    <style>  
+        /* Estilos para el botón flotante */  
+        #chat-button {  
+            position: fixed;  
+            bottom: 20px;  
+            right: 20px;  
+            width: 60px;  
+            height: 60px;  
+            background-color: #007bff;  
+            color: white;  
+            border: none;  
+            border-radius: 50%;  
+            font-size: 24px;  
+            cursor: pointer;  
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+            display: flex;  
+            align-items: center;  
+            justify-content: center;  
+            transition: background 0.3s ease;  
+        }  
+        #chat-button:hover {  
+            background-color: #0056b3;  
+        }  
+        /* Estilos para el mensaje emergente */  
+        #chat-message {  
+            position: fixed;  
+            bottom: 90px;  
+            right: 30px;  
+            background: #ffcc00;  
+            color: black;  
+            padding: 10px 15px;  
+            border-radius: 10px;  
+            font-size: 14px;  
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+            opacity: 0;  
+            transition: opacity 0.5s ease;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <!-- Encabezado con información del usuario -->  
+    <div class="header">  
+        <div class="user-info">  
+            <h2>Bienvenido, <span id="user-name"></span></h2>  
+            <p>Email: <span id="user-email"></span></p>  
+        </div>  
+        <button onclick="cerrarSesion()">Cerrar sesión</button>  
+        <!-- Botón de administración, se mostrará solo para administradores -->  
+        <button id="admin-btn" style="display: none;">Administración</button>  
+    </div>  <!-- Selección de Bots -->  
+<div class="bot-container">  
+    <div class="bot-card">  
+        <img src="assets/images/bot1.png" alt="Bot 1">  
+        <h3>KIRITO-BOT PARA GRUPOS</h3>  
+        <button onclick="redireccionarPago('Bot de Grupos', 10, '50488198573')">𝗠𝗘𝗡𝗦: 10$</button>  
+    </div>  
+    <div class="bot-card">  
+        <img src="assets/images/bot2.jpg" alt="Bot Personal">  
+        <h3>KIRITO-BOT PERSONAL</h3>  
+        <button onclick="redireccionarPago('Bot Personal', 5, '50488198573')">𝗠𝗘𝗡𝗦: 5$</button>  
+    </div>  
+    <div class="bot-card">  
+        <img src="assets/images/bot3.jpg" alt="Bot Personal">  
+        <h3>MAFER X ELMO PERSONAL</h3>  
+        <button onclick="window.location.href='bots.html'">𝗩𝗘𝗥 𝗠𝗔𝗦</button>  
+    </div>  
+    <div class="bot-card">  
+        <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg.jpg" alt="Bot Personal">  
+        <h3>BOTS PERSONALIZADOS</h3>  
+        <button onclick="window.location.href='bots2.html'">𝗩𝗘𝗥 𝗠𝗔𝗦</button>  
+    </div>  
+    <div class="bot-card">  
+        <img src="https://i.postimg.cc/KYNCVByd/IMG-20250227-WA0397.jpg" alt="Bot Barboza Ai">  
+        <h3>BOT BARBOZA AI</h3>  
+        <button onclick="redireccionarPago('Bot Personalizado', 26, '584146277368')">Personalizado 26$</button>  
+        <button onclick="redireccionarPago('Bot de Grupo', 5, '584146277368')">Grupo 5$</button>  
+    </div>  
+    <div class="bot-card">  
+        <img src="https://i.postimg.cc/tT7D2WcM/IMG-20250228-WA0185.jpg" alt="Vegeta_Super_Bot-V12">  
+        <h3>Vegeta_Super_Bot-V12</h3>  
+        <button onclick="redireccionarPago('Vegeta_Super Bot Personalizado', 10, '526641804242')">Personalizado 10$</button>  
+        <button onclick="redireccionarPago('Vegeta_Super Bot de Grupo', 5, '526641804242')">Grupo 5$</button>  
+    </div>  
+</div>  
 
-    <!-- Selección de Bots -->
-    <div class="bot-container">
-        <div class="bot-card">
-            <img src="assets/images/bot1.png" alt="Bot 1">
-            <h3>KIRITO-BOT PARA GRUPOS</h3>
-            <button onclick="redireccionarPago('Bot de Grupos', 10, '50488198573')">𝗠𝗘𝗡𝗦: 10$</button>
-        </div>
-        <div class="bot-card">
-            <img src="assets/images/bot2.jpg" alt="Bot Personal">
-            <h3>KIRITO-BOT PERSONAL</h3>
-            <button onclick="redireccionarPago('Bot Personal', 5, '50488198573')">𝗠𝗘𝗡𝗦: 5$</button>
-        </div>
-        <div class="bot-card">
-            <img src="assets/images/bot3.jpg" alt="Bot Personal">
-            <h3>MAFER X ELMO PERSONAL</h3>
-            <button onclick="window.location.href='bots.html'">𝗩𝗘𝗥 𝗠𝗔𝗦</button>
-        </div>
-        <div class="bot-card">
-            <img src="https://i.postimg.cc/SN1w5zMC/IMG-20250227-WA0376.jpg.jpg" alt="Bot Personal">
-            <h3>BOTS PERSONALIZADOS</h3>
-            <button onclick="window.location.href='bots2.html'">𝗩𝗘𝗥 𝗠𝗔𝗦</button>
-        </div>
-        <div class="bot-card">
-            <img src="https://i.postimg.cc/KYNCVByd/IMG-20250227-WA0397.jpg" alt="Bot Barboza Ai">
-            <h3>BOT BARBOZA AI</h3>
-            <button onclick="redireccionarPago('Bot Personalizado', 26, '584146277368')">Personalizado 26$</button>
-            <button onclick="redireccionarPago('Bot de Grupo', 5, '584146277368')">Grupo 5$</button>
-        </div>
-        <div class="bot-card">
-            <img src="https://i.postimg.cc/tT7D2WcM/IMG-20250228-WA0185.jpg" alt="Vegeta_Super_Bot-V12">
-            <h3>Vegeta_Super_Bot-V12</h3>
-            <button onclick="redireccionarPago('Vegeta_Super Bot Personalizado', 10, '526641804242')">Personalizado 10$</button>
-            <button onclick="redireccionarPago('Vegeta_Super Bot de Grupo', 5, '526641804242')">Grupo 5$</button>
-        </div>
-    </div>
+<!-- Enlaces adicionales -->  
+<div class="additional-links">  
+    <a href="chat.html">  
+        <button>Ir al Chat con Kirito-Bot</button>  
+    </a>  
+    <!-- Botón para subir tu bot -->  
+    <a href="sube.html">  
+        <button>Sube tu Bot</button>  
+    </a>  
+</div>  
+<a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>  
 
-    <!-- Enlaces adicionales -->
-    <div class="additional-links">
-        <a href="chat.html">
-            <button>Ir al Chat con Kirito-Bot</button>
-        </a>
-        <!-- Botón para subir tu bot -->
-        <a href="sube.html">
-            <button>Sube tu Bot</button>
-        </a>
-    </div>
-    <a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>
+<!-- Botón solo visible para Deylin -->  
+<button id="estadisticas-btn" style="display: none;">Ver estadísticas</button>  
 
-    <!-- Botón solo visible para Deylin -->
-    <button id="estadisticas-btn" style="display: none;">Ver estadísticas</button>
+<!-- Sección de estadísticas -->  
+<div id="estadisticas" style="display: none;">  
+    <p>Visitas a la página: <span id="visitas-contador">0</span></p>  
+    <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>  
+</div>  
 
-    <!-- Sección de estadísticas -->
-    <div id="estadisticas" style="display: none;">
-        <p>Visitas a la página: <span id="visitas-contador">0</span></p>
-        <p>Usuarios registrados: <span id="usuarios-contador">0</span></p>
-    </div>
+<!-- Pie de página -->  
+<footer>  
+    <p>&copy; DEYLIN® 2025</p>  
+</footer>  
 
-    <!-- Pie de página -->
-    <footer>
-        <p>&copy; DEYLIN® 2025</p>
-    </footer>
+<script>  
+    window.onload = function() {  
+        const usuario = JSON.parse(localStorage.getItem('user'));  
+        const visitas = localStorage.getItem('visitas') || 0;  
+        const usuariosRegistrados = localStorage.getItem('usuariosRegistrados') || 0;  
 
-    <script>
-        window.onload = function() {
-            const usuario = JSON.parse(localStorage.getItem('user'));
-            const visitas = localStorage.getItem('visitas') || 0;
-            const usuariosRegistrados = localStorage.getItem('usuariosRegistrados') || 0;
+        if (usuario) {  
+            document.getElementById('user-name').innerText = usuario.nombre;  
+            document.getElementById('user-email').innerText = usuario.email;
 
-            if (usuario) {
-                document.getElementById('user-name').innerText = usuario.nombre;
-                document.getElementById('user-email').innerText = usuario.email;
+<script type="module">  
+    import config from './config.js';  
+    console.log("Admins:", config.adminEmails);  
+  
+    // Si el email del usuario está en la lista de administradores, mostrar el botón de estadísticas  
+    if (config.adminEmails.includes(usuario.email)) {  
+        document.getElementById("estadisticas-btn").style.display = "block";  
+    }  
+</script>  // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos  
+            const chatMessage = document.getElementById("chat-message");  
+            chatMessage.style.opacity = "1";  
+            setTimeout(() => {  
+                chatMessage.style.opacity = "0";  
+            }, 5000);  
+        } else {  
+            window.location.href = "index.html";  
+        }  
 
-                // Mostrar el mensaje de "Únete al chat" y ocultarlo después de 5 segundos
-                const chatMessage = document.getElementById("chat-message");
-                chatMessage.style.opacity = "1";
-                setTimeout(() => {
-                    chatMessage.style.opacity = "0";
-                }, 5000);
-            } else {
-                window.location.href = "index.html";
-            }
+        // Mostrar estadísticas cuando se presiona el botón  
+        document.getElementById("estadisticas-btn").addEventListener("click", function() {  
+            document.getElementById("estadisticas").style.display = "block";  
+            document.getElementById("visitas-contador").innerText = visitas;  
+            document.getElementById("usuarios-contador").innerText = usuariosRegistrados;  
+        });  
+    };  
 
-            // Mostrar estadísticas cuando se presiona el botón
-            document.getElementById("estadisticas-btn").addEventListener("click", function() {
-                document.getElementById("estadisticas").style.display = "block";
-                document.getElementById("visitas-contador").innerText = visitas;
-                document.getElementById("usuarios-contador").innerText = usuariosRegistrados;
-            });
-        };
+    function cerrarSesion() {  
+        const usuario = JSON.parse(localStorage.getItem('user'));  
+        if (!usuario) {  
+            window.location.href = "index.html";  
+            return;  
+        }  
 
-        function cerrarSesion() {
-            const usuario = JSON.parse(localStorage.getItem('user'));
-            if (!usuario) {
-                window.location.href = "index.html";
-                return;
-            }
+        const confirmacion = confirm(`Hola ${usuario.nombre}, ¿estás seguro de que quieres eliminar tu sesión?`);  
+        if (confirmacion) {  
+            localStorage.removeItem('user');  
+            window.location.href = "index.html";  
+        }  
+    }  
 
-            const confirmacion = confirm(`Hola ${usuario.nombre}, ¿estás seguro de que quieres eliminar tu sesión?`);
-            if (confirmacion) {
-                localStorage.removeItem('user');
-                window.location.href = "index.html";
-            }
-        }
+    function redireccionarPago(tipoBot, precio, numero) {  
+        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;  
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;  
+        window.location.href = url;  
+    }  
+</script>  
 
-        function redireccionarPago(tipoBot, precio, numero) {
-            const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;
-            const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-            window.location.href = url;
-        }
-    </script>
+<!-- Importación del archivo de configuración para administradores -->  
+<script type="module">  
+    import config from './config.js';  
+    console.log("Admins:", config.adminEmails);  
+    window.addEventListener("load", function(){  
+        const usuario = JSON.parse(localStorage.getItem('user'));  
+        if (usuario && config.adminEmails.includes(usuario.email)) {  
+            const adminBtn = document.getElementById("admin-btn");  
+            if(adminBtn){  
+                adminBtn.style.display = "block";  
+                adminBtn.addEventListener("click", function(){  
+                    window.location.href = "admin.html";  
+                });  
+            }  
+        }  
+    });  
+</script>  
 
-    <!-- Importación del archivo de configuración para administradores -->
-    <script type="module">
-        import config from './config.js';
-        console.log("Admins:", config.adminEmails);
+<!-- Script para cargar los bots aprobados (solicitudes) en el panel -->  
+<script>  
+  function cargarBotsAprobados() {  
+      // Obtener las solicitudes guardadas en localStorage  
+      let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];  
+      // Filtrar solo las solicitudes aprobadas  
+      let aprobadas = solicitudes.filter(solicitud => solicitud.estado === "Aprobada");  
+      // Seleccionar el contenedor donde se muestran los bots  
+      const botContainer = document.querySelector(".bot-container");  
 
-        window.addEventListener("load", function(){
-            const usuario = JSON.parse(localStorage.getItem('user'));
-            if (usuario && config.adminEmails.includes(usuario.email)) {
-                const adminBtn = document.getElementById("admin-btn");
-                if(adminBtn){
-                    adminBtn.style.display = "block";
-                    adminBtn.addEventListener("click", function(){
-                        window.location.href = "admin.html";
-                    });
-                }
-            }
-        });
-    </script>
+      // Recorrer cada solicitud aprobada y crear una tarjeta de bot  
+      aprobadas.forEach((solicitud) => {  
+          const botCard = document.createElement("div");  
+          botCard.classList.add("bot-card");  
 
-    <!-- Script para cargar los bots aprobados (solicitudes) en el panel -->
-    <script>
-      function cargarBotsAprobados() {
-          // Obtener las solicitudes guardadas en localStorage
-          let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-          // Filtrar solo las solicitudes aprobadas
-          let aprobadas = solicitudes.filter(solicitud => solicitud.estado === "Aprobada");
-          // Seleccionar el contenedor donde se muestran los bots
-          const botContainer = document.querySelector(".bot-container");
+          botCard.innerHTML = `  
+              <img src="${solicitud.imagen}" alt="${solicitud.nombre}">  
+              <h3>${solicitud.nombre}</h3>  
+              <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">  
+                  Comprar $${solicitud.precio}  
+              </button>  
+          `;  
 
-          // Recorrer cada solicitud aprobada y crear una tarjeta de bot
-          aprobadas.forEach((solicitud) => {
-              const botCard = document.createElement("div");
-              botCard.classList.add("bot-card");
+          botContainer.appendChild(botCard);  
+      });  
+  }  
 
-              botCard.innerHTML = `
-                  <img src="${solicitud.imagen}" alt="${solicitud.nombre}">
-                  <h3>${solicitud.nombre}</h3>
-                  <button onclick="redireccionarPago('${solicitud.nombre}', ${solicitud.precio}, '${solicitud.whatsapp}')">
-                      Comprar $${solicitud.precio}
-                  </button>
-              `;
+  window.addEventListener("load", function(){  
+      cargarBotsAprobados();  
+  });  
+</script>
 
-              botContainer.appendChild(botCard);
-          });
-      }
-
-      window.addEventListener("load", function(){
-          cargarBotsAprobados();
-      });
-    </script>
-</body>
+</body>  
 </html>
