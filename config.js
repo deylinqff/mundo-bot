@@ -1,7 +1,7 @@
 const config = {
     adminEmails: [
         "deylibaquedano801@gmail.com",
-        "admin2@example.com",
+        "deylibaquedan1@gmail.com",
         "admin3@example.com"
     ]
 };
