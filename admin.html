@@ -29,14 +29,18 @@
             margin-bottom: 15px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             text-align: left;
+            position: relative;
         }
         .bot-card img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 5px;
+            display: block;
+            margin: 10px auto;
         }
         .bot-card p {
             font-size: 14px;
+            text-align: center;
         }
         button {
             padding: 10px;
@@ -44,17 +48,34 @@
             cursor: pointer;
             border-radius: 5px;
             margin-top: 10px;
+            display: block;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
         }
         .approve-btn {
             background-color: #4CAF50;
             color: white;
+            border: none;
         }
         .reject-btn {
             background-color: #f44336;
             color: white;
+            border: none;
+        }
+        .delete-btn {
+            background-color: transparent;
+            color: red;
+            border: none;
+            font-size: 18px;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
         }
         .status {
             font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
@@ -68,12 +89,10 @@
 </div>
 
 <script>
-    // Función para cargar las solicitudes desde localStorage
     function cargarSolicitudes() {
         let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
         let solicitudesListDiv = document.getElementById("solicitudes-list");
-        
-        // Limpiar el contenedor de solicitudes antes de cargar nuevas
+
         solicitudesListDiv.innerHTML = '';
 
         if (solicitudes.length === 0) {
@@ -81,13 +100,13 @@
             return;
         }
 
-        // Mostrar cada solicitud en un contenedor
         solicitudes.forEach((solicitud, index) => {
             let solicitudDiv = document.createElement("div");
             solicitudDiv.classList.add("bot-card");
 
             solicitudDiv.innerHTML = `
-                <img src="assets/images/${solicitud.imagen}" alt="Imagen del Bot">
+                <button class="delete-btn" onclick="eliminarSolicitud(${index})">❌</button>
+                <img src="${solicitud.imagen}" alt="Imagen del Bot">
                 <h3>${solicitud.nombre}</h3>
                 <p>Precio: $${solicitud.precio}</p>
                 <p>WhatsApp: ${solicitud.whatsapp}</p>
@@ -100,25 +119,27 @@
         });
     }
 
-    // Función para aprobar una solicitud
     function aprobarSolicitud(index) {
         let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
         solicitudes[index].estado = "Aprobada";
-
         localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
         cargarSolicitudes();
     }
 
-    // Función para rechazar una solicitud
     function rechazarSolicitud(index) {
         let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
         solicitudes[index].estado = "Rechazada";
-
         localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
         cargarSolicitudes();
     }
 
-    // Cargar las solicitudes al cargar la página
+    function eliminarSolicitud(index) {
+        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
+        solicitudes.splice(index, 1);
+        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
+        cargarSolicitudes();
+    }
+
     window.onload = cargarSolicitudes;
 </script>
 
