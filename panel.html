@@ -101,13 +101,13 @@
     let aprobadas = solicitudes.filter(solicitud => solicitud.estado === "Aprobada");
     // Seleccionar el contenedor donde se muestran los bots (suponiendo que tenga la clase 'bot-container')
     const botContainer = document.querySelector(".bot-container");
-    
+
     // Recorrer cada solicitud aprobada y crear una tarjeta de bot
     aprobadas.forEach(solicitud => {
       // Crear la tarjeta
       const botCard = document.createElement("div");
       botCard.classList.add("bot-card");
-      
+
       // La imagen: se asume que en la solicitud se guarda el nombre del archivo o una URL. 
       // Si guardaste solo el nombre de archivo, deberás ajustar la ruta.
 solicitudDiv.innerHTML = `
@@ -119,7 +119,7 @@ solicitudDiv.innerHTML = `
     <button class="approve-btn" onclick="aprobarSolicitud(${index})">Aprobar</button>
     <button class="reject-btn" onclick="rechazarSolicitud(${index})">Rechazar</button>
 `;
-      
+
       // Agregar la tarjeta al contenedor
       botContainer.appendChild(botCard);
     });
@@ -139,6 +139,10 @@ solicitudDiv.innerHTML = `
         </a>
         <a href="grd-img.html">
             <button>Generar Imágenes</button>
+        </a>
+        <!-- Botón para subir tu bot -->
+        <a href="sube.html">
+            <button>Sube tu Bot</button>
         </a>
     </div>
     <a href="https://Wa.me/50488198573" target="_blank" class="btnSoporte">Contactar Soporte</a>
