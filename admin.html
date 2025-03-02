@@ -5,90 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            margin: auto;
-            border-radius: 8px;
-        }
-        h2 {
-            margin-bottom: 20px;
-        }
-        .bot-card {
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            position: relative;
-        }
-        .bot-card img {
-            width: 120px;
-            height: 120px;
-            border-radius: 5px;
-            display: block;
-            margin: 10px auto;
-        }
-        .bot-card p {
-            font-size: 14px;
-            text-align: center;
-        }
-        button {
-            padding: 10px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            display: block;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .approve-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-        }
-        .reject-btn {
-            background-color: #f44336;
-            color: white;
-            border: none;
-        }
-        .delete-btn {
-            background-color: transparent;
-            color: red;
-            border: none;
-            font-size: 18px;
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            cursor: pointer;
-        }
-        .status {
-            font-weight: bold;
-            text-align: center;
-        }
-        .add-btn {
-            background-color: #008CBA;
-            color: white;
-            border: none;
-            margin-top: 20px;
-            font-size: 16px;
-        }
-        .add-form input {
-            padding: 10px;
-            margin: 5px;
-            font-size: 14px;
-        }
+        /* Estilos como los anteriores */
     </style>
 </head>
 <body>
@@ -110,70 +27,96 @@
     </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+
 <script>
+    // Configura Firebase
+    const firebaseConfig = {
+        apiKey: "TU_API_KEY",
+        authDomain: "TU_AUTH_DOMAIN",
+        databaseURL: "TU_DATABASE_URL",
+        projectId: "TU_PROJECT_ID",
+        storageBucket: "TU_STORAGE_BUCKET",
+        messagingSenderId: "TU_MESSAGING_SENDER_ID",
+        appId: "TU_APP_ID"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database(app);
+
+    // Función para cargar solicitudes desde Firebase
     function cargarSolicitudes() {
-        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-        let solicitudesListDiv = document.getElementById("solicitudes-list");
+        const solicitudesListDiv = document.getElementById("solicitudes-list");
 
-        solicitudesListDiv.innerHTML = '';
+        // Obtén las solicitudes desde Firebase
+        const solicitudesRef = db.ref("solicitudes");
 
-        if (solicitudes.length === 0) {
-            solicitudesListDiv.innerHTML = '<p>No hay solicitudes pendientes.</p>';
-            return;
-        }
+        solicitudesRef.on("value", (snapshot) => {
+            const solicitudes = snapshot.val();
+            solicitudesListDiv.innerHTML = '';
 
-        solicitudes.forEach((solicitud, index) => {
-            let solicitudDiv = document.createElement("div");
-            solicitudDiv.classList.add("bot-card");
+            if (!solicitudes) {
+                solicitudesListDiv.innerHTML = '<p>No hay solicitudes pendientes.</p>';
+                return;
+            }
 
-            solicitudDiv.innerHTML = `
-                <button class="delete-btn" onclick="eliminarSolicitud(${index})">❌</button>
-                <img src="${solicitud.imagen}" alt="Imagen del Bot">
-                <h3>${solicitud.nombre}</h3>
-                <p>Precio: $${solicitud.precio}</p>
-                <p>WhatsApp: ${solicitud.whatsapp}</p>
-                <p class="status">Estado: ${solicitud.estado || 'Pendiente'}</p>
-                <button class="approve-btn" onclick="aprobarSolicitud(${index})">Aprobar</button>
-                <button class="reject-btn" onclick="rechazarSolicitud(${index})">Rechazar</button>
-            `;
+            for (let id in solicitudes) {
+                let solicitud = solicitudes[id];
+                let solicitudDiv = document.createElement("div");
+                solicitudDiv.classList.add("bot-card");
 
-            solicitudesListDiv.appendChild(solicitudDiv);
+                solicitudDiv.innerHTML = `
+                    <button class="delete-btn" onclick="eliminarSolicitud('${id}')">❌</button>
+                    <img src="${solicitud.imagen}" alt="Imagen del Bot">
+                    <h3>${solicitud.nombre}</h3>
+                    <p>Precio: $${solicitud.precio}</p>
+                    <p>WhatsApp: ${solicitud.whatsapp}</p>
+                    <p class="status">Estado: ${solicitud.estado || 'Pendiente'}</p>
+                    <button class="approve-btn" onclick="aprobarSolicitud('${id}')">Aprobar</button>
+                    <button class="reject-btn" onclick="rechazarSolicitud('${id}')">Rechazar</button>
+                `;
+
+                solicitudesListDiv.appendChild(solicitudDiv);
+            }
         });
     }
 
-    function aprobarSolicitud(index) {
-        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-        solicitudes[index].estado = "Aprobada";
-        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
-        cargarSolicitudes();
+    // Función para aprobar solicitud
+    function aprobarSolicitud(id) {
+        const solicitudRef = db.ref("solicitudes/" + id);
+        solicitudRef.update({
+            estado: "Aprobada"
+        });
     }
 
-    function rechazarSolicitud(index) {
-        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-        solicitudes[index].estado = "Rechazada";
-        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
-        cargarSolicitudes();
+    // Función para rechazar solicitud
+    function rechazarSolicitud(id) {
+        const solicitudRef = db.ref("solicitudes/" + id);
+        solicitudRef.update({
+            estado: "Rechazada"
+        });
     }
 
-    function eliminarSolicitud(index) {
-        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-        solicitudes.splice(index, 1);
-        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
-        cargarSolicitudes();
+    // Función para eliminar solicitud
+    function eliminarSolicitud(id) {
+        const solicitudRef = db.ref("solicitudes/" + id);
+        solicitudRef.remove();
     }
 
+    // Función para agregar solicitud
     function agregarSolicitud() {
-        let nombre = document.getElementById("nombre").value;
-        let precio = document.getElementById("precio").value;
-        let whatsapp = document.getElementById("whatsapp").value;
-        let imagen = document.getElementById("imagen").value;
+        const nombre = document.getElementById("nombre").value;
+        const precio = document.getElementById("precio").value;
+        const whatsapp = document.getElementById("whatsapp").value;
+        const imagen = document.getElementById("imagen").value;
 
         if (!nombre || !precio || !whatsapp || !imagen) {
             alert("Por favor, complete todos los campos.");
             return;
         }
 
-        let nuevaSolicitud = {
+        const nuevaSolicitud = {
             nombre,
             precio,
             whatsapp,
@@ -181,18 +124,18 @@
             estado: "Pendiente"
         };
 
-        let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-        solicitudes.push(nuevaSolicitud);
-        localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
-        cargarSolicitudes();
+        // Agregar solicitud a Firebase
+        const solicitudesRef = db.ref("solicitudes");
+        solicitudesRef.push(nuevaSolicitud);
 
-        // Limpiar campos del formulario
+        // Limpiar los campos
         document.getElementById("nombre").value = '';
         document.getElementById("precio").value = '';
         document.getElementById("whatsapp").value = '';
         document.getElementById("imagen").value = '';
     }
 
+    // Cargar las solicitudes al cargar la página
     window.onload = cargarSolicitudes;
 </script>
 
