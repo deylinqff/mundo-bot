@@ -1,11 +1,9 @@
-/* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    background: url('assets/images/fondo.jpg') no-repeat center center fixed;
+    background: url('assets/images/fondo2.jpg') no-repeat center center fixed;
     background-size: cover;
-    margin: 0;
-    padding: 0;
-    color: white;
+    color: black;
+    text-align: center;
 }
 
 /* Contenedor Central */
