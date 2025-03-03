@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff4d4d, #ff7eb3);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    text-align: center;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container img {
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container h1 {
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+.container p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
