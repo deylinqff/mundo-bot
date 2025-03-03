@@ -132,8 +132,12 @@ button:hover {
 }
 
 .bot img {
-    width: 100%;
-    border-radius: 10px;
+    display: block;         /* Para poder centrar con margin: 0 auto */
+    margin: 0 auto;         /* Centra la imagen horizontalmente */
+    max-width: 300px;       /* Ajusta este valor según lo que necesites */
+    width: 100%;            /* La imagen no excederá los 300px */
+    height: auto;           /* Mantiene la proporción original */
+    border-radius: 10px;    /* Esquina redondeada */
 }
 
 .bot h2 {
