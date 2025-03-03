@@ -36,6 +36,8 @@ h2 {
     text-align: center;
 }
 button {
+    background-color: #4CAF50; /* Verde */
+    color: white; /* Letras blancas */
     padding: 10px;
     font-size: 14px;
     cursor: pointer;
@@ -45,7 +47,9 @@ button {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    border: none; /* Quitar borde */
 }
+
 .approve-btn {
     background-color: #4CAF50;
     color: white;
