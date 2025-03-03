@@ -74,21 +74,30 @@
         return;
       }
 
-      // Convertir la imagen a base64
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        // Aquí asumimos que la imagen se sube a un servidor y obtenemos una URL de la imagen
-        const imageUrl = "https://mi-servidor.com/imagenes/" + botImage.name;  // Esta URL debe ser la URL donde subes la imagen
+      // Subir la imagen al servidor (ejemplo usando una API de almacenamiento)
+      const formData = new FormData();
+      formData.append('image', botImage);
 
-        // Crear un mensaje con los datos
+      // Simulamos la subida de la imagen a un servidor con Fetch (cambia la URL según tu backend)
+      fetch('https://mi-servidor.com/api/upload', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Obtener la URL de la imagen subida desde la respuesta del servidor
+        const imageUrl = data.imageUrl;
+
+        // Crear el mensaje con la URL de la imagen
         const mensaje = `
           *Nuevo Bot Subido*
-          
+
           *Nombre:* ${botName}
           *Precio:* ${botPrice}$
           *Número WhatsApp:* ${botWhatsapp}
-          
-          *Imagen del Bot:* ${imageUrl}
+
+          *Imagen del Bot:*
+          ${imageUrl}  <!-- Enlace de la imagen subida -->
         `;
 
         // Redirigir a WhatsApp con el mensaje predefinido
@@ -96,9 +105,11 @@
 
         // Redirigir al enlace de WhatsApp
         window.open(whatsappUrl, '_blank');
-      };
-
-      reader.readAsDataURL(botImage);
+      })
+      .catch(error => {
+        document.getElementById("error-message").innerText = "Error al subir la imagen.";
+        console.error("Error:", error);
+      });
     }
   </script>
 </body>
