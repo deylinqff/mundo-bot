@@ -7,7 +7,7 @@
     "start": "live-server",
     "build:css": "sass src/styles/main.scss dist/styles.css",
     "minify:css": "cleancss -o dist/styles.min.css dist/styles.css",
-    "build": "npm run build:css && npm run minify:css",  // Eliminar minificación de JS por ahora
+    "build": "npm run build:css && npm run minify:css",
     "watch": "sass --watch src/styles/main.scss:dist/styles.css"
   },
   "keywords": [
