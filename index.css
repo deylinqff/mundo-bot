@@ -73,4 +73,5 @@ button {
 .status {
     font-weight: bold;
     text-align: center;
+    color: white; /* Asegura que el texto de status sea blanco */
 }
