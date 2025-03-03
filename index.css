@@ -11,6 +11,14 @@ body {
     color: #FFFFFF;            /* Texto en blanco */
 }
 
+/* Logo en el header */
+.logo {
+    display: block;           /* Permite centrar con margin auto */
+    margin: 0 auto 10px;      /* Centra horizontalmente, 10px de espacio debajo */
+    max-width: 150px;         /* Ajusta el ancho máximo para tu logo */
+    height: auto;             /* Mantiene la proporción original de la imagen */
+}
+
 /* Encabezado */
 .header {
     background-color: #161B22; /* Un tono más oscuro para diferenciarlo del fondo */
@@ -75,7 +83,8 @@ body {
     padding: 20px;
 }
 
-.projects iframe, .projects img {
+.projects iframe,
+.projects img {
     width: 100%;
     max-width: 600px;
     border: none;
@@ -100,7 +109,8 @@ form {
     flex-direction: column;
 }
 
-input, button {
+input,
+button {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -132,12 +142,8 @@ button:hover {
 }
 
 .bot img {
-    display: block;         /* Para poder centrar con margin: 0 auto */
-    margin: 0 auto;         /* Centra la imagen horizontalmente */
-    max-width: 300px;       /* Ajusta este valor según lo que necesites */
-    width: 100%;            /* La imagen no excederá los 300px */
-    height: auto;           /* Mantiene la proporción original */
-    border-radius: 10px;    /* Esquina redondeada */
+    width: 100%;
+    border-radius: 10px;
 }
 
 .bot h2 {
