@@ -30,9 +30,6 @@
       border-radius: 5px;
       font-size: 16px;
     }
-    input[type="file"] {
-      padding: 5px;
-    }
     button {
       background-color: #4CAF50;
       color: white;
@@ -50,66 +47,57 @@
 <body>
   <div class="container">
     <h2>Sube tu Bot</h2>
-    <!-- Formulario para subir el bot -->
     <input type="file" id="botImage" accept="image/*">
     <input type="text" id="botName" placeholder="Nombre del Bot" required>
     <input type="number" id="botPrice" placeholder="Precio en $" required>
     <input type="text" id="botWhatsapp" placeholder="Número de WhatsApp" required>
     <button onclick="enviarSolicitud()">Enviar Solicitud</button>
-    <!-- Mensaje de error -->
     <p id="error-message" class="error-message"></p>
   </div>
 
   <script>
-    // Función para enviar la solicitud del bot
-    function enviarSolicitud() {
+    async function enviarSolicitud() {
       const botImage = document.getElementById('botImage').files[0];
       const botName = document.getElementById('botName').value;
       const botPrice = document.getElementById('botPrice').value;
       const botWhatsapp = document.getElementById('botWhatsapp').value;
 
-      // Verificar que los campos no estén vacíos
       if (!botImage || !botName || !botPrice || !botWhatsapp) {
         document.getElementById("error-message").innerText = "Por favor, completa todos los campos.";
         return;
       }
 
-      // Subir la imagen al servidor (ejemplo usando una API de almacenamiento)
+      // Subir imagen a ImgBB
       const formData = new FormData();
-      formData.append('image', botImage);
+      formData.append("image", botImage);
 
-      // Simulamos la subida de la imagen a un servidor con Fetch (cambia la URL según tu backend)
-      fetch('https://mi-servidor.com/api/upload', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Obtener la URL de la imagen subida desde la respuesta del servidor
-        const imageUrl = data.imageUrl;
+      try {
+        const response = await fetch("https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798", {
+          method: "POST",
+          body: formData
+        });
 
-        // Crear el mensaje con la URL de la imagen
+        const data = await response.json();
+        if (!data.success) throw new Error("Error al subir la imagen");
+
+        const imageUrl = data.data.url;
+
+        // Crear el mensaje de WhatsApp con la URL de la imagen
         const mensaje = `
-          *Nuevo Bot Subido*
-
-          *Nombre:* ${botName}
-          *Precio:* ${botPrice}$
-          *Número WhatsApp:* ${botWhatsapp}
-
-          *Imagen del Bot:*
-          ${imageUrl}  <!-- Enlace de la imagen subida -->
+          *Nuevo Bot Subido*  
+          *Nombre:* ${botName}  
+          *Precio:* ${botPrice}$  
+          *Número WhatsApp:* ${botWhatsapp}  
+          *Imagen:* ${imageUrl}
         `;
 
-        // Redirigir a WhatsApp con el mensaje predefinido
         const whatsappUrl = `https://wa.me/50488198573?text=${encodeURIComponent(mensaje)}`;
-
-        // Redirigir al enlace de WhatsApp
         window.open(whatsappUrl, '_blank');
-      })
-      .catch(error => {
+
+      } catch (error) {
         document.getElementById("error-message").innerText = "Error al subir la imagen.";
-        console.error("Error:", error);
-      });
+        console.error(error);
+      }
     }
   </script>
 </body>
