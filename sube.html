@@ -1,35 +1,105 @@
-<script>
-  function enviarSolicitud() {
-    const botImage = document.getElementById('botImage').files[0];
-    const botName = document.getElementById('botName').value;
-    const botPrice = document.getElementById('botPrice').value;
-    const botWhatsapp = document.getElementById('botWhatsapp').value;
-
-    // Verificar que los campos no estén vacíos
-    if (!botImage || !botName || !botPrice || !botWhatsapp) {
-      document.getElementById("error-message").innerText = "Por favor, completa todos los campos.";
-      return;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sube tu Bot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 20px;
     }
+    .container {
+      background: white;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: auto;
+      border-radius: 8px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    input[type="file"] {
+      padding: 5px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sube tu Bot</h2>
+    <!-- Formulario para subir el bot -->
+    <input type="file" id="botImage" accept="image/*">
+    <input type="text" id="botName" placeholder="Nombre del Bot" required>
+    <input type="number" id="botPrice" placeholder="Precio en $" required>
+    <input type="text" id="botWhatsapp" placeholder="Número de WhatsApp" required>
+    <button onclick="enviarSolicitud()">Enviar Solicitud</button>
+    <!-- Mensaje de error -->
+    <p id="error-message" class="error-message"></p>
+  </div>
 
-    const formData = new FormData();
-    formData.append('botImage', botImage);
-    formData.append('botName', botName);
-    formData.append('botPrice', botPrice);
-    formData.append('botWhatsapp', botWhatsapp);
+  <script>
+    // Función para enviar la solicitud del bot
+    function enviarSolicitud() {
+      const botImage = document.getElementById('botImage').files[0];
+      const botName = document.getElementById('botName').value;
+      const botPrice = document.getElementById('botPrice').value;
+      const botWhatsapp = document.getElementById('botWhatsapp').value;
 
-    // Enviar los datos al servidor
-    fetch('http://localhost:3000/api/enviarSolicitud', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      alert("Solicitud enviada con éxito.");
-      window.location.href = "index.html";
-    })
-    .catch(error => {
-      document.getElementById("error-message").innerText = "Error al enviar la solicitud.";
-      console.error("Error:", error);
-    });
-  }
-</script>
+      // Verificar que los campos no estén vacíos
+      if (!botImage || !botName || !botPrice || !botWhatsapp) {
+        document.getElementById("error-message").innerText = "Por favor, completa todos los campos.";
+        return;
+      }
+
+      // Convertir la imagen a base64
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        // Aquí asumimos que la imagen se sube a un servidor y obtenemos una URL de la imagen
+        const imageUrl = "https://mi-servidor.com/imagenes/" + botImage.name;  // Esta URL debe ser la URL donde subes la imagen
+
+        // Crear un mensaje con los datos
+        const mensaje = `
+          *Nuevo Bot Subido*
+          
+          *Nombre:* ${botName}
+          *Precio:* ${botPrice}$
+          *Número WhatsApp:* ${botWhatsapp}
+          
+          *Imagen del Bot:* ${imageUrl}
+        `;
+
+        // Redirigir a WhatsApp con el mensaje predefinido
+        const whatsappUrl = `https://wa.me/50488198573?text=${encodeURIComponent(mensaje)}`;
+
+        // Redirigir al enlace de WhatsApp
+        window.open(whatsappUrl, '_blank');
+      };
+
+      reader.readAsDataURL(botImage);
+    }
+  </script>
+</body>
+</html>
