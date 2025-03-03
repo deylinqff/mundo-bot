@@ -9,7 +9,7 @@
     "minify:css": "cleancss -o dist/styles.min.css dist/styles.css",
     "preminify:js": "mkdir -p dist/js",
     "minify:js": "uglifyjs src/js/main.js -o dist/js/main.min.js",
-    "build": "npm run build:css && npm run minify:css && npm run minify:js",
+    "build": "npm run build:css && npm run minify:css && npm run preminify:js && npm run minify:js",
     "watch": "sass --watch src/styles/main.scss:dist/styles.css"
   },
   "keywords": [
