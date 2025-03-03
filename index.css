@@ -16,7 +16,7 @@ h2 {
     margin-bottom: 20px;
 }
 .bot-card {
-    background-color: #1C1C1C;
+    background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -28,7 +28,7 @@ h2 {
     width: 120px;
     height: 120px;
     border-radius: 5px;
-    display: white;
+    display: block;
     margin: 10px auto;
 }
 .bot-card p {
@@ -36,8 +36,6 @@ h2 {
     text-align: center;
 }
 button {
-    background-color: #4CAF50; /* Verde */
-    color: white; /* Letras blancas */
     padding: 10px;
     font-size: 14px;
     cursor: pointer;
@@ -47,11 +45,6 @@ button {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    border: none; /* Quitar borde */
-}
-
-button:hover {
-    background-color: #45a049; /* Verde más oscuro al pasar el mouse */
 }
 .approve-btn {
     background-color: #4CAF50;
