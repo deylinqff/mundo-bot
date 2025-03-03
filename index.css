@@ -1,19 +1,11 @@
 /* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff4d4d, #ff7eb3);
-    background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
+    background: url('assets/images/fondo.jpg') no-repeat center center fixed;
+    background-size: cover;
     margin: 0;
     padding: 0;
     color: white;
-}
-
-/* Animación del fondo */
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 /* Contenedor Central */
