@@ -1,151 +1,72 @@
-/* Estilo global */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #0D1117; /* Fondo oscuro */
-    color: #FFFFFF;            /* Texto en blanco */
-}
-
-/* Logo en el header */
-.logo {
-    display: block;           /* Permite centrar con margin auto */
-    margin: 0 auto 10px;      /* Centra horizontalmente, 10px de espacio debajo */
-    max-width: 150px;         /* Ajusta el ancho máximo para tu logo */
-    height: auto;             /* Mantiene la proporción original de la imagen */
-}
-
-/* Encabezado */
-.header {
-    background-color: #161B22; /* Un tono más oscuro para diferenciarlo del fondo */
-    padding: 20px;
+    background-color: #f4f4f4;
     text-align: center;
-}
-
-.header h1 {
-    font-size: 1.8rem;
-    margin-bottom: 5px;
-}
-
-.header p {
-    font-size: 1rem;
-    color: #8B949E; /* Gris claro para contraste */
-}
-
-/* Sección principal de "Bienvenido" */
-.hero {
-    text-align: center;
-    padding: 40px 20px;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.hero h2 {
-    font-size: 3rem;
-    /* Gradiente en el texto: rosa -> naranja */
-    background: linear-gradient(90deg, #FF0099, #FFAA00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    color: #C9D1D9; /* Gris claro */
-    margin-bottom: 30px;
-}
-
-/* Botón principal */
-.hero .btn {
-    background-color: #00B4D8;
-    color: #FFFFFF;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.hero .btn:hover {
-    background-color: #0098BA; /* Oscurecer un poco al pasar el ratón */
-}
-
-/* Sección de video o proyectos */
-.projects {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
 }
-
-.projects iframe,
-.projects img {
-    width: 100%;
-    max-width: 600px;
-    border: none;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-/* Contenedor para otras secciones (ej. bots, formularios, etc.) */
 .container {
-    width: 90%;
-    max-width: 400px;
-    margin: 50px auto;
-    background: rgba(255, 255, 255, 0.1);
+    background: white;
     padding: 20px;
-    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin: auto;
+    border-radius: 8px;
+}
+h2 {
+    margin-bottom: 20px;
+}
+.bot-card {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+}
+.bot-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto;
+}
+.bot-card p {
+    font-size: 14px;
     text-align: center;
 }
-
-/* Formularios */
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input,
 button {
-    width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: none;
+    font-size: 14px;
+    cursor: pointer;
     border-radius: 5px;
+    margin-top: 10px;
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-input {
-    background: rgba(255, 255, 255, 0.2);
+.approve-btn {
+    background-color: #4CAF50;
     color: white;
+    border: none;
 }
-
-button {
-    background: #007BFF;
+.reject-btn {
+    background-color: #f44336;
     color: white;
+    border: none;
+}
+.delete-btn {
+    background-color: transparent;
+    color: red;
+    border: none;
+    font-size: 18px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
     cursor: pointer;
 }
-
-button:hover {
-    background: #0056b3;
-}
-
-/* Diseño de "Bots" u otras tarjetas */
-.bot {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 10px;
-}
-
-.bot img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.bot h2 {
-    margin: 10px 0;
+.status {
+    font-weight: bold;
+    text-align: center;
 }
