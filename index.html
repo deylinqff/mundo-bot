@@ -11,16 +11,87 @@
     <meta name="twitter:image" content="https://i.postimg.cc/VNBPcYbd/file-RLR3htnmdr9nb-Zai-Dt-M3-UM.webp">
     <title>Mundo Bot Web</title>
     <link rel="stylesheet" href="index.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            text-align: center;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .bot-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .bot-card:hover {
+            transform: scale(1.05);
+        }
+
+        .bot-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .bot-card h3 {
+            margin: 15px 0;
+            font-size: 20px;
+            color: #444;
+        }
+
+        .bot-card button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .bot-card button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Hola, bienvenido a</h1>
-    <h2>Mundo Bot</h2>
+    <div class="container">
+        <h1>Hola, bienvenido a</h1>
+        <h2>Mundo Bot</h2>
 
-    <div class="bot-card">
-        <img src="https://i.postimg.cc/VNBPcYbd/file-RLR3htnmdr9nb-Zai-Dt-M3-UM.webp" alt="Bot Disponible">
-        <h3>Mirá los Bots disponibles</h3>
-        <button onclick="window.location.href='panel.html'">VER</button>
+        <div class="bot-card">
+            <img src="https://i.postimg.cc/VNBPcYbd/file-RLR3htnmdr9nb-Zai-Dt-M3-UM.webp" alt="Bot Disponible">
+            <h3>Mirá los Bots disponibles</h3>
+            <button onclick="window.location.href='panel.html'">VER</button>
+        </div>
     </div>
 
 </body>
